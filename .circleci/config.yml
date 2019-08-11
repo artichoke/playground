@@ -186,6 +186,8 @@ jobs:
           name: Webpack build of Wasm assets
           command: yarn run webpack --mode production
       - run:
+          command: echo -n "artichoke.run" > target/dist/CNAME
+      - run:
           name: Deploy docs to gh-pages branch
           command: |
             yarn run gh-pages \
