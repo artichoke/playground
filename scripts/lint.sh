@@ -9,12 +9,12 @@ cd "$(pkg-dir)"
 
 set -x
 
-mkdir -p target/wasm32-unknown-emscripten/debug/deps
+mkdir -p target/wasm32-unknown-emscripten/debug
+touch target/wasm32-unknown-emscripten/debug/playground.js
 touch target/wasm32-unknown-emscripten/debug/playground.wasm
-touch target/wasm32-unknown-emscripten/debug/deps/playground.js
-mkdir -p target/wasm32-unknown-emscripten/release/deps
+mkdir -p target/wasm32-unknown-emscripten/release
+touch target/wasm32-unknown-emscripten/release/playground.js
 touch target/wasm32-unknown-emscripten/release/playground.wasm
-touch target/wasm32-unknown-emscripten/release/deps/playground.js
 
 # Yarn orchestration
 

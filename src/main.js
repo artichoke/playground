@@ -2,9 +2,10 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ace from "ace-builds";
 import "ace-builds/webpack-resolver";
-import "artichoke-wasm/artichoke_wasm.wasm";
-import "artichoke-wasm/deps/artichoke-wasm";
-import sample from "./playground.rb";
+// eslint-disable-next-line import/extensions
+import "rust/playground.js";
+import "rust/playground.wasm";
+import example from "ruby/delegate_json_regexp.rb";
 
 ace.edit("editor", {
   mode: "ace/mode/ruby",
@@ -14,7 +15,7 @@ ace.edit("editor", {
   useSoftTabs: true
 });
 
-ace.edit("editor").setValue(sample.trim(), -1);
+ace.edit("editor").setValue(example.trim(), -1);
 
 const Heap = {
   read(state, ptr) {
