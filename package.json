@@ -96,7 +96,13 @@
       "plugin:import/errors",
       "plugin:import/warnings"
     ],
+    "globals": {
+      "_artichoke_web_repl_init": "readonly",
+      "_artichoke_build_info": "readonly",
+      "_artichoke_playground_eval": "readonly"
+    },
     "rules": {
+      "no-underscore-dangle": "off",
       "prettier/prettier": "error",
       "react/jsx-closing-bracket-location": "off",
       "react/jsx-closing-tag-location": "off",
