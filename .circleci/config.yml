@@ -186,15 +186,12 @@ jobs:
           name: Webpack build of Wasm assets
           command: yarn run webpack --mode production
       - run:
-          name: Copy Wasm assets to dist
-          command: cp ./target/webpack/release/* ./target/doc
-      - run:
           name: Deploy docs to gh-pages branch
           command: |
             yarn run gh-pages \
               --user "ci-build <ci-build@hyperbo.la>" \
               --message "[skip ci] generate docs" \
-              --dist target/webpack/release
+              --dist target/dist
 workflows:
   version: 2
   build:
