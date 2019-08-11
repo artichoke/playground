@@ -164,6 +164,37 @@ jobs:
             ./scripts/format-text.sh --check "yaml"
             ./scripts/format-text.sh --check "yml"
             ./scripts/format-text.sh --check "md"
+  gh-pages-deploy:
+    docker:
+      - image: node:lts
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "e0:00:36:d0:5e:8e:78:dd:e0:ac:b3:b8:82:ac:51:7b"
+      - attach_workspace:
+          at: target
+      - restore_cache:
+          key: docs-yarn-v1-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: docs-yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Webpack build of Wasm assets
+          command: yarn run webpack --mode production
+      - run:
+          name: Copy Wasm assets to dist
+          command: cp ./target/webpack/release/* ./target/doc
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: |
+            yarn run gh-pages \
+              --user "ci-build <ci-build@hyperbo.la>" \
+              --message "[skip ci] generate docs" \
+              --dist target/webpack/release
 workflows:
   version: 2
   build:
@@ -175,3 +206,9 @@ workflows:
       - shellcheck/check:
           exclude: "*/vendor/*"
       - text
+      - gh-pages-deploy:
+          requires:
+            - rust
+          filters:
+            branches:
+              only: master
