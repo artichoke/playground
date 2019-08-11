@@ -1,16 +1,179 @@
-version: 2
+version: 2.1
+orbs:
+  shellcheck: circleci/shellcheck@1
+commands:
+  rubocop:
+    description: Lint Ruby sources with RuboCop
+    parameters:
+      target:
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - ruby-bundler-v2-extn-{{ checksum "<< parameters.target >>/Gemfile.lock" }}
+      - run:
+          name: Bundle Install
+          working_directory: << parameters.target >>
+          command: bundle install --path "$HOME/vendor/$LOCKFILE_CHECKSUM"
+          environment:
+            LOCKFILE_CHECKSUM: "{{ checksum '<< parameters.target >>/Gemfile.lock' }}"
+      - run:
+          name: Lint Ruby With RuboCop
+          working_directory: << parameters.target >>
+          command: |
+            bundle exec rubocop --version
+            bundle exec rubocop
+      - save_cache:
+          key: ruby-bundler-v2-extn-{{ checksum "<< parameters.target >>/Gemfile.lock" }}
+          paths:
+            - ~/vendor/{{ checksum "<< parameters.target >>/Gemfile.lock" }}
 jobs:
-  build:
+  rust:
     docker:
-      - image: debian:stretch
-
+      - image: circleci/rust:buster
     steps:
       - checkout
-
+      - restore_cache:
+          key: rust-cargo-v2-{{ checksum "Cargo.lock" }}
       - run:
-          name: Greeting
-          command: echo Hello, world.
-
+          name: Install Rust Toolchain
+          command: |
+            rustup toolchain install "$(cat rust-toolchain)"
+            rustup component add rustfmt
+            rustup component add clippy
+            rustc --version --verbose
+            cargo --version --verbose
+            rustfmt --version
+            cargo clippy -- --version
       - run:
-          name: Print the Current Time
-          command: date
+          # Debian Buster includes ruby 2.5
+          # FIXME: we should really be installing 2.6.3 since that is our stdlib dep.
+          name: Install MRI Ruby
+          command: |
+            sudo apt-get install -y ruby-full
+            ruby --version
+      - run:
+          # https://github.com/mruby/mruby/blob/master/doc/guides/compile.md#prerequisites
+          name: Install mruby Build Dependencies
+          command: |
+            sudo apt-get install -y bison gperf
+            bison --version
+            gperf --version
+      - run:
+          # needed for cc crate in build.rs
+          name: Install mruby-sys Build Dependencies
+          command: |
+            sudo apt-get install -y clang
+            clang --version
+      - run:
+          name: Format Rust Sources
+          command: |
+            rustfmt --version
+            cargo fmt -- --check --color=auto
+      - run:
+          name: Lint Rust With Clippy
+          command: |
+            cargo clippy -- --version
+            cargo clippy --all-targets --all-features
+      - run:
+          name: Wasm Build
+          command: |
+            rustup target add wasm32-unknown-emscripten
+            . ./scripts/activate-wasm-build-env.sh
+            cargo build --target wasm32-unknown-emscripten
+      - save_cache:
+          key: rust-cargo-v2-{{ checksum "Cargo.lock" }}
+          paths:
+            - "~/.cargo"
+            - "./target"
+      - persist_to_workspace:
+          root: target
+          paths:
+            - wasm32-unknown-emscripten
+  ruby:
+    docker:
+      - image: circleci/ruby:2.6.3
+    steps:
+      - checkout
+      - run:
+          name: Install bundler 2
+          command: sudo gem install bundler
+      - rubocop:
+          target: ./examples
+  js:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - restore_cache:
+          key: js-yarn-v2-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: js-yarn-v2-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Fake Wasm Sources
+          command: |
+            mkdir -p target/wasm32-unknown-emscripten/debug/deps
+            touch target/wasm32-unknown-emscripten/debug/playground.wasm
+            touch target/wasm32-unknown-emscripten/debug/deps/playground.js
+            mkdir -p target/wasm32-unknown-emscripten/release/deps
+            touch target/wasm32-unknown-emscripten/release/playground.wasm
+            touch target/wasm32-unknown-emscripten/release/deps/playground.js
+      - run:
+          name: yarn check
+          command: |
+            yarn check --integrity
+            yarn check --verify-tree
+      - run:
+          name: Lint JavaScript with eslint
+          command: |
+            # TODO: uncomment once there are JS or HTML sources in the repo
+            # yarn run eslint --ext .html,.js .
+  shell-format:
+    docker:
+      - image: peterdavehello/shfmt:latest
+    steps:
+      - checkout
+      - run:
+          name: Format Shell Sources
+          command: |
+            shfmt -version
+            shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v vendor/ | xargs shfmt -i 2 -ci -s -w
+  text:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - restore_cache:
+          key: text-yarn-v2-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: text-yarn-v2-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+      - run:
+          name: Format Text Sources
+          command: |
+            ./scripts/format-text.sh --check "css"
+            ./scripts/format-text.sh --check "html"
+            ./scripts/format-text.sh --check "js"
+            ./scripts/format-text.sh --check "json"
+            ./scripts/format-text.sh --check "yaml"
+            ./scripts/format-text.sh --check "yml"
+            ./scripts/format-text.sh --check "md"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - rust
+      - c
+      - ruby
+      - js
+      - shell-format
+      - shellcheck/check:
+          exclude: "*/vendor/*"
+      - text
