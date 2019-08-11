@@ -58,8 +58,7 @@ shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v /vendor/ | xargs 
 ./scripts/format-text.sh --format "yaml"
 ./scripts/format-text.sh --format "yml"
 ## Lint with eslint
-# TODO: uncomment once there are JS or HTML sources in the repo
-# yarn run eslint --fix --ext .html,.js .
+yarn run eslint --fix --ext .html,.js .
 
 # Text sources
 

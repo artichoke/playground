@@ -130,8 +130,7 @@ jobs:
       - run:
           name: Lint JavaScript with eslint
           command: |
-            # TODO: uncomment once there are JS or HTML sources in the repo
-            # yarn run eslint --ext .html,.js .
+            yarn run eslint --ext .html,.js .
   shell-format:
     docker:
       - image: peterdavehello/shfmt:latest
