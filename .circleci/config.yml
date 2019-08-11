@@ -170,7 +170,6 @@ workflows:
   build:
     jobs:
       - rust
-      - c
       - ruby
       - js
       - shell-format
