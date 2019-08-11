@@ -192,7 +192,7 @@ jobs:
           command: |
             yarn run gh-pages \
               --user "ci-build <ci-build@hyperbo.la>" \
-              --message "[skip ci] generate docs" \
+              --message "[skip ci] build playground" \
               --dist target/dist
 workflows:
   version: 2
