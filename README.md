@@ -4,12 +4,13 @@
 [![Discord](https://img.shields.io/discord/607683947496734760)](https://discord.gg/QCe2tp2)
 
 The Artichoke Playground is a WebAssembly frontend for
-[Artichoke Ruby](https://github.com/artichoke/artichoke).
+[Artichoke Ruby](https://github.com/artichoke/artichoke) hosted at
+<https://artichoke.run>.
 
 ## Try Artichoke
 
-You can [try Artichoke in your browser](https://artichoke.github.io/artichoke/).
-The Artichoke Playground runs a [WebAssembly](https://webassembly.org/) build of
+You can [try Artichoke in your browser](https://artichoke.run). The Artichoke
+Playground runs a [WebAssembly](https://webassembly.org/) build of
 [Artichoke](https://github.com/artichoke/artichoke).
 
 If you would prefer to run a local build,
