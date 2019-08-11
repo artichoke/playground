@@ -96,7 +96,13 @@
       "plugin:import/errors",
       "plugin:import/warnings"
     ],
+    "globals": {
+      "_artichoke_web_repl_init": "readonly",
+      "_artichoke_build_info": "readonly",
+      "_artichoke_playground_eval": "readonly"
+    },
     "rules": {
+      "no-underscore-dangle": "off",
       "prettier/prettier": "error",
       "react/jsx-closing-bracket-location": "off",
       "react/jsx-closing-tag-location": "off",
@@ -119,7 +125,7 @@
   "scripts": {
     "lint": "./scripts/lint.sh",
     "loc": "loc --exclude vendor",
-    "serve-wasm": "webpack-dev-server --mode development --content-base target/webpack/debug/ --open"
+    "serve-wasm": "webpack-dev-server --mode development --open"
   },
   "dependencies": {
     "ace-builds": "^1.4.5",
