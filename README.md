@@ -9,15 +9,24 @@ The Artichoke Playground is a WebAssembly frontend for
 
 ## Try Artichoke
 
-You can [try Artichoke in your browser](https://artichoke.run). The Artichoke
-Playground runs a [WebAssembly](https://webassembly.org/) build of
+<p align="center">
+  <a href="https://artichoke.run">
+    <img style="max-width: 400px" width="400" src="https://artichoke.run/playground.png?bust">
+  </a>
+  <br>
+  <em>Artichoke Ruby Wasm Playground</em>
+</p>
+
+You can [try Artichoke in your browser](https://artichoke.run). The
+[Artichoke Playground](https://github.com/artichoke/playground) runs a
+[WebAssembly](https://webassembly.org/) build of
 [Artichoke](https://github.com/artichoke/artichoke).
 
-If you would prefer to run a local build,
-[set up a Rust toolchain](/CONTRIBUTING.md#rust-toolchain) and launch local
+If you would prefer to run a local build of the playground, you can
+[set up a Rust toolchain](/CONTRIBUTING.md#rust-toolchain) and a launch local
 development server with:
 
-```shell
+```sh
 . scripts/activate-wasm-build-env.sh
 cargo build --target wasm32-unknown-emscripten
 yarn serve-wasm
