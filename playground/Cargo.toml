@@ -6,7 +6,11 @@ edition = "2018"
 
 [dependencies.artichoke-backend]
 git = "https://github.com/artichoke/artichoke"
-rev = "e558b652da3939bbc2d6e4b52b19dc782fe5316d"
+rev = "5538436c73bd6acb6980d7c8896eca5e06093e9d"
+
+[dependencies.artichoke-core]
+git = "https://github.com/artichoke/artichoke"
+rev = "5538436c73bd6acb6980d7c8896eca5e06093e9d"
 
 [build-dependencies]
 rustc_version = "0.2.3"

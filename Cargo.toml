@@ -2,3 +2,7 @@
 members = [
   "playground",
 ]
+
+[patch.crates-io.onig_sys]
+git = "https://github.com/artichoke/rust-onig"
+rev = "44ca7599b0def694c6c7655408162a09c4609940"
