@@ -69,7 +69,22 @@ module.exports = (env, argv) => {
           use: [cssLoader, "css-loader"]
         },
         {
+          test: /playground\.png$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                name: "[name].[ext]"
+              }
+            },
+            {
+              loader: "image-webpack-loader"
+            }
+          ]
+        },
+        {
           test: /\.(jpe?g|png|gif)$/,
+          exclude: /playground\.png$/,
           use: ["url-loader", "image-webpack-loader"]
         },
         {

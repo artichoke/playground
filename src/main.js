@@ -2,6 +2,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ace from "ace-builds";
 import "ace-builds/webpack-resolver";
+import "./playground.png";
 // eslint-disable-next-line import/extensions
 import "rust/playground.js";
 import "rust/playground.wasm";
