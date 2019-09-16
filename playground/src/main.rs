@@ -30,12 +30,12 @@ pub fn artichoke_web_repl_init() -> u32 {
     };
     interp.0.borrow_mut().capture_output();
     interp.push_context(Context::new(REPL_FILENAME));
+    let build = meta::build_info(&interp);
+    println!("{}", build);
     let mut state = Box::new(State {
         interp,
         heap: string::Heap::default(),
     });
-    let build = meta::build_info();
-    println!("{}", build);
     state.heap.allocate(build);
     println!("{:?}", state.interp.0.borrow());
     Box::into_raw(state) as u32
