@@ -39,7 +39,7 @@ lint_ruby_sources() {
   popd >/dev/null
 }
 
-lint_ruby_sources examples
+lint_ruby_sources .
 
 # Shell sources
 
