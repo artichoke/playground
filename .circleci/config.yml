@@ -99,7 +99,7 @@ jobs:
           name: Install bundler 2
           command: sudo gem install bundler
       - rubocop:
-          target: ./examples
+          target: .
   js:
     docker:
       - image: circleci/node:lts
