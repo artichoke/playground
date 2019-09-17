@@ -1,7 +1,6 @@
 #![deny(warnings, intra_doc_link_resolution_failure)]
 #![deny(clippy::all, clippy::pedantic)]
 #![allow(clippy::cast_possible_truncation, clippy::cast_lossless)]
-#![feature(link_args)]
 
 use artichoke_backend::eval::{Context, Eval};
 use artichoke_backend::Artichoke;
@@ -115,15 +114,5 @@ pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
     mem::forget(state);
     s
 }
-
-#[cfg(link_args = r#"
-    -s WASM=1
-    -s ASSERTIONS=1
-    -s ENVIRONMENT='web'
-    -s EXPORTED_FUNCTIONS=["_artichoke_web_repl_init","_artichoke_string_new","_artichoke_string_free","_artichoke_string_getlen","_artichoke_string_getch","_artichoke_string_putch","_artichoke_eval"]
-    -s EXTRA_EXPORTED_RUNTIME_METHODS=["ccall","cwrap"]
-"#)]
-#[allow(unused_attributes)]
-extern "C" {}
 
 fn main() {}
