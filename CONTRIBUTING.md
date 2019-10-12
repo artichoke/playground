@@ -29,8 +29,8 @@ dependencies, which are orchestrated by [Yarn](https://yarnpkg.com/).
 
 ### Rust Toolchain
 
-The Artichoke Playground depends on nightly Rust and several compiler plugins
-for linting and formatting. The specific version of Rust Artichoke requires is
+The Artichoke Playground depends on stable Rust and several compiler plugins for
+linting and formatting. The specific version of Rust Artichoke requires is
 specified in the [toolchain file](/rust-toolchain)
 
 #### Installation
@@ -179,11 +179,12 @@ Merges will be blocked by CI if there are lint errors.
 
 ### Rust Toolchain
 
-Because rustfmt, clippy, and the language server sometimes break on nightly, th
-Artichoke Playground pegs a specific date archive of nightly. If you want to
-update the pegged nightly version, choose one that has
-[passing builds for rustfmt, clippy, and rls](https://rust-lang-nursery.github.io/rust-toolstate/);
-otherwise, the build will fail on [CI](/.circleci/config.yml).
+The rust-toolchain can be bumped to the latest stable compiler by editing the
+[`rust-toolchain`](/rust-toolchain) file. This file is automatically picked up
+by local builds and CI.
+
+When updating the Rust toolchain, please also bump the build container base
+image in [`.circleci/config.yml`](/.circleci/config.yml).
 
 ### Rust Crates
 
