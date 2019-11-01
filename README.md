@@ -27,6 +27,8 @@ If you would prefer to run a local build of the playground, you can
 development server with:
 
 ```sh
+rustup target add wasm32-unknown-emscripten
+. scripts/install-emscripten-toolchain.sh
 . scripts/activate-wasm-build-env.sh
 cargo build --target wasm32-unknown-emscripten
 yarn serve-wasm
