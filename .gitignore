@@ -264,6 +264,7 @@ tags
 
 # ignore all targets, not just the root (sub-crates in workspace and webpack)
 target/
+/emsdk/
 # Artichoke is an application
 !Cargo.lock
 # there is no Ruby doc to ignore
