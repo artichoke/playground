@@ -16,6 +16,8 @@ mkdir -p target/wasm32-unknown-emscripten/release
 touch target/wasm32-unknown-emscripten/release/playground.js
 touch target/wasm32-unknown-emscripten/release/playground.wasm
 
+unset RUSTFLAGS
+
 # Yarn orchestration
 
 ## Lint package.json
@@ -44,9 +46,9 @@ lint_ruby_sources .
 # Shell sources
 
 ## Format with shfmt
-shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v /vendor/ | xargs shfmt -i 2 -ci -s -w
+shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v /vendor/ | grep -v emsdk/ | xargs shfmt -i 2 -ci -s -w
 ## Lint with shellcheck
-shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v /vendor/ | xargs shellcheck
+shfmt -f . | grep -v target/ | grep -v node_modules/ | grep -v /vendor/ | grep -v emsdk/ | xargs shellcheck
 
 # Web sources
 

@@ -32,6 +32,7 @@ format() {
   find . -type f \
     -and -name "*.$1" \
     -and -not -path '*vendor/*/*' \
+    -and -not -path '*emsdk/*' \
     -and -not -path '*target/*' \
     -and -not -path '*node_modules/*' -print0 |
     xargs -0 yarn run prettier $(parser "$1") --write $(wrap "$1")
@@ -42,6 +43,7 @@ check() {
   find . -type f \
     -and -name "*.$1" \
     -and -not -path '*vendor/*/*' \
+    -and -not -path '*emsdk/*' \
     -and -not -path '*target/*' \
     -and -not -path '*node_modules/*' -print0 |
     xargs -0 yarn run prettier $(parser "$1") --check $(wrap "$1")

@@ -2,6 +2,7 @@ AllCops:
   TargetRubyVersion: 2.6
   DisplayCopNames: true
   Exclude:
+    - "**/emsdk/**/*"
     - "**/node_modules/**/*"
     - "**/target/**/*"
     - "**/vendor/**/*"

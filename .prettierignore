@@ -1,4 +1,4 @@
 /node_modules
 /target
+/emsdk
 vendor
-/spec-runner/spec/
