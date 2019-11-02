@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
 edition = "2018"
 
+[dependencies]
+stdweb = "0.4.20"
+
 [dependencies.artichoke-backend]
 git = "https://github.com/artichoke/artichoke"
 rev = "5538436c73bd6acb6980d7c8896eca5e06093e9d"
