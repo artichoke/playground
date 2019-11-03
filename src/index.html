@@ -72,7 +72,10 @@
       }
     </style>
 
-    <div class="container min-vh-100 vh-100 d-flex flex-column flex-grow">
+    <div
+      id="wrapper"
+      class="container min-vh-100 vh-100 d-flex flex-column flex-grow"
+    >
       <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
         <a class="navbar-brand" href="#">
           <img
@@ -161,29 +164,34 @@
         </div>
       </nav>
 
-      <div class="d-flex my-1">
-        <button id="run" type="button" class="btn btn-primary">Run</button>
-        <div
-          id="artichoke-build-info"
-          class="mx-3 my-auto text-monospace overflow-auto"
-          style="max-height: 3em"
-        >
-          Loading ...
+      <div
+        id="embeddable"
+        class="container vh-100 d-flex flex-column flex-grow"
+      >
+        <div class="d-flex my-1">
+          <button id="run" type="button" class="btn btn-primary">Run</button>
+          <div
+            id="artichoke-build-info"
+            class="mx-3 my-auto text-monospace overflow-auto"
+            style="max-height: 3em"
+          >
+            Loading ...
+          </div>
         </div>
-      </div>
-      <div class="d-flex h-100 flex-grow">
-        <div id="editor" class="h-100 col-8"></div>
-        <pre id="output" class="h-100 w-100 ml-1 border overflow-auto"></pre>
-      </div>
-      <div class="d-flex">
-        <p>
-          Playground powered by a
-          <a href="https://github.com/artichoke/playground">
-            WebAssembly build
-          </a>
-          of
-          <a href="https://github.com/artichoke/artichoke">Artichoke Ruby</a>.
-        </p>
+        <div class="d-flex h-100 flex-grow">
+          <div id="editor" class="h-100 col-8"></div>
+          <pre id="output" class="h-100 w-100 ml-1 border overflow-auto"></pre>
+        </div>
+        <div class="d-flex">
+          <p>
+            Playground powered by a
+            <a href="https://github.com/artichoke/playground">
+              WebAssembly build
+            </a>
+            of
+            <a href="https://github.com/artichoke/artichoke">Artichoke Ruby</a>.
+          </p>
+        </div>
       </div>
     </div>
     <script type="text/javascript">

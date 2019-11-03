@@ -9,7 +9,7 @@ import "rust/playground.js";
 import "rust/playground.wasm";
 import example from "ruby/delegate_json_regexp.rb";
 
-ace.edit("editor", {
+const editor = ace.edit("editor", {
   mode: "ace/mode/ruby",
   theme: "ace/theme/monokai",
   fontSize: 14,
@@ -17,7 +17,28 @@ ace.edit("editor", {
   useSoftTabs: true
 });
 
-ace.edit("editor").setValue(example.trim(), -1);
+editor.getSession().on("change", () => {
+  const encoded = encodeURI(editor.getValue());
+  window.location.hash = encoded;
+});
+
+let value;
+if (window.location.hash.length === 0) {
+  value = example.trim();
+} else {
+  value = decodeURI(window.location.hash).slice(1);
+}
+ace.edit("editor").setValue(value, -1);
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has("embed")) {
+  document
+    .getElementById("embeddable")
+    .setAttribute(
+      "style",
+      "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
+    );
+}
 
 const Heap = {
   read(state, ptr) {
@@ -51,8 +72,8 @@ const evalRuby = source => {
 };
 
 const playgroundRun = () => {
-  const editor = ace.edit("editor");
-  const source = editor.getValue();
+  const codeEditor = ace.edit("editor");
+  const source = codeEditor.getValue();
   const output = evalRuby(source);
   document.getElementById("output").innerText = output;
 };
