@@ -9,7 +9,7 @@ import "rust/playground.js";
 import "rust/playground.wasm";
 import example from "ruby/delegate_json_regexp.rb";
 
-ace.edit("editor", {
+let editor = ace.edit("editor", {
   mode: "ace/mode/ruby",
   theme: "ace/theme/monokai",
   fontSize: 14,
@@ -17,7 +17,19 @@ ace.edit("editor", {
   useSoftTabs: true
 });
 
-ace.edit("editor").setValue(example.trim(), -1);
+editor.getSession().on('change', () => {
+  var encoded = encodeURI(editor.getValue());
+  window.location.hash = encoded;
+});
+
+let value;
+if (window.location.hash.length === 0) {
+  value = example.trim()
+} else {
+  value = decodeURI(window.location.hash).slice(1)
+}
+ace.edit("editor").setValue(value, -1);
+
 
 const Heap = {
   read(state, ptr) {
