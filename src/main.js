@@ -9,7 +9,7 @@ import "rust/playground.js";
 import "rust/playground.wasm";
 import example from "ruby/delegate_json_regexp.rb";
 
-let editor = ace.edit("editor", {
+const editor = ace.edit("editor", {
   mode: "ace/mode/ruby",
   theme: "ace/theme/monokai",
   fontSize: 14,
@@ -18,7 +18,7 @@ let editor = ace.edit("editor", {
 });
 
 editor.getSession().on("change", () => {
-  var encoded = encodeURI(editor.getValue());
+  const encoded = encodeURI(editor.getValue());
   window.location.hash = encoded;
 });
 
@@ -30,7 +30,7 @@ if (window.location.hash.length === 0) {
 }
 ace.edit("editor").setValue(value, -1);
 
-var urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has("embed")) {
   document
     .getElementById("embeddable")
@@ -72,8 +72,8 @@ const evalRuby = source => {
 };
 
 const playgroundRun = () => {
-  const editor = ace.edit("editor");
-  const source = editor.getValue();
+  const codeEditor = ace.edit("editor");
+  const source = codeEditor.getValue();
   const output = evalRuby(source);
   document.getElementById("output").innerText = output;
 };
