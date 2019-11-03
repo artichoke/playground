@@ -17,24 +17,28 @@ let editor = ace.edit("editor", {
   useSoftTabs: true
 });
 
-editor.getSession().on('change', () => {
+editor.getSession().on("change", () => {
   var encoded = encodeURI(editor.getValue());
   window.location.hash = encoded;
 });
 
 let value;
 if (window.location.hash.length === 0) {
-  value = example.trim()
+  value = example.trim();
 } else {
-  value = decodeURI(window.location.hash).slice(1)
+  value = decodeURI(window.location.hash).slice(1);
 }
 ace.edit("editor").setValue(value, -1);
 
 var urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has('embed')) {
-  document.getElementById('embeddable').setAttribute("style", "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%");
+if (urlParams.has("embed")) {
+  document
+    .getElementById("embeddable")
+    .setAttribute(
+      "style",
+      "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
+    );
 }
-
 
 const Heap = {
   read(state, ptr) {
