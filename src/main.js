@@ -18,7 +18,7 @@ const editor = ace.edit("editor", {
 });
 
 editor.getSession().on("change", () => {
-  const encoded = encodeURI(editor.getValue());
+  const encoded = encodeURIComponent(editor.getValue());
   window.location.hash = encoded;
 });
 
@@ -26,7 +26,7 @@ let value;
 if (window.location.hash.length === 0) {
   value = example.trim();
 } else {
-  value = decodeURI(window.location.hash).slice(1);
+  value = decodeURIComponent(window.location.hash).slice(1);
 }
 ace.edit("editor").setValue(value, -1);
 
