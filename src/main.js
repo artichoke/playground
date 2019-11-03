@@ -30,6 +30,11 @@ if (window.location.hash.length === 0) {
 }
 ace.edit("editor").setValue(value, -1);
 
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('embed')) {
+  document.getElementById('embeddable').setAttribute("style", "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%");
+}
+
 
 const Heap = {
   read(state, ptr) {
