@@ -11,32 +11,73 @@ use std::panic::{self, AssertUnwindSafe};
 mod meta;
 mod string;
 
-const REPL_FILENAME: &str = "(playground)";
+const REPL_FILENAME: &[u8] = b"(playground)";
 
+#[derive(Default, Debug, Clone)]
 struct State {
-    interp: Artichoke,
     heap: string::Heap,
+}
+
+struct Interp(Option<Artichoke>);
+
+impl Interp {
+    fn new() -> Self {
+        let interp = match artichoke_backend::interpreter() {
+            Ok(interp) => interp,
+            Err(err) => {
+                eprintln!("{:?}", err);
+                panic!("Could not initialize interpreter");
+            }
+        };
+        interp.0.borrow_mut().capture_output();
+        interp.push_context(Context::new(REPL_FILENAME));
+        Self(Some(interp))
+    }
+
+    fn build_meta() -> String {
+        let interp = Self::new();
+        if let Some(ref interp) = interp.0 {
+            meta::build_info(&interp)
+        } else {
+            "Could not extract build meta".to_owned()
+        }
+    }
+
+    fn eval(&self, code: &[u8]) -> String {
+        if let Some(ref interp) = self.0 {
+            match panic::catch_unwind(AssertUnwindSafe(|| interp.eval(code))) {
+                Ok(Ok(value)) => format!("=> {}", value.inspect()),
+                Ok(Err(err)) => err.to_string(),
+                Err(_) => "Panicked during eval".to_owned(),
+            }
+        } else {
+            "".to_owned()
+        }
+    }
+
+    fn captured_output(&self) -> String {
+        if let Some(ref interp) = self.0 {
+            interp.0.borrow_mut().get_and_clear_captured_output()
+        } else {
+            "".to_owned()
+        }
+    }
+}
+
+impl Drop for Interp {
+    fn drop(&mut self) {
+        if let Some(interp) = self.0.take() {
+            interp.close();
+        }
+    }
 }
 
 #[no_mangle]
 pub fn artichoke_web_repl_init() -> u32 {
-    let interp = match artichoke_backend::interpreter() {
-        Ok(interp) => interp,
-        Err(err) => {
-            eprintln!("{:?}", err);
-            panic!("Could not initialize interpreter");
-        }
-    };
-    interp.0.borrow_mut().capture_output();
-    interp.push_context(Context::new(REPL_FILENAME));
-    let build = meta::build_info(&interp);
+    let mut state = Box::new(State::default());
+    let build = Interp::build_meta();
     println!("{}", build);
-    let mut state = Box::new(State {
-        interp,
-        heap: string::Heap::default(),
-    });
     state.heap.allocate(build);
-    println!("{:?}", state.interp.0.borrow());
     Box::into_raw(state) as u32
 }
 
@@ -100,16 +141,10 @@ pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
     }
     let mut state = unsafe { Box::from_raw(state as *mut State) };
     let code = state.heap.string(ptr);
-    let result = match panic::catch_unwind(AssertUnwindSafe(|| state.interp.eval(code))) {
-        Ok(Ok(value)) => format!("=> {}", value.inspect()),
-        Ok(Err(err)) => err.to_string(),
-        Err(_) => "Panicked during eval".to_owned(),
-    };
-    let result = format!(
-        "{}{}",
-        state.interp.0.borrow_mut().get_and_clear_captured_output(),
-        result
-    );
+    let interp = Interp::new();
+    let result = interp.eval(code);
+    let output = interp.captured_output();
+    let result = format!("{}{}", output, result);
     let s = state.heap.allocate(result);
     mem::forget(state);
     s
