@@ -151,5 +151,6 @@ pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
 }
 
 fn main() {
+    stdweb::initialize();
     stdweb::event_loop();
 }
