@@ -183,7 +183,7 @@ jobs:
       - run: yarn install
       - run:
           name: Build with Webpack
-          command: webpack --mode production
+          command: yarn webpack --mode production
       - run:
           name: Copy doc asset overrides
           command: cp assets/* target/dist
