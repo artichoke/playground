@@ -126,6 +126,7 @@ module.exports = (env, argv) => {
     },
     plugins,
     optimization: {
+      minimize: true,
       minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()]
     }
   };
