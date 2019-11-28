@@ -179,17 +179,21 @@ jobs:
             - "55:f0:9b:74:3a:ff:3b:33:1e:bc:98:e7:63:6c:ed:bd"
       - attach_workspace:
           at: target
+      - run: npm install -g gh-pages@2.1.1
+      - run: npm install -g webpack@4.41.2
+      - run:
+          name: Build with Webpack
+          command: webpack --mode production
       - run:
           name: Copy doc asset overrides
-          command: cp assets/* target/doc
-      - run: npm install -g gh-pages@2.1.1
+          command: cp assets/* target/dist
       - run:
           name: Deploy docs to gh-pages branch
           command: |
             gh-pages \
               --user "Artichoke CI <ci@artichokeruby.org>" \
               --message "[skip ci] build docs" \
-              --dist target/doc
+              --dist target/dist
 workflows:
   version: 2
   build:
