@@ -181,6 +181,7 @@ jobs:
           at: target
       - run: npm install -g gh-pages@2.1.1
       - run: npm install -g webpack@4.41.2
+      - run: npm install -g webpack-cli@3.3.10
       - run:
           name: Build with Webpack
           command: webpack --mode production
