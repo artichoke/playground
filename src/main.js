@@ -1,6 +1,8 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ace from "ace-builds";
+import "ace-builds/src-noconflict/mode-ruby";
+import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/webpack-resolver";
 import "./logo.png";
 import "./playground.png";
