@@ -15,11 +15,11 @@ impl Location {
         match result {
             Some(Ok(value)) => interp.convert(value).inner(),
             Some(Err(_)) => {
-                let exception = Box::new(Fatal::new(&interp, "SecurityError"));
+                let exception = Fatal::new(&interp, "SecurityError");
                 exception::raise(interp, exception)
             }
             None => {
-                let exception = Box::new(Fatal::new(&interp, "No location"));
+                let exception = Fatal::new(&interp, "No location");
                 exception::raise(interp, exception)
             }
         }
