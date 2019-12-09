@@ -61,7 +61,7 @@ link_args=(
   -s "NO_EXIT_RUNTIME=1"
   -s "ALLOW_MEMORY_GROWTH=1"
   -s "ENVIRONMENT=web"
-  -s "EXPORTED_FUNCTIONS=[$exported_functions]"
+  # -s "EXPORTED_FUNCTIONS=[$exported_functions]"
   -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall","cwrap"]'
 )
 
