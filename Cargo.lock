@@ -497,7 +497,6 @@ version = "0.1.0"
 dependencies = [
  "artichoke-backend 0.1.0 (git+https://github.com/artichoke/artichoke?rev=d315ba34725d2aaf31f65bdca1d95d1996c6e4c5)",
  "artichoke-core 0.1.0 (git+https://github.com/artichoke/artichoke?rev=d315ba34725d2aaf31f65bdca1d95d1996c6e4c5)",
- "rustc_version 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "stdweb 0.4.20 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 

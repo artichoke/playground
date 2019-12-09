@@ -16,6 +16,3 @@ features = ["artichoke-array", "artichoke-random"]
 [dependencies.artichoke-core]
 git = "https://github.com/artichoke/artichoke"
 rev = "d315ba34725d2aaf31f65bdca1d95d1996c6e4c5"
-
-[build-dependencies]
-rustc_version = "0.2.3"
