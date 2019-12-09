@@ -53,6 +53,7 @@ fi
 if [ ${#playground_exports[@]} -gt 0 ]; then
   api_parts+=("$(join_by ",", "${playground_exports[@]}")")
 fi
+# shellcheck disable=SC2034
 exported_functions="$(join_by "," "${api_parts[@]}")"
 
 link_args=(
