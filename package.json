@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "description": "Artichoke Ruby Wasm Playground",
-  "keywords": ["programming language", "scripting", "ruby", "rust", "wasm"],
+  "keywords": [
+    "programming language",
+    "scripting",
+    "ruby",
+    "rust",
+    "wasm"
+  ],
   "homepage": "https://www.artichoke.run",
   "bugs": "https://github.com/artichoke/playground/issues",
   "license": "MIT",
@@ -70,7 +76,9 @@
     "webpack-dev-server": "^3.7.2"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "eslintConfig": {
     "env": {
@@ -80,7 +88,11 @@
       "node": true
     },
     "parser": "babel-eslint",
-    "plugins": ["html", "import", "prettier"],
+    "plugins": [
+      "html",
+      "import",
+      "prettier"
+    ],
     "extends": [
       "airbnb",
       "prettier",
