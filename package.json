@@ -120,7 +120,6 @@
   "scripts": {
     "eslint-check": "eslint --print-config package.json | eslint-config-prettier-check",
     "lint": "./scripts/lint.sh",
-    "loc": "loc --exclude vendor",
-    "serve-wasm": "webpack-dev-server --mode development --open"
+    "serve-wasm": "webpack-dev-server --mode production --open"
   }
 }
