@@ -6,20 +6,20 @@ mrb_api=()
 # rg --no-line-number --no-filename -g '*.h' 'MRB_API .* (artichoke_[a-z0-9_]+?)\(.+\);' artichoke-backend/mruby-sys/include/ -r '$1' | sort | uniq
 # rg --no-line-number --no-filename -g '*.h' 'MRB_API .* (mrb_[a-z0-9_]+?)\(.+\);' artichoke-backend/mruby-sys/include/ -r '$1' | sort | uniq
 artichoke_exports=(
-  '"_artichoke_value_to_ary"'
   '"_artichoke_ary_new"'
   '"_artichoke_ary_new_capa"'
   '"_artichoke_ary_new_from_values"'
   '"_artichoke_ary_splat"'
-  '"_artichoke_ary_clone"'
-  '"_artichoke_ary_ref"'
+  '"_artichoke_ary_concat"'
   '"_artichoke_ary_pop"'
+  '"_artichoke_ary_push"'
+  '"_artichoke_ary_ref"'
+  '"_artichoke_ary_set"'
   '"_artichoke_ary_shift"'
   '"_artichoke_ary_unshift"'
   '"_artichoke_ary_len"'
-  '"_artichoke_ary_concat"'
-  '"_artichoke_ary_push"'
-  '"_artichoke_ary_set"'
+  '"_artichoke_ary_set_len"'
+  '"_artichoke_ary_ptr"'
   '"_artichoke_ary_check"'
   '"_artichoke_gc_mark_ary"'
   '"_artichoke_gc_mark_ary_size"'
@@ -53,6 +53,7 @@ fi
 if [ ${#playground_exports[@]} -gt 0 ]; then
   api_parts+=("$(join_by ",", "${playground_exports[@]}")")
 fi
+# shellcheck disable=SC2034
 exported_functions="$(join_by "," "${api_parts[@]}")"
 
 link_args=(
@@ -61,7 +62,7 @@ link_args=(
   -s "NO_EXIT_RUNTIME=1"
   -s "ALLOW_MEMORY_GROWTH=1"
   -s "ENVIRONMENT=web"
-  -s "EXPORTED_FUNCTIONS=[$exported_functions]"
+  # -s "EXPORTED_FUNCTIONS=[$exported_functions]"
   -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall","cwrap"]'
 )
 

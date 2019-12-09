@@ -16,10 +16,10 @@ impl Window {
         match result {
             Ok(value) => value.inner(),
             Err(err) => {
-                let exception = Box::new(Fatal::new(
+                let exception = Fatal::new(
                     &interp,
                     format!("Failed to serialize Rust Location into Ruby: {}", err),
-                ));
+                );
                 exception::raise(interp, exception)
             }
         }

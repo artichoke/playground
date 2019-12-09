@@ -1,5 +1,6 @@
-use artichoke_backend::eval::{Context, Eval};
+use artichoke_backend::eval::Context;
 use artichoke_backend::Artichoke;
+use artichoke_core::eval::Eval;
 use artichoke_core::value::Value;
 
 use crate::meta;
