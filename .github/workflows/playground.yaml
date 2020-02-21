@@ -14,10 +14,9 @@ jobs:
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          target: wasm32-unknown-emscripten
           profile: minimal
           override: true
-          components: rustfmt, rust-src
 
       - name: Install Ruby toolchain
         uses: actions/setup-ruby@v1
