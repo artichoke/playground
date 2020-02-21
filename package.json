@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "description": "Artichoke Ruby Wasm Playground",
-  "keywords": ["programming language", "scripting", "ruby", "rust", "wasm"],
+  "keywords": [
+    "programming language",
+    "scripting",
+    "ruby",
+    "rust",
+    "wasm"
+  ],
   "homepage": "https://www.artichoke.run",
   "bugs": "https://github.com/artichoke/playground/issues",
   "license": "MIT",
@@ -56,6 +62,7 @@
     "package-json-validator": "^0.6.3",
     "pkg-dir-cli": "^2.1.0",
     "prettier": "^1.15.3",
+    "prettier-plugin-toml": "^0.3.1",
     "raw-loader": "^4.0.0",
     "script-loader": "^0.7.2",
     "style-loader": "^1.0.1",
@@ -70,7 +77,9 @@
     "webpack-dev-server": "^3.7.2"
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "eslintConfig": {
     "env": {
@@ -80,7 +89,11 @@
       "node": true
     },
     "parser": "babel-eslint",
-    "plugins": ["html", "import", "prettier"],
+    "plugins": [
+      "html",
+      "import",
+      "prettier"
+    ],
     "extends": [
       "airbnb",
       "prettier",
@@ -119,7 +132,6 @@
   },
   "scripts": {
     "eslint-check": "eslint --print-config package.json | eslint-config-prettier-check",
-    "lint": "./scripts/lint.sh",
     "serve-wasm": "webpack-dev-server --mode production --open"
   }
 }
