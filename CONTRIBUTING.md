@@ -23,9 +23,9 @@ If you'd like to engage in a discussion outside of GitHub, you can
 
 ## Setup
 
-The Artichoke Playground includes Rust, Ruby, Shell, and Text sources.
-Developing on the Artichoke Playground requires configuring several
-dependencies, which are orchestrated by [Yarn](https://yarnpkg.com/).
+The Artichoke Playground includes Rust, Ruby, and Text sources. Developing on
+the Artichoke Playground requires configuring several dependencies, which are
+orchestrated by [Yarn](https://yarnpkg.com/).
 
 ### Rust Toolchain
 
@@ -39,15 +39,15 @@ The recommended way to install the Rust toolchain is with
 [rustup](https://rustup.rs/). On macOS, you can install rustup with
 [Homebrew](https://docs.brew.sh/Installation):
 
-```shell
+```sh
 brew install rustup-init
 rustup-init
 ```
 
 Once you have rustup, you can install the Rust toolchain needed to compile the
-Artichoke Playground.
+playground.
 
-```shell
+```sh
 rustup toolchain install "$(cat rust-toolchain)"
 rustup component add rustfmt
 rustup component add clippy
@@ -55,18 +55,18 @@ rustup component add clippy
 
 ### Rust Crates
 
-The Artichoke Playground depends on several Rust libraries, or crates. Once you
-have the Rust toolchain installed, you can install the crates specified in
-[`Cargo.lock`](/Cargo.lock) by running:
+The playground depends on several Rust libraries. In Rust, a library is called a
+_crate_. Once you have the Rust toolchain installed, you can install the crates
+specified in [`Cargo.lock`](/Cargo.lock) by running:
 
-```shell
+```sh
 cargo build
 ```
 
 You can check to see that this worked by running the following and observing no
 errors:
 
-```shell
+```sh
 cargo test
 cargo fmt -- --check
 cargo clippy --all-targets --all-features
@@ -76,9 +76,8 @@ cargo clippy --all-targets --all-features
 
 #### `cc` Crate
 
-The Artichoke Playground depends on Artichoke. Artichoke and some of its
-dependencies use the Rust [`cc` crate](https://crates.io/crates/cc) to build.
-`cc` uses a
+Artichoke and some of its dependencies use the Rust
+[`cc` crate](https://crates.io/crates/cc) to build. `cc` uses a
 [platform-dependent C compiler](https://github.com/alexcrichton/cc-rs#compile-time-requirements)
 to compile C sources. On Unix, `cc` crate uses the `cc` binary.
 
@@ -87,50 +86,22 @@ to compile C sources. On Unix, `cc` crate uses the `cc` binary.
 To build the Artichoke mruby backend, you will need a C compiler toolchain. By
 default, mruby requires the following to compile:
 
-- ar
-- gcc
+- clang
 - bison
-- gperf
+- ar
 
-You can override the requirement for gcc by setting the `CC` and `LD`
+You can override the requirement for clang by setting the `CC` and `LD`
 environment variables.
-
-### Node.js
-
-The Artichoke Playground uses Yarn and Node.js for linting and orchestration.
-
-You will need to install
-[Node.js](https://nodejs.org/en/download/package-manager/) and
-[Yarn](https://yarnpkg.com/en/docs/install).
-
-On macOS, you can install Node.js and Yarn with
-[Homebrew](https://docs.brew.sh/Installation):
-
-```shell
-brew install node yarn
-```
-
-### Node.js Packages
-
-Once you have Yarn installed, you can install the packages specified in
-[`package.json`](/package.json) by running:
-
-```shell
-yarn install
-```
-
-You can check to see that this worked by running `yarn lint` and observing no
-errors.
 
 ### Ruby
 
-Artichoke and the Artichoke Playground require a recent Ruby 2.x and
-[bundler](https://bundler.io/) 2.x. The [`.ruby-version`](/.ruby-version) file
-in the root of Artichoke specifies Ruby 2.6.3.
+Artichoke requires a recent Ruby 2.x and [bundler](https://bundler.io/) 2.x. The
+[`.ruby-version`](/.ruby-version) file in the root of Artichoke specifies Ruby
+2.6.3.
 
 If you use [RVM](https://rvm.io/), you can install Ruby dependencies by running:
 
-```shell
+```sh
 rvm install "$(cat .ruby-version)"
 gem install bundler
 ```
@@ -139,28 +110,75 @@ If you use [rbenv](https://github.com/rbenv/rbenv) and
 [ruby-build](https://github.com/rbenv/ruby-build), you can install Ruby
 dependencies by running:
 
-```shell
+```sh
 rbenv install "$(cat .ruby-version)"
 gem install bundler
 rbenv rehash
 ```
 
-To lint Ruby sources, Artichoke uses
-[RuboCop](https://github.com/rubocop-hq/rubocop). `yarn lint` installs RuboCop
-and all other gems automatically.
+The [`Gemfile`](/Gemfile) in Artichoke specifies several dev dependencies. You
+can install these dependencies by running:
 
-### Shell
+```sh
+bundle install
+```
 
-The Artichoke Playground uses [shfmt](https://github.com/mvdan/sh) for
-formatting and [shellcheck](https://github.com/koalaman/shellcheck) for linting
-Shell scripts.
+Artichoke uses [`rake`](/Rakefile) as a task runner. You can see the available
+tasks by running:
 
-On macOS, you can install shfmt and shellcheck with
+```console
+$ bundle exec rake --tasks
+rake doc               # Generate Rust API documentation
+rake doc:open          # Generate Rust API documentation and open it in a web browser
+rake lint:all          # Lint and format
+rake lint:deps         # Install linting dependencies
+rake lint:format       # Format sources
+rake lint:restriction  # Lint with restriction pass (unenforced lints)
+rake lint:rubocop      # Run rubocop
+rake spec              # Run enforced ruby/spec suite
+```
+
+To lint Ruby sources, the playground uses
+[RuboCop](https://github.com/rubocop-hq/rubocop). RuboCop runs as part of the
+`lint:all` task. You can run only RuboCop by invoking the `lint:rubocop` task.
+
+### Node.js
+
+Node.js and Yarn are optional dependencies that are used for formatting text
+sources with [prettier](https://prettier.io/).
+
+Node.js is only required for formatting if modifying the following filetypes:
+
+- `html`
+- `js`
+- `json`
+- `md`
+- `toml`
+- `yaml`
+- `yml`
+
+You will need to install
+[Node.js](https://nodejs.org/en/download/package-manager/) and
+[Yarn](https://yarnpkg.com/en/docs/install).
+
+On macOS, you can install Node.js and Yarn with
 [Homebrew](https://docs.brew.sh/Installation):
 
-```shell
-brew install shfmt shellcheck
+```sh
+brew install node yarn
 ```
+
+### Node.js Packages
+
+Once you have Yarn installed, you can install the packages specified in
+[`package.json`](/package.json) by running:
+
+```sh
+yarn install
+```
+
+You can check to see that this worked by running `yarn lint` and observing no
+errors.
 
 ## Code Quality
 
@@ -169,8 +187,8 @@ brew install shfmt shellcheck
 Once you [configure a development environment](#setup), run the following to
 lint sources:
 
-```shell
-yarn lint
+```sh
+rake lint:all
 ```
 
 Merges will be blocked by CI if there are lint errors.
@@ -182,9 +200,6 @@ Merges will be blocked by CI if there are lint errors.
 The rust-toolchain can be bumped to the latest stable compiler by editing the
 [`rust-toolchain`](/rust-toolchain) file. This file is automatically picked up
 by local builds and CI.
-
-When updating the Rust toolchain, please also bump the build container base
-image in [`.circleci/config.yml`](/.circleci/config.yml).
 
 ### Rust Crates
 
@@ -226,15 +241,3 @@ If after running `yarn upgrade` there are still outdated packages reported by
 would like to update the dependency and deal with any breakage, please do;
 otherwise, please
 [file an issue](https://github.com/artichoke/playground/issues/new).
-
-## Code Analysis
-
-### Source Code Statistics
-
-To view statistics about the source code in the Artichoke Playground, you can
-run `yarn loc`, which depends on [loc](https://github.com/cgag/loc). You can
-install loc by running:
-
-```shell
-cargo install loc
-```

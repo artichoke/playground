@@ -205,9 +205,3 @@ workflows:
       - shellcheck/check:
           exclude: "*/vendor/*"
       - text
-      - deploy:
-          requires:
-            - rust
-          filters:
-            branches:
-              only: master

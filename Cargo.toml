@@ -1,7 +1,5 @@
 [workspace]
-members = [
-  "playground",
-]
+members = ["playground"]
 
 [patch.crates-io.onig_sys]
 git = "https://github.com/artichoke/rust-onig"

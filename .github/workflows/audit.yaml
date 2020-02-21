@@ -1,0 +1,33 @@
+name: Audit
+on: [push]
+jobs:
+  rust:
+    name: Audit Rust Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - uses: actions-rs/audit-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  js:
+    name: Audit JS Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node toolchain
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Nodejs toolchain
+        run: yarn install --frozen-lockfile
+
+      - name: Yarn audit
+        run: yarn audit

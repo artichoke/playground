@@ -1,0 +1,114 @@
+name: CI
+on: [push]
+jobs:
+  rust:
+    name: Lint and format Rust
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    env:
+      RUSTFLAGS: -D warnings
+      RUST_BACKTRACE: 1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          components: rustfmt, clippy
+
+      - name: Install Ruby toolchain
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+
+      - name: Install Clang
+        run: sudo apt install clang
+
+      - name: Install Bison
+        run: sudo apt install bison
+
+      - name: Check formatting
+        run: cargo fmt -- --check --color=auto
+
+      - name: Lint with Clippy
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
+
+  ruby:
+    name: Lint and format Ruby
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Ruby toolchain
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+
+      - name: Install bundler
+        run: gem install bundler
+
+      - name: Install gems
+        run: bundle install
+
+      - name: Lint and check formatting with Rubocop
+        run: bundle exec rubocop
+
+  js:
+    name: Lint and format JS
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node toolchain
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Nodejs toolchain
+        run: yarn install --frozen-lockfile
+
+      - name: Create stubs for Wasm Sources
+        run: |
+          mkdir -p target/wasm32-unknown-emscripten/debug
+          touch target/wasm32-unknown-emscripten/debug/playground.js
+          touch target/wasm32-unknown-emscripten/debug/playground.wasm
+          mkdir -p target/wasm32-unknown-emscripten/release
+          touch target/wasm32-unknown-emscripten/release/playground.js
+          touch target/wasm32-unknown-emscripten/release/playground.wasm
+      - name: Lint and check formatting with eslint
+        run: yarn eslint .
+
+  text:
+    name: Lint and format text
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node toolchain
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Nodejs toolchain
+        run: yarn install --frozen-lockfile
+
+      - name: Lint and check formatting with prettier
+        run: yarn prettier --check '**/*'
+
+      - name: Format markdown with prettier
+        run: yarn prettier --prose-wrap always --check '**/*.md' '*.md'
