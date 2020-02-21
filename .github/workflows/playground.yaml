@@ -2,6 +2,7 @@ name: Playground
 on: [push]
 jobs:
   wasm:
+    name: Build Playground
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -D warnings
