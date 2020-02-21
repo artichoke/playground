@@ -1,7 +1,8 @@
 # Artichoke Playground
 
-[![CircleCI](https://circleci.com/gh/artichoke/playground.svg?style=svg)](https://circleci.com/gh/artichoke/playground)
+[![GitHub Actions](https://github.com/artichoke/artichoke/workflows/CI/badge.svg)](https://github.com/artichoke/artichoke/actions)
 [![Discord](https://img.shields.io/discord/607683947496734760)](https://discord.gg/QCe2tp2)
+[![Twitter](https://img.shields.io/twitter/follow/artichokeruby?label=Follow&style=social)](https://twitter.com/artichokeruby)
 
 The Artichoke Playground is a WebAssembly frontend for
 [Artichoke Ruby](https://github.com/artichoke/artichoke) hosted at
