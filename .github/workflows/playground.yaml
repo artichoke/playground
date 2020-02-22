@@ -46,8 +46,7 @@ jobs:
 
       - name: Compile
         run: |
-          . scripts/install-emscripten-toolchain.sh
-          . scripts/activate-wasm-build-env.sh
+          . ./emsdk/emsdk_env.sh
           cargo build --target wasm32-unknown-emscripten --release --verbose
 
       - name: Webpack build
