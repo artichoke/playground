@@ -25,7 +25,7 @@ const plugins = [
 ];
 
 module.exports = (env, argv) => {
-  let target = "debug";
+  let target = "release";
   let cssLoader = "style-loader";
   if (argv.mode === "production") {
     target = "release";

@@ -1,6 +1,8 @@
-#![deny(warnings, intra_doc_link_resolution_failure)]
-#![deny(clippy::all, clippy::pedantic)]
-#![allow(clippy::cast_possible_truncation, clippy::cast_lossless)]
+#![deny(intra_doc_link_resolution_failure)]
+#![deny(clippy::all)]
+#![deny(clippy::pedantic)]
+#![allow(clippy::cast_lossless)]
+#![allow(clippy::cast_possible_truncation)]
 
 #[macro_use]
 extern crate artichoke_backend;
