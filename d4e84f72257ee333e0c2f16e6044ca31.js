@@ -222,6 +222,7 @@ var supportedModes = {
     Jade:        ["jade|pug"],
     Java:        ["java"],
     JavaScript:  ["js|jsm|jsx"],
+    JSON5:       ["json5"],
     JSON:        ["json"],
     JSONiq:      ["jq"],
     JSP:         ["jsp"],
@@ -252,6 +253,7 @@ var supportedModes = {
     Nix:         ["nix"],
     Nim:         ["nim"],
     NSIS:        ["nsi|nsh"],
+    Nunjucks:    ["nunjucks|nunjs|nj|njk"],
     ObjectiveC:  ["m|mm"],
     OCaml:       ["ml|mli"],
     Pascal:      ["pas|p"],
@@ -411,9 +413,9 @@ exports.themes = themeData.map(function(data) {
 
 ace.define("ace/ext/options",["require","exports","module","ace/ext/menu_tools/overlay_page","ace/lib/dom","ace/lib/oop","ace/config","ace/lib/event_emitter","ace/ext/modelist","ace/ext/themelist"], function(require, exports, module) {
 "use strict";
-var overlayPage = require('./menu_tools/overlay_page').overlayPage;
 
- 
+require("./menu_tools/overlay_page");
+
 var dom = require("../lib/dom");
 var oop = require("../lib/oop");
 var config = require("../config");
@@ -452,7 +454,8 @@ var optionGroups = {
                 { caption : "Ace", value : null },
                 { caption : "Vim", value : "ace/keyboard/vim" },
                 { caption : "Emacs", value : "ace/keyboard/emacs" },
-                { caption : "Sublime", value : "ace/keyboard/sublime" }
+                { caption : "Sublime", value : "ace/keyboard/sublime" },
+                { caption : "VSCode", value : "ace/keyboard/vscode" }
             ]
         },
         "Font Size": {
@@ -756,29 +759,8 @@ var OptionPanel = function(editor, element) {
 
 exports.OptionPanel = OptionPanel;
 
-});
-
-ace.define("ace/ext/settings_menu",["require","exports","module","ace/ext/options","ace/ext/menu_tools/overlay_page","ace/editor"], function(require, exports, module) {
-"use strict";
-var OptionPanel = require("./options").OptionPanel;
-var overlayPage = require('./menu_tools/overlay_page').overlayPage;
-function showSettingsMenu(editor) {
-    if (!document.getElementById('ace_settingsmenu')) {
-        var options = new OptionPanel(editor);
-        options.render();
-        options.container.id = "ace_settingsmenu";
-        overlayPage(editor, options.container);
-        options.container.querySelector("select,input,button,checkbox").focus();
-    }
-}
-module.exports.init = function() {
-    var Editor = require("../editor").Editor;
-    Editor.prototype.showSettingsMenu = function() {
-        showSettingsMenu(this);
-    };
-};
 });                (function() {
-                    ace.require(["ace/ext/settings_menu"], function(m) {
+                    ace.require(["ace/ext/options"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
                         }
