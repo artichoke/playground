@@ -4,6 +4,7 @@ const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const plugins = [
   new MiniCssExtractPlugin({
@@ -22,6 +23,7 @@ const plugins = [
     },
   }),
   new HtmlWebpackInlineSourcePlugin(),
+  new MonacoWebpackPlugin(),
 ];
 
 module.exports = (env, argv) => {
@@ -53,9 +55,7 @@ module.exports = (env, argv) => {
         {
           test: /\.jsx?$/,
           exclude: /(node_modules|wasm32)/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: "babel-loader",
         },
         {
           test: path.resolve(
@@ -67,6 +67,10 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [cssLoader, "css-loader"],
+        },
+        {
+          test: /\.ttf$/,
+          use: "file-loader",
         },
         {
           test: /(logo|playground)\.png$/,
