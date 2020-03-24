@@ -7,9 +7,9 @@ node_modules/
 target/
 
 !*.html
+!*.js
 !*.json
 !*.md
-!*.toml
 !*.yaml
 !*.yml
 

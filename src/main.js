@@ -16,7 +16,7 @@ const editor = ace.edit("editor", {
   theme: "ace/theme/monokai",
   fontSize: 14,
   tabSize: 2,
-  useSoftTabs: true
+  useSoftTabs: true,
 });
 
 editor.getSession().on("change", () => {
@@ -60,10 +60,10 @@ const Heap = {
       window._artichoke_string_putch(state, ptr, byte);
     }
     return ptr;
-  }
+  },
 };
 
-const evalRuby = source => {
+const evalRuby = (source) => {
   const { artichoke } = window;
   const code = Heap.write(artichoke, source);
   const output = window._artichoke_eval(artichoke, code);

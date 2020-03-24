@@ -96,7 +96,7 @@ jobs:
           touch target/wasm32-unknown-emscripten/release/playground.js
           touch target/wasm32-unknown-emscripten/release/playground.wasm
       - name: Lint and check formatting with eslint
-        run: yarn eslint .
+        run: npx eslint .
 
   text:
     name: Lint and format text
@@ -112,11 +112,8 @@ jobs:
         with:
           node-version: "12.x"
 
-      - name: Install Nodejs toolchain
-        run: yarn install --frozen-lockfile
-
       - name: Lint and check formatting with prettier
-        run: yarn prettier --check '**/*'
+        run: npx prettier --check '**/*'
 
       - name: Format markdown with prettier
-        run: yarn prettier --prose-wrap always --check '**/*.md' '*.md'
+        run: npx prettier --prose-wrap always --check '**/*.md' '*.md'

@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const plugins = [
   new MiniCssExtractPlugin({
     filename: "[hash].css",
-    chunkFilename: "[id].css"
+    chunkFilename: "[id].css",
   }),
   new HtmlWebPackPlugin({
     template: "index.html",
@@ -18,10 +18,10 @@ const plugins = [
       minifyCSS: true,
       minifyJS: true,
       removeComments: true,
-      useShortDoctype: true
-    }
+      useShortDoctype: true,
+    },
   }),
-  new HtmlWebpackInlineSourcePlugin()
+  new HtmlWebpackInlineSourcePlugin(),
 ];
 
 module.exports = (env, argv) => {
@@ -39,14 +39,14 @@ module.exports = (env, argv) => {
           __dirname,
           `target/wasm32-unknown-emscripten/${target}`
         ),
-        ruby: path.resolve(__dirname, "examples")
-      }
+        ruby: path.resolve(__dirname, "examples"),
+      },
     },
     entry: path.resolve(__dirname, "src/main.js"),
     output: {
       filename: "[hash].bundle.js",
       path: path.resolve(__dirname, "target/dist"),
-      publicPath: "/"
+      publicPath: "/",
     },
     module: {
       rules: [
@@ -54,19 +54,19 @@ module.exports = (env, argv) => {
           test: /\.jsx?$/,
           exclude: /(node_modules|wasm32)/,
           use: {
-            loader: "babel-loader"
-          }
+            loader: "babel-loader",
+          },
         },
         {
           test: path.resolve(
             __dirname,
             `target/wasm32-unknown-emscripten/${target}/playground.js`
           ),
-          use: ["uglify-loader", "script-loader"]
+          use: ["uglify-loader", "script-loader"],
         },
         {
           test: /\.css$/,
-          use: [cssLoader, "css-loader"]
+          use: [cssLoader, "css-loader"],
         },
         {
           test: /(logo|playground)\.png$/,
@@ -74,18 +74,18 @@ module.exports = (env, argv) => {
             {
               loader: "file-loader",
               options: {
-                name: "[name].[ext]"
-              }
+                name: "[name].[ext]",
+              },
             },
             {
-              loader: "image-webpack-loader"
-            }
-          ]
+              loader: "image-webpack-loader",
+            },
+          ],
         },
         {
           test: /\.(jpe?g|png|gif)$/,
           exclude: /(logo|playground)\.png$/,
-          use: ["url-loader", "image-webpack-loader"]
+          use: ["url-loader", "image-webpack-loader"],
         },
         {
           test: /@artichoke\/logo\/logo\.svg/,
@@ -93,22 +93,22 @@ module.exports = (env, argv) => {
             {
               loader: "file-loader",
               options: {
-                name: "[name].[ext]"
-              }
+                name: "[name].[ext]",
+              },
             },
             {
-              loader: "svgo-loader"
-            }
-          ]
+              loader: "svgo-loader",
+            },
+          ],
         },
         {
           test: /\.svg$/,
           exclude: /@artichoke\/logo\/logo\.svg/,
-          use: ["svg-url-loader", "svgo-loader"]
+          use: ["svg-url-loader", "svgo-loader"],
         },
         {
           test: /\.rb$/,
-          use: ["raw-loader"]
+          use: ["raw-loader"],
         },
         {
           test: /\.wasm$/,
@@ -117,17 +117,17 @@ module.exports = (env, argv) => {
             {
               loader: "file-loader",
               options: {
-                name: "[name].[ext]"
-              }
-            }
-          ]
-        }
-      ]
+                name: "[name].[ext]",
+              },
+            },
+          ],
+        },
+      ],
     },
     plugins,
     optimization: {
       minimize: true,
-      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()]
-    }
+      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+    },
   };
 };
