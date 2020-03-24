@@ -1,6 +1,6 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import * as monaco from 'monaco-editor';
+import * as monaco from "monaco-editor";
 
 import "./logo.png";
 import "./playground.png";

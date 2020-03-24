@@ -4,7 +4,7 @@ const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const plugins = [
   new MiniCssExtractPlugin({
@@ -70,7 +70,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.ttf$/,
-          use: "file-loader"
+          use: "file-loader",
         },
         {
           test: /(logo|playground)\.png$/,
