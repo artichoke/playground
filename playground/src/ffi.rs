@@ -76,11 +76,11 @@ pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
     }
     let mut state = unsafe { Box::from_raw(state as *mut State) };
     let code = state.heap.string(ptr);
-    let interp = Interp::new();
-    let result = interp.eval(code);
-    let output = interp.captured_output();
-    let result = format!("{}{}", output, result);
-    let s = state.heap.allocate(result);
+    let mut interp = Interp::new();
+    let out = interp
+        .eval(code)
+        .map_or_else(|| String::from("Fatal error"), |out| out.to_string());
+    let s = state.heap.allocate(out);
     mem::forget(state);
     s
 }

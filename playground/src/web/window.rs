@@ -1,5 +1,6 @@
 use artichoke_backend::convert::RustBackedValue;
-use artichoke_backend::extn::core::exception::{self, Fatal};
+use artichoke_backend::exception;
+use artichoke_backend::extn::core::exception::Fatal;
 use artichoke_backend::sys;
 
 use crate::web::location::Location;
