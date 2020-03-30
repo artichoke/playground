@@ -1,7 +1,9 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import * as monaco from "monaco-editor";
-
+import ace from "ace-builds";
+import "ace-builds/src-noconflict/mode-ruby";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/webpack-resolver";
 import "./logo.png";
 import "./playground.png";
 // eslint-disable-next-line import/extensions
@@ -9,21 +11,27 @@ import "rust/playground.js";
 import "rust/playground.wasm";
 import example from "ruby/delegate_json_regexp.rb";
 
+const editor = ace.edit("editor", {
+  mode: "ace/mode/ruby",
+  theme: "ace/theme/monokai",
+  fontSize: 14,
+  tabSize: 2,
+  useSoftTabs: true,
+});
+
+editor.getSession().on("change", () => {
+  const encoded = encodeURIComponent(editor.getValue());
+  window.location.hash = encoded;
+});
+
 let value;
 if (window.location.hash.length === 0) {
   value = example.trim();
 } else {
   value = decodeURIComponent(window.location.hash).slice(1);
 }
+ace.edit("editor").setValue(value, -1);
 
-const editor = monaco.editor.create(document.getElementById("editor"), {
-  value,
-  language: "ruby",
-  fontSize: 14,
-  theme: "vs-dark",
-});
-
-// Hide chrome if an `embed` query parameter is set
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has("embed")) {
   document
@@ -66,9 +74,8 @@ const evalRuby = (source) => {
 };
 
 const playgroundRun = () => {
-  const source = editor.getValue();
-  const encoded = encodeURIComponent(source);
-  window.location.hash = encoded;
+  const codeEditor = ace.edit("editor");
+  const source = codeEditor.getValue();
   const output = evalRuby(source);
   document.getElementById("output").innerText = output;
 };
