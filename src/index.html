@@ -61,20 +61,5 @@
     </div>
 
     <%= require('html-loader!./partials/footer.html') %>
-
-    <script type="text/javascript">
-      // eslint-disable-next-line no-unused-vars, no-var
-      var Module = {
-        onRuntimeInitialized: () => {
-          window.artichoke = _artichoke_web_repl_init();
-          document.getElementById(
-            "artichoke-build-info"
-          ).innerText = _artichoke_build_info();
-          document
-            .getElementById("run")
-            .addEventListener("click", _artichoke_playground_eval);
-        },
-      };
-    </script>
   </body>
 </html>

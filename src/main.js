@@ -23,7 +23,7 @@ import "assets/artichoke-logo.svg";
 import "assets/playground.png";
 
 // eslint-disable-next-line import/extensions
-import "rust/playground.js";
+import Module from "rust/playground.js";
 import "rust/playground.wasm";
 
 import example from "ruby/delegate_json_regexp.rb";
@@ -59,43 +59,49 @@ if (urlParams.has("embed")) {
     );
 }
 
-const Heap = {
-  read(state, ptr) {
-    const len = window._artichoke_string_getlen(state, ptr);
-    const bytes = [];
-    for (let idx = 0; idx < len; idx += 1) {
-      const byte = window._artichoke_string_getch(state, ptr, idx);
-      bytes.push(byte);
-    }
-    return new TextDecoder().decode(new Uint8Array(bytes));
-  },
-  write(state, s) {
-    const ptr = window._artichoke_string_new(state);
-    const bytes = new TextEncoder().encode(s);
-    for (let idx = 0; idx < bytes.length; idx += 1) {
-      const byte = bytes[idx];
-      window._artichoke_string_putch(state, ptr, byte);
-    }
-    return ptr;
-  },
+const interp = (mod) => {
+  const state = mod._artichoke_web_repl_init();
+  return {
+    read(ptr) {
+      const len = mod._artichoke_string_getlen(state, ptr);
+      const bytes = [];
+      for (let idx = 0; idx < len; idx += 1) {
+        const byte = mod._artichoke_string_getch(state, ptr, idx);
+        bytes.push(byte);
+      }
+      return new TextDecoder().decode(new Uint8Array(bytes));
+    },
+    write(s) {
+      const ptr = mod._artichoke_string_new(state);
+      const bytes = new TextEncoder().encode(s);
+      for (let idx = 0; idx < bytes.length; idx += 1) {
+        const byte = bytes[idx];
+        mod._artichoke_string_putch(state, ptr, byte);
+      }
+      return ptr;
+    },
+    evalRuby(source) {
+      const code = this.write(source);
+      const output = mod._artichoke_eval(state, code);
+      const result = this.read(output);
+      mod._artichoke_string_free(state, code);
+      mod._artichoke_string_free(state, output);
+      return result;
+    },
+  };
 };
 
-const evalRuby = (source) => {
-  const { artichoke } = window;
-  const code = Heap.write(artichoke, source);
-  const output = window._artichoke_eval(artichoke, code);
-  const result = Heap.read(artichoke, output);
-  window._artichoke_string_free(artichoke, code);
-  window._artichoke_string_free(artichoke, output);
-  return result;
-};
-
-const playgroundRun = () => {
+const playgroundRun = (state) => () => {
   const codeEditor = ace.edit("editor");
   const source = codeEditor.getValue();
-  const output = evalRuby(source);
+  const output = state.evalRuby(source);
   document.getElementById("output").innerText = output;
 };
 
-window._artichoke_build_info = () => Heap.read(window.artichoke, 0);
-window._artichoke_playground_eval = playgroundRun;
+Module().then((mod) => {
+  const artichoke = interp(mod);
+  document.getElementById("artichoke-build-info").innerText = artichoke.read(0);
+  document
+    .getElementById("run")
+    .addEventListener("click", playgroundRun(artichoke));
+});

@@ -38,19 +38,25 @@ jobs:
       - name: Install Bison
         run: sudo apt install bison
 
+      - name: Set emsdk version
+        run: echo "::set-output name=version::$(cat emscripten-toolchain)"
+        id: emsdk_toolchain
+
       - name: Install Emscripten toolchain
-        run: |
-          git clone https://github.com/emscripten-core/emsdk.git emsdk
-          ./emsdk/emsdk install "$(cat emscripten-toolchain)"
-          ./emsdk/emsdk activate "$(cat emscripten-toolchain)"
+        uses: mymindstorm/setup-emsdk@v2
+        with:
+          version: ${{ steps.emsdk_toolchain.outputs.version }}
+
+      - name: Verify emcc version
+        run: emcc -v
 
       - name: Install Nodejs toolchain
         run: npm ci
 
       - name: Compile
-        run: |
-          . ./emsdk/emsdk_env.sh
-          cargo build --target wasm32-unknown-emscripten --release --verbose
+        run: cargo build --target wasm32-unknown-emscripten --release --verbose
+        env:
+          RUSTFLAGS: "-C link-arg=-s -C link-arg=MODULARIZE=1"
 
       - name: Webpack build
         run: npx webpack --mode production
