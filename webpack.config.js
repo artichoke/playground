@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
     context: path.resolve(__dirname, "src"),
     resolve: {
       alias: {
+        assets: path.resolve(__dirname, "assets"),
         rust: path.resolve(
           __dirname,
           `target/wasm32-unknown-emscripten/${target}`
@@ -69,42 +70,30 @@ module.exports = (env, argv) => {
           use: [cssLoader, "css-loader"],
         },
         {
-          test: /(logo|playground)\.png$/,
+          test: new RegExp(path.resolve(__dirname, "assets")),
           use: [
             {
               loader: "file-loader",
               options: {
                 name: "[name].[ext]",
               },
-            },
-            {
-              loader: "image-webpack-loader",
             },
           ],
         },
         {
           test: /\.(jpe?g|png|gif)$/,
-          exclude: /(logo|playground)\.png$/,
-          use: ["url-loader", "image-webpack-loader"],
-        },
-        {
-          test: /@artichoke\/logo\/logo\.svg/,
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[name].[ext]",
-              },
+          exclude: new RegExp(path.resolve(__dirname, "assets")),
+          use: {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
             },
-            {
-              loader: "svgo-loader",
-            },
-          ],
+          },
         },
         {
           test: /\.svg$/,
-          exclude: /@artichoke\/logo\/logo\.svg/,
-          use: ["svg-url-loader", "svgo-loader"],
+          exclude: new RegExp(path.resolve(__dirname, "assets")),
+          use: ["file-loader", "svgo-loader"],
         },
         {
           test: /\.rb$/,
