@@ -31,7 +31,7 @@ development server with:
 ```sh
 rustup target add wasm32-unknown-emscripten
 . scripts/install-emscripten-toolchain.sh
-cargo build --target wasm32-unknown-emscripten --release
+npm build
 npm run dev:open
 ```
 

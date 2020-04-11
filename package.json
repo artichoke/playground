@@ -86,6 +86,7 @@
     }
   },
   "scripts": {
+    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1' cargo build --target wasm32-unknown-emscripten --release",
     "dev": "npx webpack-dev-server --mode production",
     "dev:open": "npx webpack-dev-server --mode production --open",
     "fmt": "npx prettier --write '**/*'",

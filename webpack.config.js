@@ -51,21 +51,17 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "target/dist"),
       publicPath: "/",
     },
+    node: {
+      fs: "empty",
+    },
     module: {
       rules: [
         {
           test: /\.jsx?$/,
-          exclude: /(node_modules|wasm32)/,
+          exclude: /node_modules/,
           use: {
             loader: "babel-loader",
           },
-        },
-        {
-          test: path.resolve(
-            __dirname,
-            `target/wasm32-unknown-emscripten/${target}/playground.js`
-          ),
-          use: ["uglify-loader", "script-loader"],
         },
         {
           test: /\.css$/,
@@ -73,14 +69,12 @@ module.exports = (env, argv) => {
         },
         {
           test: new RegExp(path.resolve(__dirname, "assets")),
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[name].[ext]",
-              },
+          use: {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
             },
-          ],
+          },
         },
         {
           test: /\.(jpe?g|png|gif)$/,
@@ -104,14 +98,12 @@ module.exports = (env, argv) => {
         {
           test: /\.wasm$/,
           type: "javascript/auto",
-          use: [
-            {
-              loader: "file-loader",
-              options: {
-                name: "[name].[ext]",
-              },
+          use: {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
             },
-          ],
+          },
         },
       ],
     },
