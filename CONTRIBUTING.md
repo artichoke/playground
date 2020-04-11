@@ -144,7 +144,8 @@ To lint Ruby sources, the playground uses
 
 ### Node.js
 
-Node.js is required for bundling the webapp with webpack and testing in development.
+Node.js is required for bundling the webapp with webpack and testing in
+development.
 
 Node.js is also required for formatting if modifying the following filetypes:
 
