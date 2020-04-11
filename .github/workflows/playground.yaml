@@ -44,13 +44,8 @@ jobs:
           ./emsdk/emsdk install "$(cat emscripten-toolchain)"
           ./emsdk/emsdk activate "$(cat emscripten-toolchain)"
 
-      - name: Install Node toolchain
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-
       - name: Install Nodejs toolchain
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Compile
         run: |
@@ -58,7 +53,7 @@ jobs:
           cargo build --target wasm32-unknown-emscripten --release --verbose
 
       - name: Webpack build
-        run: yarn webpack --mode production
+        run: npx webpack --mode production
 
       - name: Deploy Docs
         uses: peaceiris/actions-gh-pages@v3
