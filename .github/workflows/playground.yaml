@@ -39,7 +39,7 @@ jobs:
         run: sudo apt install bison
 
       - name: Set emsdk version
-        run: echo "##[set-output name=version;]$(cat emscripten-toolchain)"
+        run: echo "::set-output name=version::$(cat emscripten-toolchain)"
         id: emsdk_toolchain
 
       - name: Install Emscripten toolchain
