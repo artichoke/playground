@@ -59,34 +59,35 @@ if (urlParams.has("embed")) {
     );
 }
 
-const heap = (artichoke, state) => {
+const interp = (mod) => {
+  const state = mod._artichoke_web_repl_init();
   return {
     read(ptr) {
-      const len = artichoke._artichoke_string_getlen(state, ptr);
+      const len = mod._artichoke_string_getlen(state, ptr);
       const bytes = [];
       for (let idx = 0; idx < len; idx += 1) {
-        const byte = artichoke._artichoke_string_getch(state, ptr, idx);
+        const byte = mod._artichoke_string_getch(state, ptr, idx);
         bytes.push(byte);
       }
       return new TextDecoder().decode(new Uint8Array(bytes));
     },
     write(s) {
-      const ptr = artichoke._artichoke_string_new(state);
+      const ptr = mod._artichoke_string_new(state);
       const bytes = new TextEncoder().encode(s);
       for (let idx = 0; idx < bytes.length; idx += 1) {
         const byte = bytes[idx];
-        artichoke._artichoke_string_putch(state, ptr, byte);
+        mod._artichoke_string_putch(state, ptr, byte);
       }
       return ptr;
     },
     evalRuby(source) {
       const code = this.write(source);
-      const output = artichoke._artichoke_eval(state, code);
+      const output = mod._artichoke_eval(state, code);
       const result = this.read(output);
-      artichoke._artichoke_string_free(state, code);
-      artichoke._artichoke_string_free(state, output);
+      mod._artichoke_string_free(state, code);
+      mod._artichoke_string_free(state, output);
       return result;
-    }
+    },
   };
 };
 
@@ -97,8 +98,10 @@ const playgroundRun = (state) => () => {
   document.getElementById("output").innerText = output;
 };
 
-Module().then((artichoke) => {
-  const state = heap(artichoke, artichoke._artichoke_web_repl_init());
-  document.getElementById("artichoke-build-info").innerText = state.read(0);
-  document.getElementById("run").addEventListener("click", playgroundRun(state));
+Module().then((mod) => {
+  const artichoke = interp(mod);
+  document.getElementById("artichoke-build-info").innerText = artichoke.read(0);
+  document
+    .getElementById("run")
+    .addEventListener("click", playgroundRun(artichoke));
 });
