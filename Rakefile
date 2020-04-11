@@ -25,6 +25,6 @@ namespace :lint do
 
   desc 'Install linting dependencies'
   task :deps do
-    sh 'yarn install --frozen-lockfile'
+    sh 'npm ci'
   end
 end

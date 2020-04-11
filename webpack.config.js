@@ -1,7 +1,6 @@
 const path = require("path");
 const CnameWebpackPlugin = require("cname-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -22,7 +21,6 @@ const plugins = [
       useShortDoctype: true,
     },
   }),
-  new HtmlWebpackInlineSourcePlugin(),
   new CnameWebpackPlugin({
     domain: "artichoke.run",
   }),

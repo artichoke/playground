@@ -25,7 +25,7 @@ If you'd like to engage in a discussion outside of GitHub, you can
 
 The Artichoke Playground includes Rust, Ruby, and Text sources. Developing on
 the Artichoke Playground requires configuring several dependencies, which are
-orchestrated by [Yarn](https://yarnpkg.com/).
+orchestrated by Rake.
 
 ### Rust Toolchain
 
@@ -144,41 +144,36 @@ To lint Ruby sources, the playground uses
 
 ### Node.js
 
-Node.js and Yarn are optional dependencies that are used for formatting text
-sources with [prettier](https://prettier.io/).
+Node.js is required for bundling the webapp with webpack and testing in
+development.
 
-Node.js is only required for formatting if modifying the following filetypes:
+Node.js is also required for formatting if modifying the following filetypes:
 
 - `html`
 - `js`
 - `json`
 - `md`
-- `toml`
 - `yaml`
 - `yml`
 
 You will need to install
-[Node.js](https://nodejs.org/en/download/package-manager/) and
-[Yarn](https://yarnpkg.com/en/docs/install).
+[Node.js](https://nodejs.org/en/download/package-manager/).
 
-On macOS, you can install Node.js and Yarn with
+On macOS, you can install Node.js with
 [Homebrew](https://docs.brew.sh/Installation):
 
 ```sh
-brew install node yarn
+brew install node
 ```
 
 ### Node.js Packages
 
-Once you have Yarn installed, you can install the packages specified in
+Once you have Node.js installed, you can install the packages specified in
 [`package.json`](/package.json) by running:
 
 ```sh
-yarn install
+npm install
 ```
-
-You can check to see that this worked by running `yarn lint` and observing no
-errors.
 
 ## Code Quality
 
@@ -224,20 +219,3 @@ cargo update
 The Artichoke Playground pegs a version of `artichoke-backend` from the main
 Artichoke repository by git hash. To update the version of Artichoke deployed to
 the playground, update this hash in [`Cargo.toml`](/playground/Cargo.toml).
-
-### Node.js Packages
-
-To see what packages are outdated, you can run `yarn outdated`.
-
-To update Node.js package dependencies run the following command and check in
-the updated `yarn.lock` file:
-
-```shell
-yarn upgrade
-```
-
-If after running `yarn upgrade` there are still outdated packages reported by
-`yarn outdated`, there has likely been a major release of a dependency. If you
-would like to update the dependency and deal with any breakage, please do;
-otherwise, please
-[file an issue](https://github.com/artichoke/playground/issues/new).
