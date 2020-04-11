@@ -47,6 +47,9 @@ jobs:
         with:
           version: ${{ steps.emsdk_toolchain.outputs.version }}
 
+      - name: Verify emcc version
+        run: emcc -v
+
       - name: Install Nodejs toolchain
         run: npm ci
 
