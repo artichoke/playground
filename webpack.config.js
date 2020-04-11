@@ -1,4 +1,5 @@
 const path = require("path");
+const CnameWebpackPlugin = require("cname-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -22,6 +23,9 @@ const plugins = [
     },
   }),
   new HtmlWebpackInlineSourcePlugin(),
+  new CnameWebpackPlugin({
+    domain: "artichoke.run",
+  }),
 ];
 
 module.exports = (env, argv) => {

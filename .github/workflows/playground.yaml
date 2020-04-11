@@ -60,9 +60,6 @@ jobs:
       - name: Webpack build
         run: yarn webpack --mode production
 
-      - name: Copy static content
-        run: cp assets/* target/dist
-
       - name: Deploy Docs
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
