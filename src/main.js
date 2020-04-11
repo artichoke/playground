@@ -1,14 +1,31 @@
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import ace from "ace-builds";
 import "ace-builds/src-noconflict/mode-ruby";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/webpack-resolver";
-import "./logo.png";
-import "./playground.png";
+
+// Favicons
+import "assets/favicons/android-chrome-192x192.png";
+import "assets/favicons/android-chrome-512x512.png";
+import "assets/favicons/apple-touch-icon.png";
+import "assets/favicons/browserconfig.xml";
+import "assets/favicons/favicon-16x16.png";
+import "assets/favicons/favicon-32x32.png";
+import "assets/favicons/favicon.ico";
+import "assets/favicons/mstile-150x150.png";
+import "assets/favicons/safari-pinned-tab.svg";
+import "assets/favicons/site.webmanifest";
+
+// OpenGraph icons
+import "assets/artichoke-logo.png";
+import "assets/artichoke-logo.svg";
+
+// Exported images
+import "assets/playground.png";
+
 // eslint-disable-next-line import/extensions
 import "rust/playground.js";
 import "rust/playground.wasm";
+
 import example from "ruby/delegate_json_regexp.rb";
 
 const editor = ace.edit("editor", {

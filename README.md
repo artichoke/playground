@@ -32,7 +32,7 @@ development server with:
 rustup target add wasm32-unknown-emscripten
 . scripts/install-emscripten-toolchain.sh
 cargo build --target wasm32-unknown-emscripten --release
-yarn serve-wasm
+yarn dev:open
 ```
 
 ## Contributing
