@@ -40,7 +40,9 @@ module.exports = (env, argv) => {
         assets: path.resolve(__dirname, "assets"),
         rust: path.resolve(
           __dirname,
-          `target/wasm32-unknown-emscripten/${target}`
+          "target",
+          "wasm32-unknown-emscripten",
+          target
         ),
         ruby: path.resolve(__dirname, "examples"),
       },
