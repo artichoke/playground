@@ -2,24 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-158900370-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "UA-158900370-1");
-    </script>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+
+    <title>Artichoke Ruby Playground</title>
+
+    <!-- opengraph metadata -->
     <meta property="og:title" content="Artichoke Ruby Playground" />
     <meta property="og:site_name" content="artichoke.run" />
     <meta property="og:url" content="https://artichoke.run/" />
@@ -28,8 +18,10 @@
       content="Try Artichoke! The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://artichoke.run/logo.png" />
-    <title>Artichoke Ruby Playground</title>
+    <meta
+      property="og:image"
+      content="https://artichoke.run/artichoke-logo.png"
+    />
 
     <!-- Bootstrap CSS -->
     <link
@@ -38,6 +30,9 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+
+    <%= require('html-loader!./partials/favicons.html') %> <%=
+    require('html-loader!./partials/google-analytics.html') %>
   </head>
   <body>
     <div id="wrapper" class="min-vh-100 vh-100 d-flex flex-column flex-grow">
