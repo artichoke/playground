@@ -107,4 +107,7 @@ jobs:
         run: npx prettier --check '**/*'
 
       - name: Format markdown with prettier
-        run: npx prettier --prose-wrap always --check '**/*.md' '*.md'
+        run: npx prettier --prose-wrap always --check '**/*.md'
+
+      - name: Format YAML with prettier
+        run: npx prettier --prose-wrap always --check '**/*.yaml'
