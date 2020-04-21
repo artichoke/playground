@@ -84,6 +84,6 @@
     "dev:open": "npx webpack-dev-server --mode production --open",
     "fmt": "npx prettier --write '**/*'",
     "fmt:md": "npx prettier --prose-wrap always --write '**/*.md'",
-    "fmt:yaml": "npx prettier --prose-wrap always --write '**/*.yaml'"
+    "fmt:yaml": "npx prettier --prose-wrap always --write '**/*.{yaml,yml}'"
   }
 }
