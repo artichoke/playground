@@ -14,9 +14,9 @@ namespace :lint do
   desc 'Format sources'
   task format: :deps do
     sh 'cargo fmt -- --color=auto'
-    sh "npm run fmt"
-    sh "npm run fmt:md"
-    sh "npm run fmt:yaml"
+    sh 'npm run fmt'
+    sh 'npm run fmt:md'
+    sh 'npm run fmt:yaml'
   end
 
   desc 'Run eslint'
