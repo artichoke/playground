@@ -28,9 +28,9 @@ jobs:
           components: rustfmt, clippy
 
       - name: Install Ruby toolchain
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.6"
+          ruby-version: ".ruby-version"
 
       - name: Install Clang
         run: sudo apt install clang
@@ -57,12 +57,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Ruby toolchain
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.6"
-
-      - name: Install bundler
-        run: gem install bundler
+          ruby-version: ".ruby-version"
 
       - name: Install gems
         run: bundle install

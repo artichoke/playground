@@ -28,9 +28,9 @@ jobs:
           override: true
 
       - name: Install Ruby toolchain
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.6"
+          ruby-version: ".ruby-version"
 
       - name: Install Clang
         run: sudo apt install clang
@@ -56,7 +56,7 @@ jobs:
       - name: Compile
         run: cargo build --target wasm32-unknown-emscripten --release --verbose
         env:
-          RUSTFLAGS: "-C link-arg=-s -C link-arg=MODULARIZE=1"
+          RUSTFLAGS: "-D warnings -C link-arg=-s -C link-arg=MODULARIZE=1"
 
       - name: Webpack build
         run: npx webpack --mode production
