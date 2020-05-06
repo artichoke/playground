@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-env": "^7.9.6",
     "babel-loader": "^8.0.6",
     "cname-webpack-plugin": "^2.0.1",
     "css-loader": "^3.1.0",
