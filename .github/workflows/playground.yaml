@@ -9,7 +9,7 @@ on:
   schedule:
     - cron: "0 0 * * TUE"
 jobs:
-  wasm:
+  build:
     name: Build Playground
     runs-on: ubuntu-latest
     env:
@@ -20,6 +20,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Set toolchain versions
+        run: |
+          echo "::set-output name=rust::$(cat rust-toolchain)"
+          echo "::set-output name=emscripten::$(cat emscripten-toolchain)"
+        id: toolchain_versions
+
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -27,25 +33,45 @@ jobs:
           profile: minimal
           override: true
 
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: cargo-registry-${{ runner.os }}-rust-${{ steps.toolchain_versions.outputs.rust }}-${{ hashFiles('**/Cargo.toml') }}
+
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: cargo-index-${{ runner.os }}-rust-${{ steps.toolchain_versions.outputs.rust }}-${{ hashFiles('**/Cargo.toml') }}
+
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: cargo-build-target-${{ runner.os }}-rust-${{ steps.toolchain_versions.outputs.rust }}-${{ hashFiles('**/Cargo.toml') }}
+
       - name: Install Ruby toolchain
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ".ruby-version"
 
-      - name: Install Clang
-        run: sudo apt install clang
-
       - name: Install Bison
-        run: sudo apt install bison
+        run: sudo apt-get install bison
 
-      - name: Set emsdk version
-        run: echo "::set-output name=version::$(cat emscripten-toolchain)"
-        id: emsdk_toolchain
+      - name: Cache emsdk
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: "emsdk-cache"
+          key: emscripten-emsdk-${{ runner.os }}-emsdk-${{ steps.toolchain_versions.outputs.emscripten }}
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v2
+        uses: mymindstorm/setup-emsdk@v4
         with:
-          version: ${{ steps.emsdk_toolchain.outputs.version }}
+          version: ${{ steps.toolchain_versions.outputs.emscripten }}
+          actions-cache-folder: "emsdk-cache"
+          no-cache: true
 
       - name: Verify emcc version
         run: emcc -v
@@ -61,7 +87,7 @@ jobs:
       - name: Webpack build
         run: npx webpack --mode production
 
-      - name: Deploy Docs
+      - name: Deploy Playground
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/master'
         with:
