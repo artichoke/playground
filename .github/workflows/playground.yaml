@@ -56,11 +56,8 @@ jobs:
         with:
           ruby-version: ".ruby-version"
 
-      - name: Install Clang
-        run: sudo apt install clang
-
       - name: Install Bison
-        run: sudo apt install bison
+        run: sudo apt-get install bison
 
       - name: Cache emsdk
         uses: actions/cache@v1

@@ -30,11 +30,8 @@ jobs:
         with:
           ruby-version: ".ruby-version"
 
-      - name: Install Clang
-        run: sudo apt install clang
-
       - name: Install Bison
-        run: sudo apt install bison
+        run: sudo apt-get install bison
 
       - name: Check formatting
         run: cargo fmt -- --check --color=auto
