@@ -27,7 +27,7 @@
     "babel-loader": "^8.0.6",
     "cname-webpack-plugin": "^2.0.1",
     "css-loader": "^3.5.3",
-    "eslint": "^6.1.0",
+    "eslint": "^7.1.0",
     "eslint-import-resolver-webpack": "^0.12.0",
     "eslint-plugin-html": "^6.0.2",
     "eslint-plugin-import": "^2.18.2",
