@@ -19,7 +19,7 @@
   ],
   "repository": "github:artichoke/playground",
   "dependencies": {
-    "ace-builds": "^1.4.11"
+    "ace-builds": "^1.4.12"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
