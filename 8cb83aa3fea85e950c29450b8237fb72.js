@@ -1,14 +1,1 @@
-ace.define("ace/snippets/fsl",["require","exports","module"], function(require, exports, module) {
-"use strict";
-
-exports.snippetText =undefined;
-exports.scope = "";
-
-});                (function() {
-                    ace.require(["ace/snippets/fsl"], function(m) {
-                        if (typeof module == "object" && typeof exports == "object" && module) {
-                            module.exports = m;
-                        }
-                    });
-                })();
-            
+ace.define("ace/snippets/fsl",["require","exports","module"],(function(e,o,t){"use strict";o.snippetText=void 0,o.scope=""})),ace.require(["ace/snippets/fsl"],(function(e){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=e)}));

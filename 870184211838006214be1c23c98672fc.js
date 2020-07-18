@@ -1,17 +1,1 @@
-ace.define("ace/snippets/razor",["require","exports","module"], function(require, exports, module) {
-"use strict";
-
-exports.snippetText = "snippet if\n\
-(${1} == ${2}) {\n\
-	${3}\n\
-}";
-exports.scope = "razor";
-
-});                (function() {
-                    ace.require(["ace/snippets/razor"], function(m) {
-                        if (typeof module == "object" && typeof exports == "object" && module) {
-                            module.exports = m;
-                        }
-                    });
-                })();
-            
+ace.define("ace/snippets/razor",["require","exports","module"],(function(e,o,t){"use strict";o.snippetText="snippet if\n(${1} == ${2}) {\n\t${3}\n}",o.scope="razor"})),ace.require(["ace/snippets/razor"],(function(e){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=e)}));
