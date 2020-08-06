@@ -2,7 +2,6 @@
 #![warn(clippy::pedantic)]
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::cast_possible_truncation)]
-#![warn(clippy::cargo)]
 #![allow(unknown_lints)]
 // #![warn(missing_docs, broken_intra_doc_links)]
 #![warn(missing_debug_implementations)]
