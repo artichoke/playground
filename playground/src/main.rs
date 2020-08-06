@@ -1,8 +1,15 @@
-#![deny(intra_doc_link_resolution_failure)]
-#![deny(clippy::all)]
-#![deny(clippy::pedantic)]
+#![warn(clippy::all)]
+#![warn(clippy::pedantic)]
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::cast_possible_truncation)]
+#![allow(unknown_lints)]
+// #![warn(missing_docs, broken_intra_doc_links)]
+#![warn(missing_debug_implementations)]
+#![warn(missing_copy_implementations)]
+#![warn(rust_2018_idioms)]
+#![warn(trivial_casts, trivial_numeric_casts)]
+#![warn(unused_qualifications)]
+#![warn(variant_size_differences)]
 
 #[macro_use]
 extern crate artichoke_backend;
