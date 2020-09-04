@@ -1,0 +1,12 @@
+---
+extends: default
+
+ignore: |
+  **/emsdk/**/*
+  **/node_modules/**/*
+  **/vendor/**
+  **/target/**/*
+
+rules:
+  comments: disable
+  line-length: disable
