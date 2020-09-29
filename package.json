@@ -28,7 +28,7 @@
     "cname-webpack-plugin": "^2.0.1",
     "css-loader": "^4.3.0",
     "eslint": "^7.9.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-import": "^2.22.0",
     "file-loader": "^6.1.0",
