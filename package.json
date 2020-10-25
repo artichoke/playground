@@ -54,25 +54,13 @@
       "es6": true,
       "node": true
     },
-    "plugins": [
-      "html",
-      "import"
-    ],
     "parserOptions": {
       "ecmaVersion": 8,
       "sourceType": "module"
     },
     "extends": [
-      "eslint:recommended",
-      "plugin:import/errors",
-      "plugin:import/warnings"
-    ],
-    "settings": {
-      "import/resolver": {
-        "node": {},
-        "webpack": {}
-      }
-    }
+      "eslint:recommended"
+    ]
   },
   "scripts": {
     "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1' cargo build --target wasm32-unknown-emscripten --release",
