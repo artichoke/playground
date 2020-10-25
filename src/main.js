@@ -22,7 +22,6 @@ import "assets/artichoke-logo.svg";
 // Exported images
 import "assets/playground.png";
 
-// eslint-disable-next-line import/extensions
 import Module from "rust/playground.js";
 import "rust/playground.wasm";
 
