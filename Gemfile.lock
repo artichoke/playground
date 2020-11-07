@@ -29,9 +29,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake
-  rubocop
-  rubocop-rake
+  rake (>= 12.3.3)
+  rubocop (~> 1.2)
+  rubocop-rake (~> 0.5)
 
 BUNDLED WITH
    2.0.2
