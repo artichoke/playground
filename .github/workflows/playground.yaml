@@ -57,9 +57,6 @@ jobs:
         with:
           ruby-version: ".ruby-version"
 
-      - name: Install Bison
-        run: sudo apt-get install bison
-
       - name: Cache emsdk
         uses: actions/cache@v2
         id: cache

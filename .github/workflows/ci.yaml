@@ -31,9 +31,6 @@ jobs:
         with:
           ruby-version: ".ruby-version"
 
-      - name: Install Bison
-        run: sudo apt-get install bison
-
       - name: Check formatting
         run: cargo fmt -- --check --color=auto
 
