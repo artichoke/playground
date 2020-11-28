@@ -27,11 +27,18 @@ const plugins = [
 ];
 
 module.exports = (env, argv) => {
-  let target = "release";
+  let target = "debug";
   let cssLoader = "style-loader";
+  let optimization = {
+    minimize: false,
+  };
   if (argv.mode === "production") {
     target = "release";
     cssLoader = MiniCssExtractPlugin.loader;
+    optimization = {
+      minimize: true,
+      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+    };
   }
   return {
     context: path.resolve(__dirname, "src"),
@@ -110,9 +117,6 @@ module.exports = (env, argv) => {
       ],
     },
     plugins,
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
-    },
+    optimization,
   };
 };
