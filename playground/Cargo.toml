@@ -5,15 +5,16 @@ authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
 edition = "2018"
 
 [dependencies]
-onig_sys = "= 69.2.0"
-stdweb = "0.4.20"
+bstr = { version = "0.2", default-features = false }
 
-[dependencies.artichoke-backend]
-git = "https://github.com/artichoke/artichoke"
-rev = "d315ba34725d2aaf31f65bdca1d95d1996c6e4c5"
+[dependencies.artichoke]
+git = "https://github.com/artichoke/artichoke.git"
+rev = "87b25941224b098f4f0daed7443116acb3972223"
 default-features = false
-features = ["artichoke-array", "artichoke-random"]
-
-[dependencies.artichoke-core]
-git = "https://github.com/artichoke/artichoke"
-rev = "d315ba34725d2aaf31f65bdca1d95d1996c6e4c5"
+features = [
+  "core-env",
+  "core-math-full",
+  "core-random",
+  "output-strategy-capture",
+  "stdlib-securerandom"
+]
