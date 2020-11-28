@@ -25,7 +25,7 @@ import "assets/playground.png";
 import Module from "rust/playground.js";
 import "rust/playground.wasm";
 
-import example from "ruby/delegate_json_regexp.rb";
+import example from "ruby/forwardable_regexp_io.rb";
 
 const editor = ace.edit("editor", {
   mode: "ace/mode/ruby",
