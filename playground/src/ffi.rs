@@ -1,12 +1,24 @@
-use std::mem;
+use std::mem::ManuallyDrop;
 
-use crate::interpreter::{Interp, State};
+use crate::interpreter::Interp;
+use crate::string::Heap;
+
+/// String heap for marshalling data between Rust and JavaScript.
+#[derive(Default, Debug, Clone)]
+pub struct State {
+    pub heap: Heap,
+}
 
 #[no_mangle]
 #[must_use]
 pub fn artichoke_web_repl_init() -> u32 {
     let mut state = Box::new(State::default());
-    let build = Interp::build_meta();
+    let build = match Interp::new() {
+        Ok(mut interp) => interp
+            .metadata()
+            .unwrap_or_else(|| String::from("Could not extract interpreter metadata")),
+        Err(err) => err.to_string(),
+    };
     println!("{}", build);
     state.heap.allocate(build);
     Box::into_raw(state) as u32
@@ -18,10 +30,9 @@ pub fn artichoke_string_new(state: u32) -> u32 {
     if state == 0 {
         panic!("null pointer");
     }
-    let mut state = unsafe { Box::from_raw(state as *mut State) };
-    let s = state.heap.allocate("".to_owned());
-    mem::forget(state);
-    s
+    let state = unsafe { Box::from_raw(state as *mut State) };
+    let mut state = ManuallyDrop::new(state);
+    state.heap.allocate(String::new())
 }
 
 #[no_mangle]
@@ -29,9 +40,9 @@ pub fn artichoke_string_free(state: u32, ptr: u32) {
     if state == 0 {
         panic!("null pointer");
     }
-    let mut state = unsafe { Box::from_raw(state as *mut State) };
+    let state = unsafe { Box::from_raw(state as *mut State) };
+    let mut state = ManuallyDrop::new(state);
     state.heap.free(ptr);
-    mem::forget(state);
 }
 
 #[no_mangle]
@@ -41,9 +52,8 @@ pub fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
         panic!("null pointer");
     }
     let state = unsafe { Box::from_raw(state as *mut State) };
-    let len = state.heap.string_getlen(ptr);
-    mem::forget(state);
-    len
+    let state = ManuallyDrop::new(state);
+    state.heap.string_getlen(ptr)
 }
 
 #[no_mangle]
@@ -53,9 +63,8 @@ pub fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
         panic!("null pointer");
     }
     let state = unsafe { Box::from_raw(state as *mut State) };
-    let ch = state.heap.string_getch(ptr, idx);
-    mem::forget(state);
-    ch
+    let state = ManuallyDrop::new(state);
+    state.heap.string_getch(ptr, idx)
 }
 
 #[no_mangle]
@@ -63,9 +72,9 @@ pub fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
     if state == 0 {
         panic!("null pointer");
     }
-    let mut state = unsafe { Box::from_raw(state as *mut State) };
+    let state = unsafe { Box::from_raw(state as *mut State) };
+    let mut state = ManuallyDrop::new(state);
     state.heap.string_putch(ptr, ch);
-    mem::forget(state);
 }
 
 #[no_mangle]
@@ -74,13 +83,16 @@ pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
     if state == 0 {
         panic!("null pointer");
     }
-    let mut state = unsafe { Box::from_raw(state as *mut State) };
+    let state = unsafe { Box::from_raw(state as *mut State) };
+    let mut state = ManuallyDrop::new(state);
     let code = state.heap.string(ptr);
-    let interp = Interp::new();
-    let result = interp.eval(code);
-    let output = interp.captured_output();
-    let result = format!("{}{}", output, result);
-    let s = state.heap.allocate(result);
-    mem::forget(state);
-    s
+
+    let out = match Interp::new() {
+        Ok(mut interp) => interp
+            .eval_to_report(code)
+            .unwrap_or_else(|| String::from("Fatal error")),
+        Err(err) => err.to_string(),
+    };
+
+    state.heap.allocate(out)
 }
