@@ -63,9 +63,12 @@
     ]
   },
   "scripts": {
-    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1' cargo build --target wasm32-unknown-emscripten --release",
-    "dev": "npx webpack-dev-server --mode production",
-    "dev:open": "npx webpack-dev-server --mode production --open",
+    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten",
+    "build:release": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten --release",
+    "dev": "npx webpack-dev-server --mode development",
+    "dev:open": "npx webpack-dev-server --mode development --open",
+    "dev:production": "npx webpack-dev-server --mode production",
+    "dev:production:open": "npx webpack-dev-server --mode production --open",
     "fmt": "npx prettier --write '**/*'",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix ."

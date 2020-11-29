@@ -14,14 +14,19 @@
 #![warn(unused_qualifications)]
 #![warn(variant_size_differences)]
 
-#[cfg(target_os = "emscripten")]
-fn main() {
-    playground::emscripten::set_main_loop_callback(|| {});
-}
+pub mod emscripten;
+pub mod ffi;
+pub mod interpreter;
+pub mod meta;
+pub mod string;
 
-#[cfg(not(target_os = "emscripten"))]
-fn main() {
-    eprintln!("The playground only supports the wasm32-unknown-emscripten target");
-    eprintln!("See the `build` script in `package.json` for a build recipe.");
-    std::process::exit(1);
+const REPL_FILENAME: &[u8] = b"(playground)";
+
+#[cfg(test)]
+mod filename_test {
+    #[test]
+    fn repl_filename_does_not_contain_nul_byte() {
+        let contains_nul_byte = super::REPL_FILENAME.iter().copied().any(|b| b == b'\0');
+        assert!(!contains_nul_byte);
+    }
 }

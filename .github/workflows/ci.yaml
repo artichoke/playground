@@ -10,6 +10,30 @@ name: CI
   schedule:
     - cron: "0 0 * * TUE"
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
+      RUST_BACKTRACE: 1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+
+      - name: Compile
+        run: cargo build --workspace --verbose
+
+      - name: Compile tests
+        run: cargo test --workspace --no-run
+
+      - name: Test
+        run: cargo test --workspace
+
   rust:
     name: Lint and format Rust
     runs-on: ubuntu-latest
