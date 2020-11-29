@@ -1,11 +1,13 @@
 const path = require("path");
 const CnameWebpackPlugin = require("cname-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const plugins = [
+  new MonacoWebpackPlugin({ languages: ["ruby"] }),
   new MiniCssExtractPlugin({
     filename: "[hash].css",
     chunkFilename: "[id].css",
@@ -75,6 +77,10 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [cssLoader, "css-loader"],
+        },
+        {
+          test: /\.ttf$/,
+          use: "file-loader",
         },
         {
           test: new RegExp(path.resolve(__dirname, "assets")),

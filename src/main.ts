@@ -1,3 +1,6 @@
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import * as monaco from "monaco-editor";
 
 // Favicons
@@ -163,7 +166,9 @@ Module().then((mod) => {
   editor.addAction({
     id: "artichoke-playground-run-ruby",
     label: "Run Ruby source code",
-    keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
+    keybindings: [
+      monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8,
+    ],
     precondition: null,
     keybindingContext: null,
     contextMenuGroupId: "2_playground_eval",
