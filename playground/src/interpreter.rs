@@ -82,6 +82,14 @@ where
 pub struct Interp(Option<Artichoke>);
 
 impl Interp {
+    /// Construct a new Artichoke interpreter.
+    ///
+    /// # Errors
+    ///
+    /// If the interpreter fails to initialize, an error is returned. See
+    /// [`artichoke::interpreter`].
+    ///
+    /// If this method fails to set the context filename, an error is returned.
     pub fn new() -> Result<Self, Error> {
         let mut interp = artichoke::interpreter()?;
         interp.push_context(unsafe { Context::new_unchecked(crate::REPL_FILENAME) })?;

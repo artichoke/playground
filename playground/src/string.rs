@@ -18,10 +18,12 @@ impl Heap {
         self.memory.remove(&ptr);
     }
 
+    #[must_use]
     pub fn string(&self, ptr: u32) -> &[u8] {
         self.memory.get(&ptr).map(Vec::as_slice).unwrap_or_default()
     }
 
+    #[must_use]
     pub fn string_getlen(&self, ptr: u32) -> u32 {
         if let Some(s) = self.memory.get(&ptr) {
             s.len() as u32
@@ -30,6 +32,7 @@ impl Heap {
         }
     }
 
+    #[must_use]
     pub fn string_getch(&self, ptr: u32, idx: u32) -> u8 {
         if let Some(s) = self.memory.get(&ptr) {
             s[idx as usize]
