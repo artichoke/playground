@@ -79,7 +79,7 @@ jobs:
       - name: Compile
         run: cargo build --target wasm32-unknown-emscripten --release --verbose
         env:
-          RUSTFLAGS: "-D warnings -C link-arg=-s -C link-arg=MODULARIZE=1"
+          RUSTFLAGS: "-D warnings -C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1"
 
       - name: Webpack build
         run: npx webpack --mode production
