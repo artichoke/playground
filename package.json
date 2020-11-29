@@ -19,7 +19,6 @@
   ],
   "repository": "github:artichoke/playground",
   "dependencies": {
-    "ace-builds": "^1.4.12",
     "monaco-editor": "^0.21.2"
   },
   "devDependencies": {
