@@ -22,10 +22,10 @@ import "assets/artichoke-logo.svg";
 // Exported images
 import "assets/playground.png";
 
-import Module from "rust/playground.js";
-import "rust/playground.wasm";
+import * as Module from "./wasm/playground.js";
+import "./wasm/playground.wasm";
 
-import example from "ruby/forwardable_regexp_io.rb";
+import example from "./examples/forwardable_regexp_io.rb";
 
 // The playground serializes the content of the code editor into the URL
 // location hash to allow for sharing and deep linking, similar to
@@ -41,9 +41,11 @@ if (window.location.hash.length === 0) {
   sourceCode = decodeURIComponent(window.location.hash).slice(1);
 }
 
+const editorElement = document.getElementById("editor")!;
+
 // Source code editor for the Ruby program to be eval'd on an Artichoke
 // interpreter.
-const editor = monaco.editor.create(document.getElementById("editor"), {
+const editor = monaco.editor.create(editorElement, {
   value: sourceCode,
   language: "ruby",
   theme: "vs-dark",
@@ -53,20 +55,23 @@ const editor = monaco.editor.create(document.getElementById("editor"), {
 
 // When the editor reports the source code content inside it has changed,
 // update the deep-linked location hash to include this new program.
-editor.getModel().onDidChangeContent(() => {
-  const lines = editor.getModel().getLinesContent();
+const editorModel = editor.getModel();
+editorModel!.onDidChangeContent(() => {
+  const lines = editorModel!.getLinesContent();
   const content = lines.join("\n");
   const encoded = encodeURIComponent(content);
   // Don't break the back button.
   //
   // All edits to source code result in no additional browser history states.
-  history.replaceState(undefined, undefined, `#${encoded}`);
+  history.replaceState(undefined, "", `#${encoded}`);
 });
+
+const outputElement = document.getElementById("output")!;
 
 // Monaco editor for the output buffer. This editor is configured to be
 // read-only and to approximate a tty with no word breaking or other editor
 // features like the minimap.
-const output = monaco.editor.create(document.getElementById("output"), {
+const output = monaco.editor.create(outputElement, {
   language: "plaintext",
   theme: "vs-dark",
   fontSize: 14,
@@ -87,55 +92,59 @@ const output = monaco.editor.create(document.getElementById("output"), {
 // Example URL: https://artichoke.run/?embed
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has("embed")) {
-  document
-    .getElementById("embeddable")
-    .setAttribute(
-      "style",
-      "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
-    );
+  const embeddableElement = document.getElementById("embeddable");
+  embeddableElement!.setAttribute(
+    "style",
+    "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
+  );
 }
 
-const interp = (mod) => {
-  const state = mod._artichoke_web_repl_init();
-  return {
-    // Unmarshal a string from the FFI state by retrieving the string contents
-    // one byte at a time.
-    //
-    // Strings are UTF-8 encoded byte vectors.
-    read(ptr) {
-      const len = mod._artichoke_string_getlen(state, ptr);
-      const bytes = [];
-      for (let idx = 0; idx < len; idx += 1) {
-        const byte = mod._artichoke_string_getch(state, ptr, idx);
-        bytes.push(byte);
-      }
-      return new TextDecoder().decode(new Uint8Array(bytes));
-    },
-    // Marshal a string into the FFI state by allocating and pushing one byte at
-    // a time.
-    //
-    // Strings are UTF-8 encoded byte vectors.
-    write(s) {
-      const ptr = mod._artichoke_string_new(state);
-      const bytes = new TextEncoder().encode(s);
-      for (let idx = 0; idx < bytes.length; idx += 1) {
-        const byte = bytes[idx];
-        mod._artichoke_string_putch(state, ptr, byte);
-      }
-      return ptr;
-    },
-    // Write the source code into the shared Rust/JavaScript string heap and
-    // eval this code on a new Artichoke interpreter via FFI.
-    evalRuby(source) {
-      const code = this.write(source);
-      const output = mod._artichoke_eval(state, code);
-      const result = this.read(output);
-      mod._artichoke_string_free(state, code);
-      mod._artichoke_string_free(state, output);
-      return result;
-    },
+class Interpreter {
+  private state: number;
+
+  constructor(private wasm: Module.Ffi) {
+    this.state = wasm._artichoke_web_repl_init();
+  }
+
+  // Unmarshal a string from the FFI state by retrieving the string contents
+  // one byte at a time.
+  //
+  // Strings are UTF-8 encoded byte vectors.
+  read = (ptr: number): string => {
+    const len: number = this.wasm._artichoke_string_getlen(this.state, ptr);
+    const bytes = [];
+    for (let idx = 0; idx < len; idx += 1) {
+      const byte = this.wasm._artichoke_string_getch(this.state, ptr, idx);
+      bytes.push(byte);
+    }
+    return new TextDecoder().decode(new Uint8Array(bytes));
   };
-};
+
+  // Marshal a string into the FFI state by allocating and pushing one byte at
+  // a time.
+  //
+  // Strings are UTF-8 encoded byte vectors.
+  write = (s: string): number => {
+    const ptr = this.wasm._artichoke_string_new(this.state);
+    const bytes = new TextEncoder().encode(s);
+    for (let idx = 0; idx < bytes.length; idx += 1) {
+      const byte = bytes[idx];
+      this.wasm._artichoke_string_putch(this.state, ptr, byte);
+    }
+    return ptr;
+  };
+
+  // Write the source code into the shared Rust/JavaScript string heap and
+  // eval this code on a new Artichoke interpreter via FFI.
+  evalRuby = (source: string): string => {
+    const code = this.write(source);
+    const output = this.wasm._artichoke_eval(this.state, code);
+    const result = this.read(output);
+    this.wasm._artichoke_string_free(this.state, code);
+    this.wasm._artichoke_string_free(this.state, output);
+    return result;
+  };
+}
 
 // Factory for an event handler that reads the source code int the editor
 // buffer and evals it on an embedded Artichoke Wasm interpreter.
@@ -143,21 +152,24 @@ const interp = (mod) => {
 // The output editor is updated with the contents of the report from the
 // interperter containing stdout, stderr, and the output from calling `inspect`
 // on the returned value.
-const playgroundRun = (state) => () => {
-  const sourceLines = editor.getModel().getLinesContent();
+const playgroundRun = (interp: Interpreter) => (): void => {
+  const sourceLines = editorModel!.getLinesContent();
   const source = sourceLines.join("\n");
-  const result = state.evalRuby(source);
-  output.getModel().setValue(result);
+  const result = interp.evalRuby(source);
+  const outputModel = output.getModel();
+  outputModel!.setValue(result);
 };
 
-Module().then((mod) => {
-  const artichoke = interp(mod);
-  document.getElementById("artichoke-build-info").innerText = artichoke.read(0);
+Module().then((wasm: Module.Ffi): void => {
+  const artichoke = new Interpreter(wasm);
+
+  const buildInfoElement = document.getElementById("artichoke-build-info");
+  buildInfoElement!.innerText = artichoke.read(0);
+
   // When the user clicks the "Run" button, grab the source code from the editor
   // buffer and eval it on an Artichoke Wasm interpreter.
-  document
-    .getElementById("run")
-    .addEventListener("click", playgroundRun(artichoke));
+  const runButton = document.getElementById("run");
+  runButton!.addEventListener("click", playgroundRun(artichoke));
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
   // This action is triggered by Ctrl/Cmd+F8 (play button on a mac keyboard) and
@@ -166,11 +178,7 @@ Module().then((mod) => {
   editor.addAction({
     id: "artichoke-playground-run-ruby",
     label: "Run Ruby source code",
-    keybindings: [
-      monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8,
-    ],
-    precondition: null,
-    keybindingContext: null,
+    keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
     contextMenuGroupId: "2_playground_eval",
     run: playgroundRun(artichoke),
   });

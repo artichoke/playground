@@ -41,6 +41,8 @@
     "svgo": "^1.3.2",
     "svgo-loader": "^2.2.1",
     "terser-webpack-plugin": "^4.2.3",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.1.2",
     "url-loader": "^4.1.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
@@ -64,11 +66,15 @@
     },
     "extends": [
       "eslint:recommended"
+    ],
+    "ignorePatterns": [
+      "**/src/wasm/**/*.js",
+      "**/src/wasm/**/*.wasm"
     ]
   },
   "scripts": {
-    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten",
-    "build:release": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten --release",
+    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten; mv target/wasm32-unknown-emscripten/debug/playground.{js,wasm} src/wasm/",
+    "build:release": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten --release; mv target/wasm32-unknown-emscripten/release/playground.{js,wasm} src/wasm/",
     "dev": "npx webpack-dev-server --mode development",
     "dev:open": "npx webpack-dev-server --mode development --open",
     "dev:production": "npx webpack-dev-server --mode production",
