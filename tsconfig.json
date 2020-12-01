@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "target": "ES6",
+    "module": "ES2015",
+    "lib": ["es2015", "dom"],
+    "baseUrl": "src",
+    "outDir": "./target/dist",
+    "jsx": "react",
+    "moduleResolution": "node"
+  }
+}

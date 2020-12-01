@@ -10,8 +10,12 @@ target/
 !*.js
 !*.json
 !*.md
+!*.ts
 !*.yaml
 !*.yml
+
+dist/
+src/wasm/**/*.js
 
 **/vendor/*
 !**/vendor/*.md

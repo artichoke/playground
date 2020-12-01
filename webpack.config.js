@@ -29,13 +29,11 @@ const plugins = [
 ];
 
 module.exports = (env, argv) => {
-  let target = "debug";
   let cssLoader = "style-loader";
   let optimization = {
     minimize: false,
   };
   if (argv.mode === "production") {
-    target = "release";
     cssLoader = MiniCssExtractPlugin.loader;
     optimization = {
       minimize: true,
@@ -47,16 +45,10 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         assets: path.resolve(__dirname, "assets"),
-        rust: path.resolve(
-          __dirname,
-          "target",
-          "wasm32-unknown-emscripten",
-          target
-        ),
-        ruby: path.resolve(__dirname, "examples"),
       },
+      extensions: [".ts", ".js"],
     },
-    entry: path.resolve(__dirname, "src/main.js"),
+    entry: path.resolve(__dirname, "src/main.ts"),
     output: {
       filename: "[hash].bundle.js",
       path: path.resolve(__dirname, "target/dist"),
@@ -70,9 +62,12 @@ module.exports = (env, argv) => {
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: "babel-loader",
+        },
+        {
+          test: /\.tsx?/,
+          exclude: /node_modules/,
+          use: "ts-loader",
         },
         {
           test: /\.css$/,
@@ -108,7 +103,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.rb$/,
-          use: ["raw-loader"],
+          use: "raw-loader",
         },
         {
           test: /\.wasm$/,
