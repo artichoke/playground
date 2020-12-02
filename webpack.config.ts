@@ -1,9 +1,11 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+import * as path from "path";
+import * as webpack from "webpack";
+
+import HtmlWebPackPlugin from "html-webpack-plugin";
+import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
 
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
@@ -24,12 +26,12 @@ const plugins = [
   }),
 ];
 
-module.exports = (env, argv) => {
+const config: webpack.ConfigurationFactory = (env) => {
   let cssLoader = "style-loader";
-  let optimization = {
+  let optimization: webpack.Options.Optimization = {
     minimize: false,
   };
-  if (argv.mode === "production") {
+  if (env === "production") {
     cssLoader = MiniCssExtractPlugin.loader;
     optimization = {
       minimize: true,
@@ -117,3 +119,5 @@ module.exports = (env, argv) => {
     optimization,
   };
 };
+
+export default config;
