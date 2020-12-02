@@ -95,6 +95,9 @@ jobs:
           touch src/wasm/playground.js
           touch src/wasm/playground.wasm
 
+      - name: Compile with TypeScript
+        run: npx tsc --extendedDiagnostics --listFiles --listEmittedFiles
+
       - name: Lint and check formatting with eslint
         run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
