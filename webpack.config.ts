@@ -16,13 +16,6 @@ const plugins = [
   new HtmlWebPackPlugin({
     template: "index.html",
     filename: "index.html",
-    minify: {
-      collapseWhitespace: true,
-      minifyCSS: true,
-      minifyJS: true,
-      removeComments: true,
-      useShortDoctype: true,
-    },
   }),
 ];
 
