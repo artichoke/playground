@@ -92,7 +92,7 @@
     "dev:production": "npx webpack-dev-server --mode production",
     "dev:production:open": "npx webpack-dev-server --mode production --open",
     "fmt": "npx prettier --write '**/*'",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint --fix ."
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   }
 }
