@@ -22,7 +22,7 @@ import "assets/artichoke-logo.svg";
 // Exported images
 import "assets/playground.png";
 
-import * as Module from "./wasm/playground.js";
+import Module from "./wasm/playground.js";
 import "./wasm/playground.wasm";
 
 import example from "./examples/forwardable_regexp_io.rb";
@@ -41,6 +41,7 @@ if (window.location.hash.length === 0) {
   sourceCode = decodeURIComponent(window.location.hash).slice(1);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const editorElement = document.getElementById("editor")!;
 
 // Source code editor for the Ruby program to be eval'd on an Artichoke
@@ -55,9 +56,8 @@ const editor = monaco.editor.create(editorElement, {
 
 // When the editor reports the source code content inside it has changed,
 // update the deep-linked location hash to include this new program.
-const editorModel = editor.getModel();
-editorModel!.onDidChangeContent(() => {
-  const lines = editorModel!.getLinesContent();
+editor.getModel()?.onDidChangeContent(() => {
+  const lines = editor.getModel()?.getLinesContent() ?? [];
   const content = lines.join("\n");
   const encoded = encodeURIComponent(content);
   // Don't break the back button.
@@ -66,6 +66,7 @@ editorModel!.onDidChangeContent(() => {
   history.replaceState(undefined, "", `#${encoded}`);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const outputElement = document.getElementById("output")!;
 
 // Monaco editor for the output buffer. This editor is configured to be
@@ -93,7 +94,7 @@ const output = monaco.editor.create(outputElement, {
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has("embed")) {
   const embeddableElement = document.getElementById("embeddable");
-  embeddableElement!.setAttribute(
+  embeddableElement?.setAttribute(
     "style",
     "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
   );
@@ -153,23 +154,23 @@ class Interpreter {
 // interperter containing stdout, stderr, and the output from calling `inspect`
 // on the returned value.
 const playgroundRun = (interp: Interpreter) => (): void => {
-  const sourceLines = editorModel!.getLinesContent();
+  const sourceLines = editor.getModel()?.getLinesContent() ?? [];
   const source = sourceLines.join("\n");
   const result = interp.evalRuby(source);
-  const outputModel = output.getModel();
-  outputModel!.setValue(result);
+  output.getModel()?.setValue(result);
 };
 
 Module().then((wasm: Module.Ffi): void => {
   const artichoke = new Interpreter(wasm);
 
-  const buildInfoElement = document.getElementById("artichoke-build-info");
-  buildInfoElement!.innerText = artichoke.read(0);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const buildInfoElement = document.getElementById("artichoke-build-info")!;
+  buildInfoElement.textContent = artichoke.read(0);
 
   // When the user clicks the "Run" button, grab the source code from the editor
   // buffer and eval it on an Artichoke Wasm interpreter.
   const runButton = document.getElementById("run");
-  runButton!.addEventListener("click", playgroundRun(artichoke));
+  runButton?.addEventListener("click", playgroundRun(artichoke));
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
   // This action is triggered by Ctrl/Cmd+F8 (play button on a mac keyboard) and

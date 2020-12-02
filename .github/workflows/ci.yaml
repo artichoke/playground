@@ -80,8 +80,8 @@ jobs:
       - name: Lint and check formatting with Rubocop
         run: bundle exec rubocop --format github
 
-  js:
-    name: Lint and format JS
+  js-ts:
+    name: Lint and format JavaScript and TypeScript
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -95,8 +95,11 @@ jobs:
           touch src/wasm/playground.js
           touch src/wasm/playground.wasm
 
+      - name: Compile with TypeScript
+        run: npx tsc --extendedDiagnostics --listFiles --listEmittedFiles
+
       - name: Lint and check formatting with eslint
-        run: npx eslint .
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
   text:
     name: Lint and format text

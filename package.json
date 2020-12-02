@@ -27,9 +27,18 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
+    "@types/html-webpack-plugin": "^3.2.4",
+    "@types/mini-css-extract-plugin": "^1.2.1",
+    "@types/node": "^14.14.10",
+    "@types/optimize-css-assets-webpack-plugin": "^5.0.1",
+    "@types/terser-webpack-plugin": "^5.0.2",
+    "@types/webpack": "^4.41.25",
+    "@types/webpack-dev-server": "^3.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "babel-loader": "^8.2.2",
-    "cname-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
+    "eslint": "^7.14.0",
     "file-loader": "^6.2.0",
     "html-loader": "^1.3.2",
     "html-webpack-plugin": "^4.5.0",
@@ -42,6 +51,7 @@
     "svgo-loader": "^2.2.1",
     "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^8.0.11",
+    "ts-node": "^9.0.0",
     "typescript": "^4.1.2",
     "url-loader": "^4.1.1",
     "webpack": "^4.44.2",
@@ -54,18 +64,20 @@
     ]
   },
   "eslintConfig": {
+    "root": true,
     "env": {
       "browser": true,
       "commonjs": true,
       "es6": true,
       "node": true
     },
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "module"
-    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
     "extends": [
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
     "ignorePatterns": [
       "**/src/wasm/**/*.js",
@@ -80,7 +92,7 @@
     "dev:production": "npx webpack-dev-server --mode production",
     "dev:production:open": "npx webpack-dev-server --mode production --open",
     "fmt": "npx prettier --write '**/*'",
-    "lint": "npx eslint .",
-    "lint:fix": "npx eslint --fix ."
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   }
 }
