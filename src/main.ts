@@ -22,7 +22,7 @@ import "assets/artichoke-logo.svg";
 // Exported images
 import "assets/playground.png";
 
-import * as Module from "./wasm/playground.js";
+import Module from "./wasm/playground.js";
 import "./wasm/playground.wasm";
 
 import example from "./examples/forwardable_regexp_io.rb";
