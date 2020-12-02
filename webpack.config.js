@@ -1,5 +1,4 @@
 const path = require("path");
-const CnameWebpackPlugin = require("cname-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -22,9 +21,6 @@ const plugins = [
       removeComments: true,
       useShortDoctype: true,
     },
-  }),
-  new CnameWebpackPlugin({
-    domain: "artichoke.run",
   }),
 ];
 
