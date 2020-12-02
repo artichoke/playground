@@ -64,18 +64,20 @@
     ]
   },
   "eslintConfig": {
+    "root": true,
     "env": {
       "browser": true,
       "commonjs": true,
       "es6": true,
       "node": true
     },
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "module"
-    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
     "extends": [
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
     "ignorePatterns": [
       "**/src/wasm/**/*.js",
