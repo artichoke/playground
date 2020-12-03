@@ -19,12 +19,12 @@ const plugins = [
   }),
 ];
 
-const config: webpack.ConfigurationFactory = (env) => {
+const config: webpack.ConfigurationFactory = (_env, argv) => {
   let cssLoader = "style-loader";
   let optimization: webpack.Options.Optimization = {
     minimize: false,
   };
-  if (env === "production") {
+  if (argv.mode === "production") {
     cssLoader = MiniCssExtractPlugin.loader;
     optimization = {
       minimize: true,
