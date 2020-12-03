@@ -39,12 +39,12 @@ const plugins = [
         filename: "index.html",
     }),
 ];
-const config = (env) => {
+const config = (_env, argv) => {
     let cssLoader = "style-loader";
     let optimization = {
         minimize: false,
     };
-    if (env === "production") {
+    if (argv.mode === "production") {
         cssLoader = mini_css_extract_plugin_1.default.loader;
         optimization = {
             minimize: true,
