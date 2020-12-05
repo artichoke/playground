@@ -15,6 +15,11 @@
     "description": "Area: Source and library dependencies."
   },
   {
+    "name": "A-editor",
+    "color": "f7e101",
+    "description": "Area: Source code editor and output buffer."
+  },
+  {
     "name": "A-gems",
     "color": "f7e101",
     "description": "Area: Support for rubygems in the playground."
@@ -43,6 +48,11 @@
     "name": "A-webapp",
     "color": "f7e101",
     "description": "Area: Web frontend for the playground."
+  },
+  {
+    "name": "A-webpack",
+    "color": "f7e101",
+    "description": "Area: Webpack configuration."
   },
   {
     "name": "C-bug",
