@@ -1,25 +1,24 @@
 # Contributing to Artichoke
 
-👋 Hi and welcome to [Artichoke](https://github.com/artichoke). Thanks for
-taking the time to contribute! 💪💎🙌
+👋 Hi and welcome to [Artichoke]. Thanks for taking the time to contribute!
+💪💎🙌
 
-The Artichoke Playground is a WebAssembly frontend to
-[Artichoke Ruby](https://github.com/artichoke/artichoke) that lets you
-experiment with the language in the browser.
-[There is lots to do](https://github.com/artichoke/artichoke/issues).
+The Artichoke Playground is a WebAssembly frontend to [Artichoke Ruby] that lets
+you experiment with the language in the browser. [There is lots to do].
 
 If the Artichoke Playground does not run Ruby source code in the same way that
-MRI does, it is a bug and we would appreciate if you
-[filed an issue so we can fix it](https://github.com/artichoke/playground/issues/new).
+MRI does, it is a bug and we would appreciate if you [filed an issue so we can
+fix it]. [File bugs specific to the Playground in this repository].
 
 If you would like to contribute code 👩‍💻👨‍💻, find an issue that looks interesting
 and leave a comment that you're beginning to investigate. If there is no issue,
-please file one before beginning to work on a PR.
+please file one before beginning to work on a PR. [Good first issues are labeled
+`E-easy`].
 
 ## Discussion
 
-If you'd like to engage in a discussion outside of GitHub, you can
-[join Artichoke's public Discord server](https://discord.gg/QCe2tp2).
+If you'd like to engage in a discussion outside of GitHub, you can [join
+Artichoke's public Discord server].
 
 ## Setup
 
@@ -31,13 +30,12 @@ orchestrated by Rake.
 
 The Artichoke Playground depends on stable Rust and several compiler plugins for
 linting and formatting. The specific version of Rust Artichoke requires is
-specified in the [toolchain file](/rust-toolchain)
+specified in the [toolchain file](rust-toolchain)
 
 #### Installation
 
-The recommended way to install the Rust toolchain is with
-[rustup](https://rustup.rs/). On macOS, you can install rustup with
-[Homebrew](https://docs.brew.sh/Installation):
+The recommended way to install the Rust toolchain is with [rustup]. On macOS,
+you can install rustup with [Homebrew]:
 
 ```sh
 brew install rustup-init
@@ -57,7 +55,7 @@ rustup component add clippy
 
 The playground depends on several Rust libraries. In Rust, a library is called a
 _crate_. Once you have the Rust toolchain installed, you can install the crates
-specified in [`Cargo.lock`](/Cargo.lock) by running:
+specified in [`Cargo.lock`](Cargo.lock) by running:
 
 ```sh
 cargo build
@@ -76,10 +74,9 @@ cargo clippy --all-targets --all-features
 
 #### `cc` Crate
 
-Artichoke and some of its dependencies use the Rust
-[`cc` crate](https://crates.io/crates/cc) to build. `cc` uses a
-[platform-dependent C compiler](https://github.com/alexcrichton/cc-rs#compile-time-requirements)
-to compile C sources. On Unix, `cc` crate uses the `cc` binary.
+Artichoke and some of its dependencies use the Rust [`cc` crate] to build. `cc`
+uses a [platform-dependent C compiler] to compile C sources. On Unix, `cc` crate
+uses the `cc` binary.
 
 #### mruby Backend
 
@@ -96,19 +93,18 @@ environment variables.
 ### Ruby
 
 Artichoke requires a recent Ruby 2.x and [bundler](https://bundler.io/) 2.x. The
-[`.ruby-version`](/.ruby-version) file in the root of Artichoke specifies Ruby
+[`.ruby-version`](.ruby-version) file in the root of Artichoke specifies Ruby
 2.6.3.
 
-If you use [RVM](https://rvm.io/), you can install Ruby dependencies by running:
+If you use [RVM], you can install Ruby dependencies by running:
 
 ```sh
 rvm install "$(cat .ruby-version)"
 gem install bundler
 ```
 
-If you use [rbenv](https://github.com/rbenv/rbenv) and
-[ruby-build](https://github.com/rbenv/ruby-build), you can install Ruby
-dependencies by running:
+If you use [rbenv] and [ruby-build], you can install Ruby dependencies by
+running:
 
 ```sh
 rbenv install "$(cat .ruby-version)"
@@ -116,30 +112,38 @@ gem install bundler
 rbenv rehash
 ```
 
-The [`Gemfile`](/Gemfile) in Artichoke specifies several dev dependencies. You
+The [`Gemfile`](Gemfile) in Artichoke specifies several dev dependencies. You
 can install these dependencies by running:
 
 ```sh
 bundle install
 ```
 
-Artichoke uses [`rake`](/Rakefile) as a task runner. You can see the available
+Artichoke uses [`rake`](Rakefile) as a task runner. You can see the available
 tasks by running:
 
 ```console
 $ bundle exec rake --tasks
-rake doc               # Generate Rust API documentation
-rake doc:open          # Generate Rust API documentation and open it in a web browser
-rake lint:all          # Lint and format
-rake lint:deps         # Install linting dependencies
-rake lint:format       # Format sources
-rake lint:restriction  # Lint with restriction pass (unenforced lints)
-rake lint:rubocop      # Run rubocop
-rake spec              # Run enforced ruby/spec suite
+rake build                        # Build Rust workspace
+rake doc                          # Generate Rust API documentation
+rake doc:open                     # Generate Rust API documentation and open it in a web browser
+rake fmt                          # Format sources
+rake fmt:rust                     # Format Rust sources with rustfmt
+rake fmt:text                     # Format text, YAML, and Markdown sources with prettier
+rake format                       # Format sources
+rake format:rust                  # Format Rust sources with rustfmt
+rake format:text                  # Format text, YAML, and Markdown sources with prettier
+rake lint                         # Lint sources
+rake lint:clippy                  # Lint Rust sources with Clippy
+rake lint:clippy:restriction      # Lint Rust sources with Clippy restriction pass (unenforced lints)
+rake lint:eslint                  # Lint JavaScript and TypeScript sources with eslint
+rake lint:rubocop                 # Run RuboCop
+rake lint:rubocop:auto_correct    # Auto-correct RuboCop offenses
+rake release:markdown_link_check  # Check for broken links in markdown files
+rake test                         # Run Playground unit tests
 ```
 
-To lint Ruby sources, the playground uses
-[RuboCop](https://github.com/rubocop-hq/rubocop). RuboCop runs as part of the
+To lint Ruby sources, the playground uses [RuboCop]. RuboCop runs as part of the
 `lint:all` task. You can run only RuboCop by invoking the `lint:rubocop` task.
 
 ### Node.js
@@ -156,11 +160,9 @@ Node.js is also required for formatting if modifying the following filetypes:
 - `yaml`
 - `yml`
 
-You will need to install
-[Node.js](https://nodejs.org/en/download/package-manager/).
+You will need to install [Node.js].
 
-On macOS, you can install Node.js with
-[Homebrew](https://docs.brew.sh/Installation):
+On macOS, you can install Node.js with [Homebrew]:
 
 ```sh
 brew install node
@@ -169,10 +171,10 @@ brew install node
 ### Node.js Packages
 
 Once you have Node.js installed, you can install the packages specified in
-[`package.json`](/package.json) by running:
+[`package.json`](package.json) by running:
 
 ```sh
-npm install
+npm ci
 ```
 
 ## Code Quality
@@ -193,29 +195,52 @@ Merges will be blocked by CI if there are lint errors.
 ### Rust Toolchain
 
 The rust-toolchain can be bumped to the latest stable compiler by editing the
-[`rust-toolchain`](/rust-toolchain) file. This file is automatically picked up
-by local builds and CI.
+[`rust-toolchain`](rust-toolchain) file. This file is automatically picked up by
+local builds and CI.
 
 ### Rust Crates
 
 Version specifiers in `Cargo.toml` are NPM caret-style by default. A version
 specifier of `4.1.2` means `4.1.2 <= version < 5.0.0`.
 
-To see what crates are outdated, you can use
-[cargo-outdated](https://github.com/kbknapp/cargo-outdated).
+To see what crates are outdated, you can use [cargo-outdated].
 
 If you need to pull in an updated version of a crate for a bugfix or a new
-feature, update the version number in `Cargo.toml`.
+feature, update the version number in `Cargo.toml`. See
+[artichoke/artichoke#548] for an example.
 
-To update Rust crate dependencies run the following command and check in the
-updated `Cargo.lock` file:
-
-```shell
-cargo update
-```
+Regular dependency bumps are handled by [@dependabot].
 
 ### Artichoke
 
 The Artichoke Playground pegs a version of `artichoke-backend` from the main
 Artichoke repository by git hash. To update the version of Artichoke deployed to
-the playground, update this hash in [`Cargo.toml`](/playground/Cargo.toml).
+the playground, update this hash in [`Cargo.toml`](playground/Cargo.toml).
+
+[artichoke]: https://github.com/artichoke
+[artichoke ruby]: https://github.com/artichoke/artichoke
+[there is lots to do]: https://github.com/artichoke/artichoke/issues
+[filed an issue so we can fix it]:
+  https://github.com/artichoke/artichoke/issues/new
+[file bugs specific to the playground in this repository]:
+  https://github.com/artichoke/playground/issues/new
+[good first issues are labeled `e-easy`]:
+  https://github.com/artichoke/playground/labels/E-easy
+[join artichoke's public discord server]: https://discord.gg/QCe2tp2
+[rustup]: https://rustup.rs/
+[homebrew]: https://docs.brew.sh/Installation
+[`cc` crate]: https://crates.io/crates/cc
+[platform-dependent c compiler]:
+  https://github.com/alexcrichton/cc-rs#compile-time-requirements
+[bundler]: https://bundler.io/
+[rvm]: https://rvm.io/
+[rbenv]: https://github.com/rbenv/rbenv
+[ruby-build]: https://github.com/rbenv/ruby-build
+[rubocop]: https://github.com/rubocop-hq/rubocop
+[prettier]: https://prettier.io/
+[node.js]: https://nodejs.org/en/download/package-manager/
+[rust book chapter on testing]:
+  https://doc.rust-lang.org/book/ch11-00-testing.html
+[cargo-outdated]: https://github.com/kbknapp/cargo-outdated
+[artichoke/artichoke#548]: https://github.com/artichoke/artichoke/pull/548
+[@dependabot]: https://dependabot.com/

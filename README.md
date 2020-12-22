@@ -23,7 +23,7 @@ Playground][playground-repo] runs a [WebAssembly] build of
 [Artichoke][artichoke-repo].
 
 If you would prefer to run a local build of the playground, you can
-[set up a Rust toolchain](/CONTRIBUTING.md#rust-toolchain) and a launch local
+[set up a Rust toolchain](CONTRIBUTING.md#rust-toolchain) and a launch local
 development server with:
 
 ```sh
