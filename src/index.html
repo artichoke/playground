@@ -6,13 +6,37 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <meta
+      name="description"
+      content="The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
+    />
+    <meta name="author" content="Ryan Lopopolo" />
 
     <title>Artichoke Ruby Playground</title>
 
-    <!-- opengraph metadata -->
-    <meta property="og:title" content="Artichoke Ruby Playground" />
-    <meta property="og:site_name" content="artichoke.run" />
+    <link rel="canonical" href="https://www.artichoke.run/" />
+
+    <!-- Favicons -->
+    <%= require('html-loader!./partials/favicons.html') %>
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@artichokeruby" />
+    <meta name="twitter:creator" content="@artichokeruby" />
+    <meta name="twitter:title" content="Artichoke Ruby" />
+    <meta
+      name="twitter:description"
+      content="Try Artichoke! The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.artichokeruby.org/artichoke-social-logo.png"
+    />
+
+    <!-- Facebook Open Graph metadata -->
     <meta property="og:url" content="https://artichoke.run/" />
+    <meta property="og:site_name" content="artichoke.run" />
+    <meta property="og:title" content="Artichoke Ruby Playground" />
     <meta
       property="og:description"
       content="Try Artichoke! The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
@@ -20,11 +44,13 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content="https://artichoke.run/artichoke-logo.png"
+      content="https://artichoke.run/artichoke-social-logo.png"
     />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <%= require('html-loader!./partials/favicons.html') %> <%=
-    require('html-loader!./partials/google-analytics.html') %>
+    <%= require('html-loader!./partials/google-analytics.html') %>
   </head>
   <body class="h-100">
     <div id="wrapper" class="h-100 d-flex flex-column flex-grow">
