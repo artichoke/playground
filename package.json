@@ -21,7 +21,7 @@
   "dependencies": {
     "@popperjs/core": "^2.6.0",
     "bootstrap": "^5.0.0-beta1",
-    "monaco-editor": "^0.21.2"
+    "monaco-editor": "^0.21.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
