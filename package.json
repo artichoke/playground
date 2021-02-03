@@ -24,7 +24,7 @@
     "monaco-editor": "^0.21.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@types/html-webpack-plugin": "^3.2.4",
     "@types/mini-css-extract-plugin": "^1.2.2",
