@@ -34,9 +34,6 @@ const config = (_env, argv) => {
   return {
     context: path.resolve(__dirname, "src"),
     resolve: {
-      alias: {
-        assets: path.resolve(__dirname, "assets"),
-      },
       extensions: [".ts", ".js"],
     },
     entry: path.resolve(__dirname, "src/main.ts"),
@@ -70,7 +67,7 @@ const config = (_env, argv) => {
         },
         {
           test: /\.svg$/,
-          include: new RegExp(path.resolve(__dirname, "assets")),
+          include: new RegExp(path.resolve(__dirname, "src", "assets")),
           type: "asset/resource",
           use: "svgo-loader",
           generator: {
@@ -78,7 +75,7 @@ const config = (_env, argv) => {
           },
         },
         {
-          include: new RegExp(path.resolve(__dirname, "assets")),
+          include: new RegExp(path.resolve(__dirname, "src", "assets")),
           exclude: /\.svg$/,
           type: "asset/resource",
           generator: {
@@ -87,12 +84,12 @@ const config = (_env, argv) => {
         },
         {
           test: /\.(png|jpe?g|gif)$/,
-          exclude: new RegExp(path.resolve(__dirname, "assets")),
+          exclude: new RegExp(path.resolve(__dirname, "src", "assets")),
           type: "asset",
         },
         {
           test: /\.svg$/,
-          exclude: new RegExp(path.resolve(__dirname, "assets")),
+          exclude: new RegExp(path.resolve(__dirname, "src", "assets")),
           type: "asset",
           use: "svgo-loader",
           generator: {
