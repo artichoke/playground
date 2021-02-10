@@ -10,7 +10,7 @@ const svgToMiniDataURI = require("mini-svg-data-uri");
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
   new MiniCssExtractPlugin({
-    filename: "[hash].css",
+    filename: "[contenthash].css",
     chunkFilename: "[id].css",
   }),
   new HtmlWebPackPlugin({
@@ -41,7 +41,7 @@ const config = (_env, argv) => {
     },
     entry: path.resolve(__dirname, "src/main.ts"),
     output: {
-      filename: "[hash].bundle.js",
+      filename: "[contenthash].bundle.js",
       path: path.resolve(__dirname, "target/dist"),
       publicPath: "/",
     },
