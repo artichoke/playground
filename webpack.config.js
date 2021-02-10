@@ -1,11 +1,11 @@
-import * as path from "path";
-import * as webpack from "webpack";
+const path = require("path");
+const webpack = "webpack";
 
-import HtmlWebPackPlugin from "html-webpack-plugin";
-import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import svgToMiniDataURI from "mini-svg-data-uri";
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const svgToMiniDataURI = require("mini-svg-data-uri");
 
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
@@ -19,12 +19,9 @@ const plugins = [
   }),
 ];
 
-const config = (_env: string, argv: {
-        mode?:  webpack.Configuration["mode"];
-        env?: string;
-    }) => {
+const config = (_env, argv) => {
   let cssLoader = "style-loader";
-  let optimization: webpack.Configuration['optimization'] = {
+  let optimization = {
     minimize: false,
     chunkIds: "deterministic",
     moduleIds: "deterministic",
@@ -102,7 +99,7 @@ const config = (_env: string, argv: {
           type: "asset",
           use: "svgo-loader",
           generator: {
-            dataUrl: (content: any) => {
+            dataUrl: (content) => {
               content = content.toString();
               return svgToMiniDataURI(content);
             },
@@ -126,4 +123,4 @@ const config = (_env: string, argv: {
   };
 };
 
-export default config;
+module.exports = config;
