@@ -6,6 +6,7 @@ import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import svgToMiniDataURI from "mini-svg-data-uri";
 
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
@@ -66,44 +67,54 @@ const config: webpack.ConfigurationFactory = (_env, argv) => {
         },
         {
           test: /\.ttf$/,
-          use: "file-loader",
-        },
-        {
-          test: new RegExp(path.resolve(__dirname, "assets")),
-          use: {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-            },
-          },
-        },
-        {
-          test: /\.(jpe?g|png|gif)$/,
-          exclude: new RegExp(path.resolve(__dirname, "assets")),
-          use: {
-            loader: "url-loader",
-            options: {
-              limit: 8192,
-            },
+          type: "asset/resource",
+          generator: {
+            filename: "fonts/[name][ext]",
           },
         },
         {
           test: /\.svg$/,
+          include: new RegExp(path.resolve(__dirname, "assets")),
+          type: "asset/resource",
+          use: "svgo-loader",
+          generator: {
+            filename: "[name][ext]",
+          },
+        },
+        {
+          include: new RegExp(path.resolve(__dirname, "assets")),
+          exclude: /\.svg$/,
+          type: "asset/resource",
+          generator: {
+            filename: "[name][ext]",
+          },
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/,
           exclude: new RegExp(path.resolve(__dirname, "assets")),
-          use: ["file-loader", "svgo-loader"],
+          type: "asset",
+        },
+        {
+          test: /\.svg$/,
+          exclude: new RegExp(path.resolve(__dirname, "assets")),
+          type: "asset",
+          use: "svgo-loader",
+          generator: {
+            dataUrl: (content) => {
+              content = content.toString();
+              return svgToMiniDataURI(content);
+            },
+          },
         },
         {
           test: /\.rb$/,
-          use: "raw-loader",
+          type: "asset/source",
         },
         {
           test: /\.wasm$/,
-          type: "javascript/auto",
-          use: {
-            loader: "file-loader",
-            options: {
-              name: "[name].[ext]",
-            },
+          type: "asset/resource",
+          generator: {
+            filename: "[name][ext]",
           },
         },
       ],
