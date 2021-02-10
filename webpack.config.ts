@@ -19,9 +19,12 @@ const plugins = [
   }),
 ];
 
-const config: webpack.ConfigurationFactory = (_env, argv) => {
+const config = (_env: string, argv: {
+        mode?:  webpack.Configuration["mode"];
+        env?: string;
+    }) => {
   let cssLoader = "style-loader";
-  let optimization: webpack.Options.Optimization = {
+  let optimization: webpack.Configuration['optimization'] = {
     minimize: false,
     chunkIds: "deterministic",
     moduleIds: "deterministic",
@@ -99,7 +102,7 @@ const config: webpack.ConfigurationFactory = (_env, argv) => {
           type: "asset",
           use: "svgo-loader",
           generator: {
-            dataUrl: (content) => {
+            dataUrl: (content: any) => {
               content = content.toString();
               return svgToMiniDataURI(content);
             },
