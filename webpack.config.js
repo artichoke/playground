@@ -45,9 +45,6 @@ const config = (_env, argv) => {
       path: path.resolve(__dirname, "target/dist"),
       publicPath: "/",
     },
-    node: {
-      fs: "empty",
-    },
     module: {
       rules: [
         {
@@ -120,6 +117,11 @@ const config = (_env, argv) => {
     },
     plugins,
     optimization,
+    devServer: {
+      compress: true,
+      host: "127.0.0.1",
+      port: 8989,
+    },
   };
 };
 
