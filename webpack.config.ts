@@ -5,7 +5,7 @@ import HtmlWebPackPlugin from "html-webpack-plugin";
 import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
@@ -28,7 +28,7 @@ const config: webpack.ConfigurationFactory = (_env, argv) => {
     cssLoader = MiniCssExtractPlugin.loader;
     optimization = {
       minimize: true,
-      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin()],
+      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     };
   }
   return {
