@@ -3,7 +3,6 @@ import * as webpack from "webpack";
 
 import HtmlWebPackPlugin from "html-webpack-plugin";
 import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
-import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import svgToMiniDataURI from "mini-svg-data-uri";
@@ -24,13 +23,13 @@ const config: webpack.ConfigurationFactory = (_env, argv) => {
   let cssLoader = "style-loader";
   let optimization: webpack.Options.Optimization = {
     minimize: false,
+    chunkIds: "deterministic",
+    moduleIds: "deterministic",
   };
   if (argv.mode === "production") {
     cssLoader = MiniCssExtractPlugin.loader;
-    optimization = {
-      minimize: true,
-      minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
-    };
+    optimization.minimize = true;
+    optimization.minimizer = ["...", new CssMinimizerPlugin()];
   }
   return {
     context: path.resolve(__dirname, "src"),
