@@ -4,24 +4,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as monaco from "monaco-editor";
 
 // Favicons
-import "assets/favicons/android-chrome-192x192.png";
-import "assets/favicons/android-chrome-512x512.png";
-import "assets/favicons/apple-touch-icon.png";
-import "assets/favicons/browserconfig.xml";
-import "assets/favicons/favicon-16x16.png";
-import "assets/favicons/favicon-32x32.png";
-import "assets/favicons/favicon.ico";
-import "assets/favicons/mstile-150x150.png";
-import "assets/favicons/safari-pinned-tab.svg";
-import "assets/favicons/site.webmanifest";
+import "./assets/favicons/android-chrome-192x192.png";
+import "./assets/favicons/android-chrome-512x512.png";
+import "./assets/favicons/apple-touch-icon.png";
+import "./assets/favicons/browserconfig.xml";
+import "./assets/favicons/favicon-16x16.png";
+import "./assets/favicons/favicon-32x32.png";
+import "./assets/favicons/favicon.ico";
+import "./assets/favicons/mstile-150x150.png";
+import "./assets/favicons/safari-pinned-tab.svg";
+import "./assets/favicons/site.webmanifest";
 
 // OpenGraph icons
-import "assets/artichoke-logo.png";
-import "assets/artichoke-logo.svg";
-import "assets/artichoke-social-logo.png";
+import "./assets/artichoke-logo.png";
+import "./assets/artichoke-logo.svg";
+import "./assets/artichoke-social-logo.png";
 
 // Exported images
-import "assets/playground.png";
+import "./assets/playground.png";
 
 import Module from "./wasm/playground.js";
 import "./wasm/playground.wasm";
