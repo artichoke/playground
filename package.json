@@ -79,10 +79,10 @@
   "scripts": {
     "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten; mv target/wasm32-unknown-emscripten/debug/playground.{js,wasm} src/wasm/",
     "build:release": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten --release; mv target/wasm32-unknown-emscripten/release/playground.{js,wasm} src/wasm/",
-    "dev": "npx webpack-dev-server --mode development",
-    "dev:open": "npx webpack-dev-server --mode development --open",
-    "dev:production": "npx webpack-dev-server --mode production",
-    "dev:production:open": "npx webpack-dev-server --mode production --open",
+    "dev": "webpack serve --mode development",
+    "dev:open": "webpack serve --mode development --open",
+    "dev:production": "wepack serve --mode production",
+    "dev:production:open": "webpack serve --mode production --open",
     "fmt": "npx prettier --write '**/*'",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
