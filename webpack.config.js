@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = "webpack";
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");

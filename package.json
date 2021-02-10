@@ -70,7 +70,8 @@
     ],
     "ignorePatterns": [
       "**/src/wasm/**/*.js",
-      "**/src/wasm/**/*.wasm"
+      "**/src/wasm/**/*.wasm",
+      "webpack.config.js"
     ]
   },
   "scripts": {
