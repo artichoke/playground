@@ -24,13 +24,10 @@
     "monaco-editor": "^0.22.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/preset-env": "^7.12.16",
     "@hyperbola/svgo-loader": "^0.1.0",
     "@types/node": "^14.14.27",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
     "css-minimizer-webpack-plugin": "^1.2.0",
     "eslint": "^7.20.0",
