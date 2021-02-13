@@ -44,11 +44,6 @@ const config = (_env, argv) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          use: "babel-loader",
-        },
-        {
           test: /\.tsx?/,
           exclude: /node_modules/,
           use: "ts-loader",
