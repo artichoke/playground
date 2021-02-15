@@ -18,6 +18,7 @@ import "./assets/favicons/site.webmanifest";
 // OpenGraph icons
 import "./assets/artichoke-logo.png";
 import "./assets/artichoke-logo.svg";
+import "./assets/artichoke-logo-transparent.png";
 import "./assets/artichoke-social-logo.png";
 
 // Exported images
