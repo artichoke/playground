@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@hyperbola/svgo-loader": "^0.1.0",
-    "@types/node": "^14.14.27",
+    "@types/node": "^14.14.28",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "css-loader": "^5.0.2",
