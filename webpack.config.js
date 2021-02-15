@@ -4,6 +4,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const posthtml = require("posthtml");
+const posthtmlInclude = require("posthtml-include");
 const svgToMiniDataURI = require("mini-svg-data-uri");
 
 const plugins = [
@@ -61,7 +63,7 @@ const config = (_env, argv) => {
         },
         {
           test: /\.svg$/,
-          include: new RegExp(path.resolve(__dirname, "src", "assets")),
+          include: path.resolve(__dirname, "src", "assets"),
           type: "asset/resource",
           use: "@hyperbola/svgo-loader",
           generator: {
@@ -69,7 +71,7 @@ const config = (_env, argv) => {
           },
         },
         {
-          include: new RegExp(path.resolve(__dirname, "src", "assets")),
+          include: path.resolve(__dirname, "src", "assets"),
           exclude: /\.svg$/,
           type: "asset/resource",
           generator: {
@@ -78,18 +80,41 @@ const config = (_env, argv) => {
         },
         {
           test: /\.(png|jpe?g|gif)$/,
-          exclude: new RegExp(path.resolve(__dirname, "src", "assets")),
+          exclude: path.resolve(__dirname, "src", "assets"),
           type: "asset",
         },
         {
           test: /\.svg$/,
-          exclude: new RegExp(path.resolve(__dirname, "src", "assets")),
+          exclude: path.resolve(__dirname, "src", "assets"),
           type: "asset",
           use: "@hyperbola/svgo-loader",
           generator: {
             dataUrl: (content) => {
               content = content.toString();
               return svgToMiniDataURI(content);
+            },
+          },
+        },
+        {
+          test: /\.html$/,
+          use: {
+            loader: "html-loader",
+            options: {
+              esModule: false,
+              preprocessor: (content, loaderContext) => {
+                let result;
+
+                try {
+                  result = posthtml()
+                    .use(posthtmlInclude())
+                    .process(content, { sync: true });
+                } catch (error) {
+                  loaderContext.emitError(error);
+                  return content;
+                }
+
+                return result.html;
+              },
             },
           },
         },

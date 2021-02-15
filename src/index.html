@@ -17,7 +17,7 @@
     <link rel="canonical" href="https://www.artichoke.run/" />
 
     <!-- Favicons -->
-    <%= require('html-loader!./partials/favicons.html') %>
+    <include src="src/partials/favicons.html"></include>
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -28,10 +28,7 @@
       name="twitter:description"
       content="Try Artichoke! The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
     />
-    <meta
-      name="twitter:image"
-      content="https://artichoke.run/artichoke-social-logo.png"
-    />
+    <meta name="twitter:image" content="artichoke-social-logo.png" />
 
     <!-- Facebook Open Graph metadata -->
     <meta property="og:url" content="https://artichoke.run/" />
@@ -42,19 +39,16 @@
       content="Try Artichoke! The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby."
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://artichoke.run/artichoke-social-logo.png"
-    />
+    <meta property="og:image" content="artichoke-social-logo.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <%= require('html-loader!./partials/google-analytics.html') %>
+    <include src="src/partials/google-analytics.html"></include>
   </head>
   <body class="h-100">
     <div id="wrapper" class="h-100 d-flex flex-column flex-grow">
-      <%= require('html-loader!./partials/nav.html') %>
+      <include src="src/partials/nav.html"></include>
 
       <div
         id="embeddable"
@@ -82,6 +76,6 @@
       </div>
     </div>
 
-    <%= require('html-loader!./partials/footer.html') %>
+    <include src="src/partials/footer.html"></include>
   </body>
 </html>
