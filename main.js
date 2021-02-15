@@ -40,6 +40,7 @@ require("./assets/favicons/site.webmanifest");
 // OpenGraph icons
 require("./assets/artichoke-logo.png");
 require("./assets/artichoke-logo.svg");
+require("./assets/artichoke-logo-transparent.png");
 require("./assets/artichoke-social-logo.png");
 // Exported images
 require("./assets/playground.png");
