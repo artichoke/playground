@@ -44,11 +44,6 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^4.0.0-beta.0"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "eslintConfig": {
     "root": true,
     "env": {
@@ -58,12 +53,16 @@
       "node": true
     },
     "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
     "plugins": [
       "@typescript-eslint"
     ],
     "extends": [
       "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     "ignorePatterns": [
       "**/src/wasm/**/*.js",
