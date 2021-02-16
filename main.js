@@ -26,22 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("bootstrap");
 require("bootstrap/dist/css/bootstrap.min.css");
 const monaco = __importStar(require("monaco-editor"));
-// Favicons
-require("./assets/favicons/android-chrome-192x192.png");
-require("./assets/favicons/android-chrome-512x512.png");
-require("./assets/favicons/apple-touch-icon.png");
-require("./assets/favicons/browserconfig.xml");
-require("./assets/favicons/favicon-16x16.png");
-require("./assets/favicons/favicon-32x32.png");
-require("./assets/favicons/favicon.ico");
-require("./assets/favicons/mstile-150x150.png");
-require("./assets/favicons/safari-pinned-tab.svg");
-require("./assets/favicons/site.webmanifest");
-// OpenGraph icons
+// Assets with well-known filenames
 require("./assets/artichoke-logo.png");
 require("./assets/artichoke-logo.svg");
 require("./assets/artichoke-logo-transparent.png");
 require("./assets/artichoke-social-logo.png");
+require("./assets/robots.txt");
 // Exported images
 require("./assets/playground.png");
 const playground_js_1 = __importDefault(require("./wasm/playground.js"));
