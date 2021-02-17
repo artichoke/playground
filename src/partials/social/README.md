@@ -19,5 +19,5 @@
 
 ### Twitter
 
-<https://about.twitter.com/en_us/company/brand-resources.html>  
-<https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter-Logos.zip>
+<https://about.twitter.com/en/who-we-are/brand-toolkit>
+<https://about.twitter.com/content/dam/about-twitter/en/brand-toolkit/downloads/twitter-logo-01282021.zip>
