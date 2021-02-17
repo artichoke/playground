@@ -17,6 +17,10 @@
 <https://github.com/logos>  
 <https://github-media-downloads.s3.amazonaws.com/GitHub-Mark.zip>
 
+Converted Adobe Illustrator vector mark to SVG using
+<https://cloudconvert.com/ai-to-svg>, extracted _Small for 16px-120px_ mark and
+modified `matrix` transform by hand to fit in a roughgly 42x42 SVG.
+
 ### Twitter
 
 <https://about.twitter.com/en_us/company/brand-resources.html>  
