@@ -7,11 +7,6 @@
 <https://discord.com/branding>  
 <https://discord.com/assets/41484d92c876f76b20c7f746221e8151.svg>
 
-### Docker
-
-<https://github.com/Iconscout/unicons/blob/d0859416ab8d8e60dcfa1c0b50716874fcf11778/svg/line/docker.svg>  
-[Apache License 2.0](https://github.com/Iconscout/unicons/blob/d0859416ab8d8e60dcfa1c0b50716874fcf11778/LICENSE)
-
 ### GitHub
 
 <https://github.com/logos>  
@@ -23,5 +18,5 @@ modified `matrix` transform by hand to fit in a roughgly 42x42 SVG.
 
 ### Twitter
 
-<https://about.twitter.com/en/who-we-are/brand-toolkit>
+<https://about.twitter.com/en/who-we-are/brand-toolkit>  
 <https://about.twitter.com/content/dam/about-twitter/en/brand-toolkit/downloads/twitter-logo-01282021.zip>
