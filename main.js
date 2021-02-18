@@ -27,13 +27,9 @@ require("bootstrap");
 require("bootstrap/dist/css/bootstrap.min.css");
 const monaco = __importStar(require("monaco-editor"));
 // Assets with well-known filenames
-require("./assets/artichoke-logo.png");
-require("./assets/artichoke-logo.svg");
-require("./assets/artichoke-logo-transparent.png");
-require("./assets/artichoke-social-logo.png");
+require("@artichokeruby/logo/img/playground.png");
+require("@artichokeruby/logo/img/playground-social-logo.png");
 require("./assets/robots.txt");
-// Exported images
-require("./assets/playground.png");
 const playground_js_1 = __importDefault(require("./wasm/playground.js"));
 require("./wasm/playground.wasm");
 const forwardable_regexp_io_rb_1 = __importDefault(require("./examples/forwardable_regexp_io.rb"));
