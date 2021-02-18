@@ -8,6 +8,8 @@ const posthtml = require("posthtml");
 const posthtmlInclude = require("posthtml-include");
 const svgToMiniDataURI = require("mini-svg-data-uri");
 
+const root = path.resolve(__dirname);
+
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
   new MiniCssExtractPlugin({
@@ -63,7 +65,15 @@ const config = (_env, argv) => {
         },
         {
           test: /\.svg$/,
-          include: path.resolve(__dirname, "src", "assets"),
+          include: [
+            path.resolve(__dirname, "src", "assets"),
+            path.resolve(__dirname, "node_modules", "@artichokeruby/logo/img"),
+            path.resolve(
+              __dirname,
+              "node_modules",
+              "@artichokeruby/logo/favicons"
+            ),
+          ],
           type: "asset/resource",
           use: "@hyperbola/svgo-loader",
           generator: {
@@ -71,7 +81,15 @@ const config = (_env, argv) => {
           },
         },
         {
-          include: path.resolve(__dirname, "src", "assets"),
+          include: [
+            path.resolve(__dirname, "src", "assets"),
+            path.resolve(__dirname, "node_modules", "@artichokeruby/logo/img"),
+            path.resolve(
+              __dirname,
+              "node_modules",
+              "@artichokeruby/logo/favicons"
+            ),
+          ],
           exclude: /\.svg$/,
           type: "asset/resource",
           generator: {
@@ -80,12 +98,24 @@ const config = (_env, argv) => {
         },
         {
           test: /\.(png|jpe?g|gif)$/,
-          exclude: path.resolve(__dirname, "src", "assets"),
+          include: path.resolve(
+            __dirname,
+            "node_modules",
+            "@artichokeruby/logo/optimized"
+          ),
           type: "asset",
         },
         {
           test: /\.svg$/,
-          exclude: path.resolve(__dirname, "src", "assets"),
+          exclude: [
+            path.resolve(__dirname, "src", "assets"),
+            path.resolve(__dirname, "node_modules", "@artichokeruby/logo/img"),
+            path.resolve(
+              __dirname,
+              "node_modules",
+              "@artichokeruby/logo/favicons"
+            ),
+          ],
           type: "asset",
           use: "@hyperbola/svgo-loader",
           generator: {
@@ -106,7 +136,7 @@ const config = (_env, argv) => {
 
                 try {
                   result = posthtml()
-                    .use(posthtmlInclude())
+                    .use(posthtmlInclude({ root }))
                     .process(content, { sync: true });
                 } catch (error) {
                   loaderContext.emitError(error);

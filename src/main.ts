@@ -4,14 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as monaco from "monaco-editor";
 
 // Assets with well-known filenames
-import "./assets/artichoke-logo.png";
-import "./assets/artichoke-logo.svg";
-import "./assets/artichoke-logo-transparent.png";
-import "./assets/artichoke-social-logo.png";
+import "@artichokeruby/logo/img/playground.png";
+import "@artichokeruby/logo/img/playground-social-logo.png";
 import "./assets/robots.txt";
-
-// Exported images
-import "./assets/playground.png";
 
 import Module from "./wasm/playground.js";
 import "./wasm/playground.wasm";
