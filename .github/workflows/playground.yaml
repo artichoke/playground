@@ -68,9 +68,6 @@ jobs:
       - name: Move Wasm artifacts
         run: cp target/wasm32-unknown-emscripten/release/playground.{js,wasm} src/wasm/
 
-      - name: Compile with TypeScript
-        run: npx tsc --extendedDiagnostics --listFiles --listEmittedFiles
-
       - name: Webpack build
         run: npx webpack --mode production
 
