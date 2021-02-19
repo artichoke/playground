@@ -27,17 +27,16 @@ require("bootstrap");
 require("bootstrap/dist/css/bootstrap.min.css");
 const monaco = __importStar(require("monaco-editor"));
 // Assets with well-known filenames
-require("@artichokeruby/logo/img/playground.png");
-require("@artichokeruby/logo/img/playground-social-logo.png");
+require("./assets/artichoke-logo.png");
+require("./assets/artichoke-logo.svg");
+require("./assets/artichoke-logo-transparent.png");
+require("./assets/artichoke-social-logo.png");
 require("./assets/robots.txt");
+// Exported images
+require("./assets/playground.png");
 const playground_js_1 = __importDefault(require("./wasm/playground.js"));
 require("./wasm/playground.wasm");
 const forwardable_regexp_io_rb_1 = __importDefault(require("./examples/forwardable_regexp_io.rb"));
-var EvalType;
-(function (EvalType) {
-    EvalType["Button"] = "button";
-    EvalType["CodeAction"] = "code_action";
-})(EvalType || (EvalType = {}));
 // The playground serializes the content of the code editor into the URL
 // location hash to allow for sharing and deep linking, similar to
 // https://sorbet.run.
@@ -135,67 +134,30 @@ class Interpreter {
         // Write the source code into the shared Rust/JavaScript string heap and
         // eval this code on a new Artichoke interpreter via FFI.
         this.evalRuby = (source) => {
-            this.evalCounter += 1;
-            const level = `eval-ffi-${this.evalCounter}`;
-            window.gtag("event", "level_start", {
-                level_name: level,
-            });
             const code = this.write(source);
             const output = this.wasm._artichoke_eval(this.state, code);
             const result = this.read(output);
             this.wasm._artichoke_string_free(this.state, code);
             this.wasm._artichoke_string_free(this.state, output);
-            window.gtag("event", "level_end", {
-                level_name: level,
-                success: true,
-            });
             return result;
         };
         this.state = wasm._artichoke_web_repl_init();
-        this.evalCounter = 0;
     }
 }
-let buttonEvalCounter = 0;
-let codeActionEvalCounter = 0;
 // Factory for an event handler that reads the source code int the editor
 // buffer and evals it on an embedded Artichoke Wasm interpreter.
 //
 // The output editor is updated with the contents of the report from the
 // interperter containing stdout, stderr, and the output from calling `inspect`
 // on the returned value.
-const playgroundRun = (interp, evalType) => () => {
+const playgroundRun = (interp) => () => {
     var _a, _b, _c;
-    let counter;
-    switch (evalType) {
-        case EvalType.Button: {
-            buttonEvalCounter += 1;
-            counter = buttonEvalCounter;
-            break;
-        }
-        case EvalType.CodeAction: {
-            codeActionEvalCounter += 1;
-            counter = codeActionEvalCounter;
-            break;
-        }
-    }
-    const level = `playground-run-${evalType}-${counter}`;
-    window.gtag("event", "level_start", {
-        level_name: level,
-    });
     const sourceLines = (_b = (_a = editor.getModel()) === null || _a === void 0 ? void 0 : _a.getLinesContent()) !== null && _b !== void 0 ? _b : [];
     const source = sourceLines.join("\n");
     const result = interp.evalRuby(source);
     (_c = output.getModel()) === null || _c === void 0 ? void 0 : _c.setValue(result);
-    window.gtag("event", "level_end", {
-        level_name: level,
-        success: true,
-    });
 };
 playground_js_1.default().then((wasm) => {
-    const level = `playground-interpreter-init`;
-    window.gtag("event", "level_start", {
-        level_name: level,
-    });
     const artichoke = new Interpreter(wasm);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const buildInfoElement = document.getElementById("artichoke-build-info");
@@ -203,7 +165,7 @@ playground_js_1.default().then((wasm) => {
     // When the user clicks the "Run" button, grab the source code from the editor
     // buffer and eval it on an Artichoke Wasm interpreter.
     const runButton = document.getElementById("run");
-    runButton === null || runButton === void 0 ? void 0 : runButton.addEventListener("click", playgroundRun(artichoke, EvalType.Button));
+    runButton === null || runButton === void 0 ? void 0 : runButton.addEventListener("click", playgroundRun(artichoke));
     // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
     // This action is triggered by Ctrl/Cmd+F8 (play button on a mac keyboard) and
     // has the same side effects as clicking the "Run" button in the webapp
@@ -213,10 +175,6 @@ playground_js_1.default().then((wasm) => {
         label: "Run Ruby source code",
         keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
         contextMenuGroupId: "2_playground_eval",
-        run: playgroundRun(artichoke, EvalType.CodeAction),
-    });
-    window.gtag("event", "level_end", {
-        level_name: level,
-        success: true,
+        run: playgroundRun(artichoke),
     });
 });
