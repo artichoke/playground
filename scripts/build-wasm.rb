@@ -3,66 +3,73 @@
 
 require 'fileutils'
 
-RUSTFLAGS = %w[
-  -C
-  link-arg=-s
-  -C
-  link-arg=MODULARIZE=1
-  -C
-  link-arg=-s
-  -C
-  link-arg=WASM=1
-  -C
-  link-arg=-s
-  -C
-  link-arg=ENVIRONMENT=web
-  -C
-  link-arg=-s
-  -C
-  link-arg=SUPPORT_LONGJMP=1
-].freeze
+module Artichoke
+  module Playground
+    module Build
+      RUSTFLAGS = %w[
+        -C
+        link-arg=-s
+        -C
+        link-arg=MODULARIZE=1
+        -C
+        link-arg=-s
+        -C
+        link-arg=WASM=1
+        -C
+        link-arg=-s
+        -C
+        link-arg=ENVIRONMENT=web
+        -C
+        link-arg=-s
+        -C
+        link-arg=SUPPORT_LONGJMP=1
+      ].freeze
 
-def build_debug
-  ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
+      def self.debug
+        ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
 
-  `cargo build --target wasm32-unknown-emscripten`
+        `cargo build --target wasm32-unknown-emscripten`
 
-  FileUtils.mv(
-    ['target/wasm32-unknown-emscripten/debug/playground.js', 'target/wasm32-unknown-emscripten/debug/playground.wasm'],
-    'src/wasm/'
-  )
-rescue ArgumentError, Errno::ENOENT
-  # pass
-end
+        FileUtils.mv(
+          ['target/wasm32-unknown-emscripten/debug/playground.js',
+           'target/wasm32-unknown-emscripten/debug/playground.wasm'],
+          'src/wasm/'
+        )
+      rescue ArgumentError, Errno::ENOENT
+        # pass
+      end
 
-def build_release(verbose: false)
-  ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
+      def self.release(verbose: false)
+        ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
 
-  if verbose
-    `cargo build --target wasm32-unknown-emscripten --release --verbose`
-  else
-    `cargo build --target wasm32-unknown-emscripten --release`
+        if verbose
+          `cargo build --target wasm32-unknown-emscripten --release --verbose`
+        else
+          `cargo build --target wasm32-unknown-emscripten --release`
+        end
+
+        FileUtils.mv(
+          ['target/wasm32-unknown-emscripten/release/playground.js',
+           'target/wasm32-unknown-emscripten/release/playground.wasm'],
+          'src/wasm/'
+        )
+      rescue ArgumentError, Errno::ENOENT
+        # pass
+      end
+
+      def self.main
+        if ARGV == ['--release', '--verbose'] || ARGV == ['--verbose', '--release']
+          release(verbose: true)
+        elsif ARGV == ['--release']
+          release
+        elsif ARGV.empty?
+          debug
+        else
+          warn "Usage: #{$PROGRAM_NAME} [ --release ]"
+        end
+      end
+    end
   end
-
-  FileUtils.mv(
-    ['target/wasm32-unknown-emscripten/release/playground.js',
-     'target/wasm32-unknown-emscripten/release/playground.wasm'],
-    'src/wasm/'
-  )
-rescue ArgumentError, Errno::ENOENT
-  # pass
 end
 
-def main
-  if ARGV == ['--release', '--verbose'] || ARGV == ['--verbose', '--release']
-    build_release(verbose: true)
-  elsif ARGV == ['--release']
-    build_release
-  elsif ARGV.empty?
-    build_debug
-  else
-    warn "Usage: #{$PROGRAM_NAME} [ --release ]"
-  end
-end
-
-main if __FILE__ == $PROGRAM_NAME
+Artichoke::Playground::Build.main if __FILE__ == $PROGRAM_NAME
