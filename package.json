@@ -74,8 +74,8 @@
     ]
   },
   "scripts": {
-    "build": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten; mv target/wasm32-unknown-emscripten/debug/playground.{js,wasm} src/wasm/",
-    "build:release": "RUSTFLAGS='-C link-arg=-s -C link-arg=MODULARIZE=1 -C link-arg=-s -C link-arg=WASM=1 -C link-arg=-s -C link-arg=ENVIRONMENT=web -C link-arg=-s -C link-arg=SUPPORT_LONGJMP=1' cargo build --target wasm32-unknown-emscripten --release; mv target/wasm32-unknown-emscripten/release/playground.{js,wasm} src/wasm/",
+    "build": "ruby scripts/build-wasm.rb",
+    "build:release": "ruby scripts/build-wasm.rb --release",
     "dev": "webpack serve --mode development",
     "dev:open": "webpack serve --mode development --open",
     "dev:production": "wepack serve --mode production",
