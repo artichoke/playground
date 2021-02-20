@@ -123,7 +123,7 @@ impl Eval for Interp {
     fn eval(&mut self, code: &[u8]) -> Result<Self::Value, Self::Error> {
         use artichoke::backend::ffi::InterpreterExtractError;
 
-        let interp = self.0.as_mut().ok_or(InterpreterExtractError::new())?;
+        let interp = self.0.as_mut().ok_or_else(InterpreterExtractError::new)?;
         interp.eval(code)
     }
 
