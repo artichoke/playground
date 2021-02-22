@@ -130,7 +130,6 @@ const config = (_env, argv) => {
           use: {
             loader: "html-loader",
             options: {
-              esModule: false,
               preprocessor: (content, loaderContext) => {
                 let result;
 
