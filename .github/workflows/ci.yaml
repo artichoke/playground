@@ -58,6 +58,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ".ruby-version"
+          bundler-cache: true
 
       - uses: Swatinem/rust-cache@v1
 
