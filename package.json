@@ -41,7 +41,7 @@
     "posthtml-include": "^1.6.2",
     "style-loader": "^2.0.0",
     "svgo": "^2.2.2",
-    "ts-loader": "^8.0.17",
+    "ts-loader": "^8.0.18",
     "typescript": "^4.2.3",
     "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
