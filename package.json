@@ -45,7 +45,7 @@
     "typescript": "^4.2.3",
     "webpack": "^5.27.2",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^4.0.0-beta.0"
+    "webpack-dev-server": "^4.0.0-beta.1"
   },
   "eslintConfig": {
     "root": true,
