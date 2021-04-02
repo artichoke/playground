@@ -19,7 +19,7 @@
   ],
   "repository": "github:artichoke/playground",
   "dependencies": {
-    "@popperjs/core": "^2.9.1",
+    "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.0-beta3",
     "monaco-editor": "^0.23.0"
   },
