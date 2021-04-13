@@ -4,11 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const posthtml = require("posthtml");
-const posthtmlInclude = require("posthtml-include");
 const svgToMiniDataURI = require("mini-svg-data-uri");
-
-const root = path.resolve(__dirname);
 
 const plugins = [
   new MonacoWebpackPlugin({ languages: ["ruby"] }),
@@ -127,25 +123,8 @@ const config = (_env, argv) => {
         },
         {
           test: /\.html$/,
-          use: {
-            loader: "html-loader",
-            options: {
-              preprocessor: (content, loaderContext) => {
-                let result;
-
-                try {
-                  result = posthtml()
-                    .use(posthtmlInclude({ root }))
-                    .process(content, { sync: true });
-                } catch (error) {
-                  loaderContext.emitError(error);
-                  return content;
-                }
-
-                return result.html;
-              },
-            },
-          },
+          include: path.resolve(__dirname, "src", "partials"),
+          use: "html-loader",
         },
         {
           test: /\.rb$/,
