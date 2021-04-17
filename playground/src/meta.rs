@@ -27,6 +27,6 @@ mod tests {
         assert!(meta.starts_with("artichoke 0.1.0-pre.0 ("));
         assert_eq!(meta.lines().count(), 2);
         let compiler_meta = meta.lines().nth(1).unwrap();
-        assert!(compiler_meta.starts_with("[rustc 1.50.0 (cb75ad5db 2021-02-10) on "));
+        assert!(compiler_meta.starts_with("[rustc 1.51.0 (2fd73fabe 2021-03-23) on "));
     }
 }
