@@ -9,6 +9,14 @@ AllCops:
     - "**/node_modules/**/*"
     - "**/target/**/*"
     - "**/vendor/**/*"
+Layout/EndOfLine:
+  EnforcedStyle: lf
+Layout/LineLength:
+  Enabled: true
+  Exclude:
+    - "**/Rakefile"
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 Metrics:
   Enabled: false
 Style/Documentation:
