@@ -161,6 +161,14 @@ rake test                         # Run Playground unit tests
 To lint Ruby sources, the playground uses [RuboCop]. RuboCop runs as part of the
 `lint:all` task. You can run only RuboCop by invoking the `lint:rubocop` task.
 
+### Python
+
+Python is required for installing [emsdk], which is used for building on
+WebAssembly targets.
+
+On Windows, install the latest Python release from:
+<https://www.python.org/downloads/>.
+
 ### Node.js
 
 Node.js is required for bundling the webapp with webpack and testing in
@@ -253,6 +261,7 @@ the playground, update this hash in [`Cargo.toml`](playground/Cargo.toml).
 [rbenv]: https://github.com/rbenv/rbenv
 [ruby-build]: https://github.com/rbenv/ruby-build
 [rubocop]: https://github.com/rubocop-hq/rubocop
+[emsdk]: https://emscripten.org/docs/tools_reference/emsdk.html
 [prettier]: https://prettier.io/
 [node.js]: https://nodejs.org/en/download/package-manager/
 [rust book chapter on testing]:
