@@ -42,6 +42,12 @@ brew install rustup-init
 rustup-init
 ```
 
+On Windows, you can install rustup from the official site and follow the
+prompts: <https://rustup.rs/>. This requires a download of Visual Studio (the
+[Community Edition][vs-community] is sufficient) and several C++ packages
+selected through the VS component installer. (I'm not sure which packages are
+required; I selected them all.)
+
 Once you have rustup, you can install the Rust toolchain needed to compile the
 playground.
 
@@ -72,6 +78,16 @@ cargo clippy --all-targets --all-features
 
 ### C Toolchain
 
+Some artichoke dependencies, like the mruby [`sys`](artichoke-backend/src/sys)
+FFI bindings and the [`onig`] crate, build C static libraries and require a C
+compiler.
+
+Artichoke specifically requires clang. WebAssembly targets require clang-8 or
+newer.
+
+On Windows, install the latest LLVM distribution from GitHub and add LLVM to
+your PATH: <https://github.com/llvm/llvm-project/releases>.
+
 #### `cc` Crate
 
 Artichoke and some of its dependencies use the Rust [`cc` crate] to build. `cc`
@@ -84,7 +100,6 @@ To build the Artichoke mruby backend, you will need a C compiler toolchain. By
 default, mruby requires the following to compile:
 
 - clang
-- bison
 - ar
 
 You can override the requirement for clang by setting the `CC` and `LD`
@@ -229,6 +244,7 @@ the playground, update this hash in [`Cargo.toml`](playground/Cargo.toml).
 [join artichoke's public discord server]: https://discord.gg/QCe2tp2
 [rustup]: https://rustup.rs/
 [homebrew]: https://docs.brew.sh/Installation
+[vs-community]: https://visualstudio.microsoft.com/vs/community/
 [`cc` crate]: https://crates.io/crates/cc
 [platform-dependent c compiler]:
   https://github.com/alexcrichton/cc-rs#compile-time-requirements
