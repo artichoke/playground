@@ -78,7 +78,7 @@
     "dev:open": "webpack serve --mode development --open",
     "dev:production": "wepack serve --mode production",
     "dev:production:open": "webpack serve --mode production --open",
-    "fmt": "npx prettier --write '**/*'",
+    "fmt": "npx prettier --write \"**/*\"",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   }
