@@ -28,7 +28,7 @@
     "@hyperbola/svgo-loader": "^0.2.1",
     "@types/gtag.js": "0.0.4",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
-    "@typescript-eslint/parser": "^4.22.1",
+    "@typescript-eslint/parser": "^4.23.0",
     "css-loader": "^5.2.4",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "eslint": "^7.25.0",
