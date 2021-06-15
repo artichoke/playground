@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: cargo
     directory: "/"
     schedule:
-      interval: daily
+      interval: monthly
     allow:
       - dependency-type: "all"
     open-pull-requests-limit: 10
@@ -15,8 +15,8 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
-    open-pull-requests-limit: 10
+      interval: monthly
+    open-pull-requests-limit: 15
     assignees:
       - lopopolo
     labels:
@@ -24,7 +24,7 @@ updates:
   - package-ecosystem: bundler
     directory: "/"
     schedule:
-      interval: daily
+      interval: monthly
     allow:
       - dependency-type: "all"
     open-pull-requests-limit: 10
