@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@artichokeruby/logo": "^0.10.0",
-    "@hyperbola/svgo-loader": "^0.2.1",
+    "@hyperbola/svgo-loader": "^0.2.2",
     "@types/gtag.js": "0.0.5",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
