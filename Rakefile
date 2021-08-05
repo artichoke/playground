@@ -21,6 +21,7 @@ namespace :lint do
   desc 'Lint Rust sources with Clippy'
   task :clippy do
     sh 'cargo clippy --workspace --all-features --all-targets'
+    sh 'cargo clippy --workspace --all-features --all-targets --target wasm32-unknown-emscripten'
   end
 
   desc 'Lint Rust sources with Clippy restriction pass (unenforced lints)'

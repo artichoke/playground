@@ -51,6 +51,7 @@ jobs:
         with:
           profile: minimal
           components: rustfmt, clippy
+          target: wasm32-unknown-emscripten
 
       - uses: Swatinem/rust-cache@v1
 
@@ -70,6 +71,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --workspace --all-features --all-targets
+
+      - name: Lint with Clippy on emscripten target
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --workspace --all-features --all-targets --target wasm32-unknown-emscripten
 
   ruby:
     name: Lint and format Ruby
