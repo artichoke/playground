@@ -50,7 +50,7 @@ jobs:
           key: emscripten-emsdk-${{ runner.os }}-emsdk-${{ steps.toolchain_versions.outputs.emscripten }}
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v7
+        uses: mymindstorm/setup-emsdk@v10
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
           actions-cache-folder: "emsdk-cache"
