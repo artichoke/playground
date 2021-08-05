@@ -1,6 +1,6 @@
 [package]
 name = "playground"
-version = "0.4.0" # remember to bump package.json
+version = "0.5.0" # remember to bump package.json
 authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
 license = "MIT"
 edition = "2018"
@@ -19,7 +19,7 @@ bstr = { version = "0.2, >= 0.2.4", default-features = false }
 [dependencies.artichoke]
 version = "0.1.0-pre.0"
 git = "https://github.com/artichoke/artichoke.git"
-rev = "deb2505a359ecfa51832b4d84e085afa385607fc"
+rev = "5b0b0e54cafd465008822e809d979e8b5c23d43c"
 default-features = false
 features = [
   "core-env",
