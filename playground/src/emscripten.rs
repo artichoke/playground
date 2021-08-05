@@ -18,7 +18,7 @@ thread_local!(static MAIN_LOOP_CALLBACK: RefCell<Option<Box<dyn FnMut()>>> = Ref
 
 unsafe extern "C" fn wrapper() {
     MAIN_LOOP_CALLBACK.with(|z| {
-        if let Some(ref mut main_loop) = &mut *z.borrow_mut() {
+        if let Some(main_loop) = &mut *z.borrow_mut() {
             main_loop();
         }
     });
