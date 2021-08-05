@@ -67,18 +67,10 @@ jobs:
           ruby-version: ".ruby-version"
           bundler-cache: true
 
-      - name: Cache emsdk
-        uses: actions/cache@v2
-        id: cache
-        with:
-          path: "emsdk-cache"
-          key: emscripten-emsdk-${{ runner.os }}-emsdk-${{ steps.toolchain_versions.outputs.emscripten }}-clippy
-
       - name: Install Emscripten toolchain
         uses: mymindstorm/setup-emsdk@v10
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
-          actions-cache-folder: "emsdk-cache"
 
       - name: Verify emcc version
         run: emcc -v
