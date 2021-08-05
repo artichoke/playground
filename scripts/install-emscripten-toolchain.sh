@@ -3,7 +3,7 @@
 ensure_emsdk() {
   # shellcheck disable=SC2091
   if [ ! -f "emsdk/emsdk" ]; then
-    git clone https://github.com/emscripten-core/emsdk.git emsdk
+    git clone --depth 1 https://github.com/emscripten-core/emsdk.git emsdk
     ./emsdk/emsdk install "$(cat emscripten-toolchain)"
   fi
   ./emsdk/emsdk activate "$(cat emscripten-toolchain)"
