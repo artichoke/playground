@@ -1,6 +1,6 @@
 [package]
 name = "playground"
-version = "0.4.0" # remember to bump package.json
+version = "0.5.0" # remember to bump package.json
 authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
 license = "MIT"
 edition = "2018"
