@@ -96,10 +96,10 @@ if (urlParams.has("embed")) {
 }
 
 class Interpreter {
-  private state: number;
+  private readonly state: Module.Artichoke;
   private evalCounter: number;
 
-  constructor(private wasm: Module.Ffi) {
+  constructor(private readonly wasm: Module.Ffi) {
     this.state = wasm._artichoke_web_repl_init();
     this.evalCounter = 0;
   }
@@ -108,7 +108,7 @@ class Interpreter {
   // one byte at a time.
   //
   // Strings are UTF-8 encoded byte vectors.
-  read = (ptr: number): string => {
+  read = (ptr: Module.StringPointer): string => {
     const len: number = this.wasm._artichoke_string_getlen(this.state, ptr);
     const bytes = [];
     for (let idx = 0; idx < len; idx += 1) {
@@ -122,7 +122,7 @@ class Interpreter {
   // a time.
   //
   // Strings are UTF-8 encoded byte vectors.
-  write = (s: string): number => {
+  write = (s: string): Module.StringPointer => {
     const ptr = this.wasm._artichoke_string_new(this.state);
     const bytes = new TextEncoder().encode(s);
     for (let idx = 0; idx < bytes.length; idx += 1) {
@@ -157,45 +157,47 @@ class Interpreter {
   };
 }
 
-let buttonEvalCounter = 0;
-let codeActionEvalCounter = 0;
-
-// Factory for an event handler that reads the source code int the editor
-// buffer and evals it on an embedded Artichoke Wasm interpreter.
+// Factory for an event handler that reads the source code in the editor buffer
+// and evals it on an embedded Artichoke Wasm interpreter.
 //
 // The output editor is updated with the contents of the report from the
 // interperter containing stdout, stderr, and the output from calling `inspect`
 // on the returned value.
-const playgroundRun = (interp: Interpreter, evalType: EvalType) => (): void => {
-  let counter: number;
-  switch (evalType) {
-    case EvalType.Button: {
-      buttonEvalCounter += 1;
-      counter = buttonEvalCounter;
-      break;
+const playgroundRun = (() => {
+  let buttonEvalCounter = 0;
+  let codeActionEvalCounter = 0;
+
+  return (interp: Interpreter, evalType: EvalType) => (): void => {
+    let counter: number;
+    switch (evalType) {
+      case EvalType.Button: {
+        buttonEvalCounter += 1;
+        counter = buttonEvalCounter;
+        break;
+      }
+      case EvalType.CodeAction: {
+        codeActionEvalCounter += 1;
+        counter = codeActionEvalCounter;
+        break;
+      }
     }
-    case EvalType.CodeAction: {
-      codeActionEvalCounter += 1;
-      counter = codeActionEvalCounter;
-      break;
-    }
-  }
 
-  const level = `playground-run-${evalType}-${counter}`;
-  window.gtag("event", "level_start", {
-    level_name: level,
-  });
+    const level = `playground-run-${evalType}-${counter}`;
+    window.gtag("event", "level_start", {
+      level_name: level,
+    });
 
-  const sourceLines = editor.getModel()?.getLinesContent() ?? [];
-  const source = sourceLines.join("\n");
-  const result = interp.evalRuby(source);
-  output.getModel()?.setValue(result);
+    const sourceLines = editor.getModel()?.getLinesContent() ?? [];
+    const source = sourceLines.join("\n");
+    const result = interp.evalRuby(source);
+    output.getModel()?.setValue(result);
 
-  window.gtag("event", "level_end", {
-    level_name: level,
-    success: true,
-  });
-};
+    window.gtag("event", "level_end", {
+      level_name: level,
+      success: true,
+    });
+  };
+})();
 
 Module().then((wasm: Module.Ffi): void => {
   const level = `playground-interpreter-init`;
@@ -207,7 +209,7 @@ Module().then((wasm: Module.Ffi): void => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const buildInfoElement = document.getElementById("artichoke-build-info")!;
-  buildInfoElement.textContent = artichoke.read(0);
+  buildInfoElement.textContent = artichoke.read(0 as Module.StringPointer);
 
   // When the user clicks the "Run" button, grab the source code from the editor
   // buffer and eval it on an Artichoke Wasm interpreter.
@@ -218,9 +220,9 @@ Module().then((wasm: Module.Ffi): void => {
   );
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
-  // This action is triggered by Ctrl/Cmd+F8 (play button on a mac keyboard) and
-  // has the same side effects as clicking the "Run" button in the webapp
-  // chrome.
+  // This action is triggered by Ctrl/Cmd+F8 (the "play" button on a Mac
+  // keyboard) and has the same side effects as clicking the "Run" button in the
+  // webapp chrome.
   editor.addAction({
     id: "artichoke-playground-run-ruby",
     label: "Run Ruby source code",
