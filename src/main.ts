@@ -157,45 +157,47 @@ class Interpreter {
   };
 }
 
-let buttonEvalCounter = 0;
-let codeActionEvalCounter = 0;
-
-// Factory for an event handler that reads the source code int the editor
-// buffer and evals it on an embedded Artichoke Wasm interpreter.
+// Factory for an event handler that reads the source code in the editor buffer
+// and evals it on an embedded Artichoke Wasm interpreter.
 //
 // The output editor is updated with the contents of the report from the
 // interperter containing stdout, stderr, and the output from calling `inspect`
 // on the returned value.
-const playgroundRun = (interp: Interpreter, evalType: EvalType) => (): void => {
-  let counter: number;
-  switch (evalType) {
-    case EvalType.Button: {
-      buttonEvalCounter += 1;
-      counter = buttonEvalCounter;
-      break;
+const playgroundRun = (() => {
+  let buttonEvalCounter = 0;
+  let codeActionEvalCounter = 0;
+
+  return (interp: Interpreter, evalType: EvalType) => (): void => {
+    let counter: number;
+    switch (evalType) {
+      case EvalType.Button: {
+        buttonEvalCounter += 1;
+        counter = buttonEvalCounter;
+        break;
+      }
+      case EvalType.CodeAction: {
+        codeActionEvalCounter += 1;
+        counter = codeActionEvalCounter;
+        break;
+      }
     }
-    case EvalType.CodeAction: {
-      codeActionEvalCounter += 1;
-      counter = codeActionEvalCounter;
-      break;
-    }
-  }
 
-  const level = `playground-run-${evalType}-${counter}`;
-  window.gtag("event", "level_start", {
-    level_name: level,
-  });
+    const level = `playground-run-${evalType}-${counter}`;
+    window.gtag("event", "level_start", {
+      level_name: level,
+    });
 
-  const sourceLines = editor.getModel()?.getLinesContent() ?? [];
-  const source = sourceLines.join("\n");
-  const result = interp.evalRuby(source);
-  output.getModel()?.setValue(result);
+    const sourceLines = editor.getModel()?.getLinesContent() ?? [];
+    const source = sourceLines.join("\n");
+    const result = interp.evalRuby(source);
+    output.getModel()?.setValue(result);
 
-  window.gtag("event", "level_end", {
-    level_name: level,
-    success: true,
-  });
-};
+    window.gtag("event", "level_end", {
+      level_name: level,
+      success: true,
+    });
+  };
+})();
 
 Module().then((wasm: Module.Ffi): void => {
   const level = `playground-interpreter-init`;
