@@ -220,9 +220,9 @@ Module().then((wasm: Module.Ffi): void => {
   );
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
-  // This action is triggered by Ctrl/Cmd+F8 (play button on a mac keyboard) and
-  // has the same side effects as clicking the "Run" button in the webapp
-  // chrome.
+  // This action is triggered by Ctrl/Cmd+F8 (the "play" button on a Mac
+  // keyboard) and has the same side effects as clicking the "Run" button in the
+  // webapp chrome.
   editor.addAction({
     id: "artichoke-playground-run-ruby",
     label: "Run Ruby source code",
