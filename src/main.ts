@@ -96,10 +96,10 @@ if (urlParams.has("embed")) {
 }
 
 class Interpreter {
-  private state: number;
+  private readonly state: number;
   private evalCounter: number;
 
-  constructor(private wasm: Module.Ffi) {
+  constructor(private readonly wasm: Module.Ffi) {
     this.state = wasm._artichoke_web_repl_init();
     this.evalCounter = 0;
   }
