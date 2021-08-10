@@ -25,10 +25,26 @@ module Artichoke
         link-arg=SUPPORT_LONGJMP=1
       ].freeze
 
-      def self.debug
+      USAGE = <<~USAGE
+        build-wasm.rb - Artichoke Ruby Playground WebAssembly Builder
+        Ryan Lopopolo <rjl@hyperbo.la>
+
+        USAGE: #{$PROGRAM_NAME} [OPTIONS] [ --release ]
+
+        OPTIONS:
+            -v, --verbose
+                    Emit verbose output when compiling with cargo.
+
+      USAGE
+
+      def self.debug(verbose: false)
         ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
 
-        `cargo build --target wasm32-unknown-emscripten`
+        if verbose
+          `cargo build --target wasm32-unknown-emscripten --verbose`
+        else
+          `cargo build --target wasm32-unknown-emscripten`
+        end
 
         FileUtils.mv(
           ['target/wasm32-unknown-emscripten/debug/playground.js',
@@ -58,14 +74,37 @@ module Artichoke
       end
 
       def self.main
-        if ARGV == ['--release', '--verbose'] || ARGV == ['--verbose', '--release']
-          release(verbose: true)
-        elsif ARGV == ['--release']
-          release
-        elsif ARGV.empty?
-          debug
+        args = ARGV.each_with_object({}) do |arg, memo|
+          memo[arg] = arg
+        end
+
+        verbose = false
+        help = false
+        args.delete_if do |key, _|
+          if ['-v', '--verbose'].include?(key)
+            verbose = true
+            next true
+          end
+          if ['-h', '--help'].include?(key)
+            help = true
+            next true
+          end
+          false
+        end
+
+        if help
+          puts USAGE
+          Process.exit(0)
+        end
+
+        argv = args.keys.freeze
+        if argv == ['--release']
+          release(verbose: verbose)
+        elsif argv.empty?
+          debug(verbose: verbose)
         else
-          warn "Usage: #{$PROGRAM_NAME} [ --release ]"
+          warn USAGE
+          Process.exit(2)
         end
       end
     end
