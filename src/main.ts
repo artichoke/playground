@@ -96,7 +96,7 @@ if (urlParams.has("embed")) {
 }
 
 class Interpreter {
-  private readonly state: number;
+  private readonly state: Module.Artichoke;
   private evalCounter: number;
 
   constructor(private readonly wasm: Module.Ffi) {
@@ -108,7 +108,7 @@ class Interpreter {
   // one byte at a time.
   //
   // Strings are UTF-8 encoded byte vectors.
-  read = (ptr: number): string => {
+  read = (ptr: Module.StringPointer): string => {
     const len: number = this.wasm._artichoke_string_getlen(this.state, ptr);
     const bytes = [];
     for (let idx = 0; idx < len; idx += 1) {
@@ -122,7 +122,7 @@ class Interpreter {
   // a time.
   //
   // Strings are UTF-8 encoded byte vectors.
-  write = (s: string): number => {
+  write = (s: string): Module.StringPointer => {
     const ptr = this.wasm._artichoke_string_new(this.state);
     const bytes = new TextEncoder().encode(s);
     for (let idx = 0; idx < bytes.length; idx += 1) {
@@ -209,7 +209,7 @@ Module().then((wasm: Module.Ffi): void => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const buildInfoElement = document.getElementById("artichoke-build-info")!;
-  buildInfoElement.textContent = artichoke.read(0);
+  buildInfoElement.textContent = artichoke.read(0 as Module.StringPointer);
 
   // When the user clicks the "Run" button, grab the source code from the editor
   // buffer and eval it on an Artichoke Wasm interpreter.
