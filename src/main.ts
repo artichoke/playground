@@ -12,15 +12,13 @@ import "@artichokeruby/logo/img/playground.png";
 import "@artichokeruby/logo/img/playground-social-logo.png";
 import "./assets/robots.txt";
 
+import Interpreter from "./interpreter";
+import PlaygroundChrome from "./playground-chrome";
+import { PlaygroundRunAction, EvalType } from "./run-action";
 import Module from "./wasm/playground.js";
 import "./wasm/playground.wasm";
 
 import example from "./examples/forwardable_regexp_io.rb";
-
-enum EvalType {
-  Button = "button",
-  CodeAction = "code_action",
-}
 
 // The playground serializes the content of the code editor into the URL
 // location hash to allow for sharing and deep linking, similar to
@@ -29,10 +27,8 @@ enum EvalType {
 // On page load, try to parse the deep-linked code out of the location hash. If
 // present, initialize the code editor with this code, otherwise, initialize the
 // editor with the bundled example Ruby code.
-let sourceCode;
-if (window.location.hash.length === 0) {
-  sourceCode = example.trim();
-} else {
+let sourceCode: string = example.trim();
+if (window.location.hash) {
   sourceCode = decodeURIComponent(window.location.hash).slice(1);
 }
 
@@ -67,7 +63,7 @@ const outputElement = document.getElementById("output")!;
 // Monaco editor for the output buffer. This editor is configured to be
 // read-only and to approximate a tty with no word breaking or other editor
 // features like the minimap.
-const output = monaco.editor.create(outputElement, {
+const outputPane = monaco.editor.create(outputElement, {
   language: "plaintext",
   theme: "vs-dark",
   fontSize: 14,
@@ -95,112 +91,10 @@ if (urlParams.has("embed")) {
   );
 }
 
-class Interpreter {
-  private readonly state: Module.Artichoke;
-  private evalCounter: number;
-
-  constructor(private readonly wasm: Module.Ffi) {
-    this.state = wasm._artichoke_web_repl_init();
-    this.evalCounter = 0;
-  }
-
-  // Unmarshal a string from the FFI state by retrieving the string contents
-  // one byte at a time.
-  //
-  // Strings are UTF-8 encoded byte vectors.
-  read = (ptr: Module.StringPointer): string => {
-    const len: number = this.wasm._artichoke_string_getlen(this.state, ptr);
-    const bytes = [];
-    for (let idx = 0; idx < len; idx += 1) {
-      const byte = this.wasm._artichoke_string_getch(this.state, ptr, idx);
-      bytes.push(byte);
-    }
-    return new TextDecoder().decode(new Uint8Array(bytes));
-  };
-
-  // Marshal a string into the FFI state by allocating and pushing one byte at
-  // a time.
-  //
-  // Strings are UTF-8 encoded byte vectors.
-  write = (s: string): Module.StringPointer => {
-    const ptr = this.wasm._artichoke_string_new(this.state);
-    const bytes = new TextEncoder().encode(s);
-    for (let idx = 0; idx < bytes.length; idx += 1) {
-      const byte = bytes[idx];
-      this.wasm._artichoke_string_putch(this.state, ptr, byte);
-    }
-    return ptr;
-  };
-
-  // Write the source code into the shared Rust/JavaScript string heap and
-  // eval this code on a new Artichoke interpreter via FFI.
-  evalRuby = (source: string): string => {
-    this.evalCounter += 1;
-
-    const level = `eval-ffi-${this.evalCounter}`;
-    window.gtag("event", "level_start", {
-      level_name: level,
-    });
-
-    const code = this.write(source);
-    const output = this.wasm._artichoke_eval(this.state, code);
-    const result = this.read(output);
-    this.wasm._artichoke_string_free(this.state, code);
-    this.wasm._artichoke_string_free(this.state, output);
-
-    window.gtag("event", "level_end", {
-      level_name: level,
-      success: true,
-    });
-
-    return result;
-  };
-}
-
-// Factory for an event handler that reads the source code in the editor buffer
-// and evals it on an embedded Artichoke Wasm interpreter.
-//
-// The output editor is updated with the contents of the report from the
-// interperter containing stdout, stderr, and the output from calling `inspect`
-// on the returned value.
-const playgroundRun = (() => {
-  let buttonEvalCounter = 0;
-  let codeActionEvalCounter = 0;
-
-  return (interp: Interpreter, evalType: EvalType) => (): void => {
-    let counter: number;
-    switch (evalType) {
-      case EvalType.Button: {
-        buttonEvalCounter += 1;
-        counter = buttonEvalCounter;
-        break;
-      }
-      case EvalType.CodeAction: {
-        codeActionEvalCounter += 1;
-        counter = codeActionEvalCounter;
-        break;
-      }
-    }
-
-    const level = `playground-run-${evalType}-${counter}`;
-    window.gtag("event", "level_start", {
-      level_name: level,
-    });
-
-    const sourceLines = editor.getModel()?.getLinesContent() ?? [];
-    const source = sourceLines.join("\n");
-    const result = interp.evalRuby(source);
-    output.getModel()?.setValue(result);
-
-    window.gtag("event", "level_end", {
-      level_name: level,
-      success: true,
-    });
-  };
-})();
-
 Module().then((wasm: Module.Ffi): void => {
-  const level = `playground-interpreter-init`;
+  const chrome = new PlaygroundChrome(editor, outputPane);
+
+  const level = "playground-interpreter-init";
   window.gtag("event", "level_start", {
     level_name: level,
   });
@@ -209,6 +103,9 @@ Module().then((wasm: Module.Ffi): void => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const buildInfoElement = document.getElementById("artichoke-build-info")!;
+
+  // On `Interpreter` init, Rust code generates the interpreter meta and stores
+  // it in string heap position `0`.
   buildInfoElement.textContent = artichoke.read(0 as Module.StringPointer);
 
   // When the user clicks the "Run" button, grab the source code from the editor
@@ -216,7 +113,7 @@ Module().then((wasm: Module.Ffi): void => {
   const runButton = document.getElementById("run");
   runButton?.addEventListener(
     "click",
-    playgroundRun(artichoke, EvalType.Button)
+    new PlaygroundRunAction(EvalType.button, chrome).makeHandler(artichoke)
   );
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
@@ -228,7 +125,9 @@ Module().then((wasm: Module.Ffi): void => {
     label: "Run Ruby source code",
     keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
     contextMenuGroupId: "2_playground_eval",
-    run: playgroundRun(artichoke, EvalType.CodeAction),
+    run: new PlaygroundRunAction(EvalType.codeAction, chrome).makeHandler(
+      artichoke
+    ),
   });
 
   window.gtag("event", "level_end", {
