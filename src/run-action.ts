@@ -1,5 +1,5 @@
-import Interpreter from "./interpreter";
-import PlaygroundChrome from "./playground-chrome";
+import type Interpreter from "./interpreter";
+import type PlaygroundChrome from "./playground-chrome";
 
 // Types of UI actions that can trigger an interpreter eval.
 export enum EvalType {
@@ -22,6 +22,7 @@ export class PlaygroundRunAction {
 
   private counter = 0;
 
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   constructor(evalType: EvalType, chrome: PlaygroundChrome) {
     this.evalType = evalType;
     this.chrome = chrome;
@@ -29,7 +30,7 @@ export class PlaygroundRunAction {
 
   // Create an event handler bound to the given interpreter with this Playground
   // run action's configuration.
-  makeHandler(interp: Interpreter): () => void {
+  makeHandler(interp: Readonly<Interpreter>): () => void {
     return (): void => {
       const counter = this.counter + 1;
       this.counter = counter;

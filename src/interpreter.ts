@@ -1,4 +1,4 @@
-import Module from "./wasm/playground.js";
+import type Module from "./wasm/playground.js";
 
 // `Interpreter` is a wrapper around an `Artichoke` interpreter and string heap.
 //
@@ -22,7 +22,7 @@ export default class Interpreter {
   // and Google Tag Manager.
   private evalCounter = 0;
 
-  constructor(ffi: Module.Ffi) {
+  constructor(ffi: Readonly<Module.Ffi>) {
     this.wasm = ffi;
     this.state = this.wasm._artichoke_web_repl_init();
   }
@@ -31,12 +31,14 @@ export default class Interpreter {
   // one byte at a time.
   //
   // Strings are UTF-8 encoded byte vectors.
+  //
+  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   read(ptr: Module.StringPointer): string {
-    const len: number = this.wasm._artichoke_string_getlen(this.state, ptr);
-    const bytes = new Uint8Array(len);
-    for (let idx = 0; idx < len; idx += 1) {
-      const byte = this.wasm._artichoke_string_getch(this.state, ptr, idx);
-      bytes[idx] = byte;
+    const length_: number = this.wasm._artichoke_string_getlen(this.state, ptr);
+    const bytes = new Uint8Array(length_);
+    for (let index = 0; index < length_; index += 1) {
+      const byte = this.wasm._artichoke_string_getch(this.state, ptr, index);
+      bytes[index] = byte;
     }
     return new TextDecoder().decode(bytes);
   }
@@ -45,9 +47,9 @@ export default class Interpreter {
   // a time.
   //
   // Strings are UTF-8 encoded byte vectors.
-  write(s: string): Module.StringPointer {
+  write(string_: string): Module.StringPointer {
     const ptr = this.wasm._artichoke_string_new(this.state);
-    const bytes = new TextEncoder().encode(s);
+    const bytes = new TextEncoder().encode(string_);
     for (const byte of bytes) {
       this.wasm._artichoke_string_putch(this.state, ptr, byte);
     }

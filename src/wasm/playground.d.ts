@@ -18,17 +18,20 @@ declare namespace Module {
       state: Artichoke,
       ptr: StringPointer
     ): number;
+
     public _artichoke_string_getch(
       state: Artichoke,
       ptr: StringPointer,
       index: number
     ): number;
+
     public _artichoke_string_new(state: Artichoke): StringPointer;
     _artichoke_string_putch(
       state: Artichoke,
       ptr: StringPointer,
       byte: number
     ): void;
+
     public _artichoke_string_free(state: Artichoke, ptr: StringPointer): void;
 
     public _artichoke_eval(

@@ -72,6 +72,7 @@ const outputPane = monaco.editor.create(outputElement, {
   readOnly: true,
   wordWrap: "bounded",
   wordWrapBreakAfterCharacters: "",
+
   minimap: {
     enabled: false,
   },
@@ -82,8 +83,8 @@ const outputPane = monaco.editor.create(outputElement, {
 // visible.
 //
 // Example URL: https://artichoke.run/?embed
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has("embed")) {
+const urlParameters = new URLSearchParams(window.location.search);
+if (urlParameters.has("embed")) {
   const embeddableElement = document.getElementById("embeddable");
   embeddableElement?.setAttribute(
     "style",
@@ -91,7 +92,8 @@ if (urlParams.has("embed")) {
   );
 }
 
-Module().then((wasm: Module.Ffi): void => {
+// eslint-disable-next-line new-cap
+Module().then((wasm: Readonly<Module.Ffi>): void => {
   const chrome = new PlaygroundChrome(editor, outputPane);
 
   const level = "playground-interpreter-init";
@@ -123,8 +125,10 @@ Module().then((wasm: Module.Ffi): void => {
   editor.addAction({
     id: "artichoke-playground-run-ruby",
     label: "Run Ruby source code",
+    // eslint-disable-next-line no-bitwise
     keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
     contextMenuGroupId: "2_playground_eval",
+
     run: new PlaygroundRunAction(EvalType.codeAction, chrome).makeHandler(
       artichoke
     ),

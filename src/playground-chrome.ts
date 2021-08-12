@@ -1,4 +1,4 @@
-import * as monaco from "monaco-editor";
+import type * as monaco from "monaco-editor";
 
 // Data class for passing around references to the Monaco editor surfaces that
 // comprise the playground UI chrome.
@@ -14,8 +14,8 @@ export default class PlaygroundChrome {
   readonly outputPane: monaco.editor.IStandaloneCodeEditor;
 
   constructor(
-    editor: monaco.editor.IStandaloneCodeEditor,
-    outputPane: monaco.editor.IStandaloneCodeEditor
+    editor: Readonly<monaco.editor.IStandaloneCodeEditor>,
+    outputPane: Readonly<monaco.editor.IStandaloneCodeEditor>
   ) {
     this.editor = editor;
     this.outputPane = outputPane;
