@@ -1,14 +1,23 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const fs = require("fs").promises;
-const path = require("path");
+import fs from "node:fs/promises";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const eta = require("eta");
-const esbuild = require("esbuild");
+import { renderFile } from "eta";
+import esbuild from "esbuild";
+
+// eslint-disable-next-line no-shadow
+const require = createRequire(import.meta.url);
 const minifyHtml = require("@minify-html/js");
+
+// eslint-disable-next-line no-shadow
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const assets = Object.freeze([
   "src/assets/robots.txt",
@@ -54,11 +63,12 @@ const build = async () => {
     path.join(__dirname, "dist", "playground.wasm")
   );
 
-  let index = await eta.renderFile(
+  let index = await renderFile(
     "index.html",
     {},
     { views: path.join(__dirname, "src") }
   );
+
   if (process.argv.includes("--release")) {
     const cfg = minifyHtml.createConfiguration({
       ensure_spec_compliant_unquoted_attribute_values: true,
@@ -68,8 +78,10 @@ const build = async () => {
       minify_css: true,
       remove_bangs: false,
     });
+
     index = minifyHtml.minify(index, cfg);
   }
+
   await fs.writeFile(path.join(__dirname, "dist", "index.html"), index);
 
   await esbuild.build({
@@ -95,8 +107,8 @@ const build = async () => {
 (async function main() {
   try {
     await build();
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 })();
