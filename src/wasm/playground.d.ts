@@ -8,7 +8,7 @@ declare namespace Module {
     public then(thunk: (wasm: Ffi) => void): void;
   }
 
-  export type Artichoke = number & { _opqaque: typeof ARTICHOKE_TYPE };
+  export type Artichoke = number & { _opaque: typeof ARTICHOKE_TYPE };
   export type StringPointer = number & { _opaque: typeof STRING_POINTER_TYPE };
 
   export class Ffi {
