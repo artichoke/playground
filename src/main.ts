@@ -92,7 +92,7 @@ if (urlParameters.has("embed")) {
   );
 }
 
-// eslint-disable-next-line new-cap
+// eslint-disable-next-line new-cap, promise/catch-or-return
 Module().then((wasm: Readonly<Module.Ffi>): void => {
   const chrome = new PlaygroundChrome(editor, outputPane);
 
