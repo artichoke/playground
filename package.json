@@ -21,7 +21,7 @@
   "dependencies": {
     "@artichokeruby/logo": "^0.10.0",
     "@popperjs/core": "^2.9.2",
-    "bootstrap": "^5.0.2",
+    "bootstrap": "^5.1.0",
     "monaco-editor": "^0.26.1"
   },
   "devDependencies": {
