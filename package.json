@@ -22,7 +22,7 @@
     "@artichokeruby/logo": "^0.10.0",
     "@popperjs/core": "^2.10.1",
     "bootstrap": "^5.1.0",
-    "monaco-editor": "^0.26.1"
+    "monaco-editor": "^0.27.0"
   },
   "devDependencies": {
     "@hyperbola/svgo-loader": "^0.2.2",
