@@ -9,6 +9,8 @@ name: Playground
       - trunk
   schedule:
     - cron: "0 0 * * TUE"
+concurrency:
+  group: playground-${{ github.head_ref }}
 jobs:
   build:
     name: Build Playground
