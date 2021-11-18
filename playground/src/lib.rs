@@ -6,7 +6,7 @@
 #![allow(clippy::missing_panics_doc)]
 #![allow(clippy::option_if_let_else)]
 #![allow(unknown_lints)]
-#![warn(broken_intra_doc_links)]
+#![warn(rustdoc::broken_intra_doc_links)]
 // #![warn(missing_docs)]
 #![warn(missing_debug_implementations)]
 #![warn(missing_copy_implementations)]
