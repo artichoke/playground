@@ -8,15 +8,14 @@ require 'rubocop/rake_task'
 task default: %i[format lint]
 
 desc 'Lint sources'
-task lint: %i[lint:clippy lint:rubocop:auto_correct]
+task lint: %i[lint:eslint lint:clippy lint:rubocop:auto_correct]
 
 namespace :lint do
   RuboCop::RakeTask.new(:rubocop)
 
   desc 'Lint JavaScript and TypeScript sources with eslint'
-  task eslint: :deps do
-    sh 'npm ci'
-    sh 'npx eslint --fix .'
+  task :eslint do
+    sh 'npm run lint:fix'
   end
 
   desc 'Lint Rust sources with Clippy'

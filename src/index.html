@@ -15,9 +15,10 @@
     <title>Artichoke Ruby Playground</title>
 
     <link rel="canonical" href="https://www.artichoke.run/" />
+    <link rel="stylesheet" href="/main.bundle.css" />
 
     <!-- Favicons -->
-    <%= require("./partials/favicons.html").default %>
+    <%~ includeFile('partials/favicons.html') %>
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -50,12 +51,12 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <%= require("./partials/google-analytics.html").default %>
+    <%~ includeFile('partials/google-analytics.html') %>
   </head>
   <body class="h-100">
-    <%= require("./partials/google-analytics-noscript.html").default %>
+    <%~ includeFile('partials/google-analytics-noscript.html') %>
     <div id="wrapper" class="h-100 d-flex flex-column flex-grow">
-      <%= require("./partials/nav.html").default %>
+      <%~ includeFile('partials/nav.html') %>
 
       <div
         id="embeddable"
@@ -82,7 +83,7 @@
         </div>
       </div>
     </div>
-
-    <%= require("./partials/footer.html").default %>
+    <%~ includeFile('partials/footer.html') %>
+    <script type="module" async src="/main.bundle.js"></script>
   </body>
 </html>

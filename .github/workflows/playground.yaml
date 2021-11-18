@@ -67,7 +67,7 @@ jobs:
         run: ruby scripts/build-wasm.rb --release --verbose
 
       - name: Webpack build
-        run: npx webpack --mode production
+        run: node build.js --release
 
       - name: Deploy Playground
         uses: peaceiris/actions-gh-pages@v3

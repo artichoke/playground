@@ -1,6 +1,6 @@
 {
   "name": "@artichokeruby/playground",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "Artichoke Ruby Wasm Playground",
   "keywords": [
@@ -22,28 +22,17 @@
     "@artichokeruby/logo": "^0.10.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.1.3",
-    "monaco-editor": "^0.29.1"
+    "monaco-editor": "^0.30.1"
   },
   "devDependencies": {
-    "@hyperbola/svgo-loader": "^0.2.2",
+    "@minify-html/js": "^0.7.0",
     "@types/gtag.js": "0.0.7",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
-    "css-loader": "^6.5.0",
-    "css-minimizer-webpack-plugin": "^3.1.1",
+    "esbuild": "^0.13.14",
     "eslint": "^8.1.0",
-    "html-loader": "^3.0.1",
-    "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.4.4",
-    "mini-svg-data-uri": "^1.4.3",
-    "monaco-editor-webpack-plugin": "^5.0.0",
-    "style-loader": "^3.3.1",
-    "svgo": "^2.7.0",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.4.3",
-    "webpack": "^5.61.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.4.0"
+    "eta": "^1.12.3",
+    "typescript": "^4.4.3"
   },
   "eslintConfig": {
     "root": true,
@@ -69,17 +58,32 @@
       "**/src/wasm/**/*.js",
       "**/src/wasm/**/*.wasm",
       "webpack.config.js"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        {
+          "ignoreVoid": true,
+          "ignoreIIFE": true
+        }
+      ]
+    }
   },
   "scripts": {
-    "build": "ruby scripts/build-wasm.rb",
-    "build:release": "ruby scripts/build-wasm.rb --release",
-    "dev": "webpack serve --mode development",
-    "dev:open": "webpack serve --mode development --open",
-    "dev:production": "wepack serve --mode production",
-    "dev:production:open": "webpack serve --mode production --open",
+    "build:debug": "npx concurrently --max-processes 1 \"npm:build:debug:wasm\" \"npm:build:debug:app\"",
+    "build:debug:app": "node build.js",
+    "build:debug:wasm": "ruby scripts/build-wasm.rb",
+    "build:release": "npx concurrently --max-processes 1 \"npm:build:release:wasm\" \"npm:build:release:app\"",
+    "build:release:app": "node build.js --release",
+    "build:release:wasm": "ruby scripts/build-wasm.rb --release",
+    "clean": "rm -rf dist",
+    "dev:debug": "npx concurrently \"npm:serve\" \"npm:watch:debug\"",
+    "dev:release": "npx concurrently \"npm:serve\" \"npm:watch:release\"",
     "fmt": "npx prettier --write \"**/*\"",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "serve": "python3 -u -m http.server --directory dist --bind 127.0.0.1 0",
+    "watch:debug": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.js\" \"src/**/*\" -c \"npm run build:debug\" --initial",
+    "watch:release": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.js\" \"src/**/*\" -c \"npm run build:release\" --initial"
   }
 }

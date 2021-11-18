@@ -1,24 +1,38 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import * as monaco from "monaco-editor";
-
-// Assets with well-known filenames
-import "@artichokeruby/logo/img/artichoke-logo.png";
-import "@artichokeruby/logo/img/artichoke-logo.svg";
-import "@artichokeruby/logo/img/artichoke-logo-inverted.png";
-import "@artichokeruby/logo/img/artichoke-logo-inverted.svg";
-import "@artichokeruby/logo/img/playground.png";
-import "@artichokeruby/logo/img/playground-social-logo.png";
-import "./assets/robots.txt";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
+import "monaco-editor/esm/vs/editor/editor.all.js";
+import "monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution";
 
 import Interpreter from "./interpreter";
 import PlaygroundChrome from "./playground-chrome";
 import { PlaygroundRunAction, EvalType } from "./run-action";
 import Module from "./wasm/playground.js";
-import "./wasm/playground.wasm";
 
 import example from "./examples/forwardable_regexp_io.rb";
+
+// Since packaging is done outside of the ESM build, we need to instruct the
+// editor how esbuild has named the bundles that contain the web workers.
+//
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+(self as any).MonacoEnvironment = {
+  getWorkerUrl: function (_moduleId: string, label: string) {
+    if (label === "json") {
+      return "./json.worker.bundle.js";
+    }
+    if (label === "css" || label === "scss" || label === "less") {
+      return "./css.worker.bundle.js";
+    }
+    if (label === "html" || label === "handlebars" || label === "razor") {
+      return "./html.worker.bundle.js";
+    }
+    if (label === "typescript" || label === "javascript") {
+      return "./ts.worker.bundle.js";
+    }
+    return "./editor.worker.bundle.js";
+  },
+};
 
 // The playground serializes the content of the code editor into the URL
 // location hash to allow for sharing and deep linking, similar to
