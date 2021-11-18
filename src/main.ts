@@ -12,9 +12,10 @@ import Module from "./wasm/playground.js";
 
 import example from "./examples/forwardable_regexp_io.rb";
 
-// Since packaging is done by you, you need
-// to instruct the editor how you named the
-// bundles that contain the web workers.
+// Since packaging is done outside of the ESM build, we need to instruct the
+// editor how esbuild has named the bundles that contain the web workers.
+//
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
 (self as any).MonacoEnvironment = {
   getWorkerUrl: function (_moduleId: string, label: string) {
     if (label === "json") {
