@@ -1,7 +1,9 @@
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import * as monaco from "monaco-editor";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
+import "monaco-editor/esm/vs/editor/editor.all.js";
+import "monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution";
 
 import Interpreter from "./interpreter";
 import PlaygroundChrome from "./playground-chrome";
@@ -9,6 +11,27 @@ import { PlaygroundRunAction, EvalType } from "./run-action";
 import Module from "./wasm/playground.js";
 
 import example from "./examples/forwardable_regexp_io.rb";
+
+// Since packaging is done by you, you need
+// to instruct the editor how you named the
+// bundles that contain the web workers.
+(self as any).MonacoEnvironment = {
+  getWorkerUrl: function (_moduleId: string, label: string) {
+    if (label === "json") {
+      return "./json.worker.bundle.js";
+    }
+    if (label === "css" || label === "scss" || label === "less") {
+      return "./css.worker.bundle.js";
+    }
+    if (label === "html" || label === "handlebars" || label === "razor") {
+      return "./html.worker.bundle.js";
+    }
+    if (label === "typescript" || label === "javascript") {
+      return "./ts.worker.bundle.js";
+    }
+    return "./editor.worker.bundle.js";
+  },
+};
 
 // The playground serializes the content of the code editor into the URL
 // location hash to allow for sharing and deep linking, similar to
