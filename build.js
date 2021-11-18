@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const ejs = require("ejs");
+const eta = require("eta");
 const esbuild = require("esbuild");
 
 const assets = Object.freeze([
@@ -49,10 +49,10 @@ const build = async () => {
   );
 
   const index = await new Promise((resolve, reject) => {
-    ejs.renderFile(
-      path.join(__dirname, "src", "index.html"),
+    eta.renderFile(
+      "index.html",
       {},
-      { root: path.join(__dirname, "src") },
+      { views: path.join(__dirname, "src") },
       (err, str) => {
         if (err) {
           reject(err);

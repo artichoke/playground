@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/main.bundle.css" />
 
     <!-- Favicons -->
-    <%- include('partials/favicons.html') %>
+    <%~ includeFile('partials/favicons.html') %>
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -51,12 +51,12 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <%- include('partials/google-analytics.html') %>
+    <%~ includeFile('partials/google-analytics.html') %>
   </head>
   <body class="h-100">
-    <%- include('partials/google-analytics-noscript.html') %>
+    <%~ includeFile('partials/google-analytics-noscript.html') %>
     <div id="wrapper" class="h-100 d-flex flex-column flex-grow">
-      <%- include('partials/nav.html') %>
+      <%~ includeFile('partials/nav.html') %>
 
       <div
         id="embeddable"
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <%- include('partials/footer.html') %>
+    <%~ includeFile('partials/footer.html') %>
     <script type="module" async src="/main.bundle.js"></script>
   </body>
 </html>
