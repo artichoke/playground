@@ -63,10 +63,10 @@ jobs:
       - name: Install Nodejs toolchain
         run: npm ci
 
-      - name: Compile
+      - name: Compile Wasm
         run: ruby scripts/build-wasm.rb --release --verbose
 
-      - name: Webpack build
+      - name: Build Webapp
         run: node build.js --release
 
       - name: Deploy Playground
@@ -74,7 +74,7 @@ jobs:
         if: github.ref == 'refs/heads/trunk'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/dist
+          publish_dir: ./dist
           publish_branch: gh-pages
           cname: artichoke.run
           user_name: artichoke-ci

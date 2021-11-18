@@ -56,8 +56,7 @@
     ],
     "ignorePatterns": [
       "**/src/wasm/**/*.js",
-      "**/src/wasm/**/*.wasm",
-      "webpack.config.js"
+      "**/src/wasm/**/*.wasm"
     ],
     "rules": {
       "@typescript-eslint/no-floating-promises": [
