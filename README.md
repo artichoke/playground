@@ -29,8 +29,7 @@ development server with:
 ```sh
 rustup target add wasm32-unknown-emscripten
 . scripts/install-emscripten-toolchain.sh
-npm build
-npm run dev:open
+npm run dev:debug # or npm run dev:release
 ```
 
 ## Contributing
