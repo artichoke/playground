@@ -63,10 +63,10 @@ jobs:
       - name: Install Nodejs toolchain
         run: npm ci
 
-      - name: Compile
+      - name: Compile Wasm
         run: ruby scripts/build-wasm.rb --release --verbose
 
-      - name: Webpack build
+      - name: Build Webapp
         run: node build.js --release
 
       - name: Deploy Playground
