@@ -9,5 +9,6 @@
     "outDir": "./target/dist",
     "jsx": "react",
     "moduleResolution": "node"
-  }
+  },
+  "include": ["src/**/*", "tests/**/*"]
 }
