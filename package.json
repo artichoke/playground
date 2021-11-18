@@ -74,14 +74,20 @@
     ]
   },
   "scripts": {
-    "build": "ruby scripts/build-wasm.rb",
-    "build:release": "ruby scripts/build-wasm.rb --release",
-    "dev": "webpack serve --mode development",
-    "dev:open": "webpack serve --mode development --open",
-    "dev:production": "wepack serve --mode production",
-    "dev:production:open": "webpack serve --mode production --open",
+    "build:debug": "npx concurrently --max-processes 1 \"npm:build:debug:wasm\" \"npm:build:debug:app\"",
+    "build:debug:app": "node build.js",
+    "build:debug:wasm": "ruby scripts/build-wasm.rb",
+    "build:release": "npx concurrently --max-processes 1 \"npm:build:release:wasm\" \"npm:build:release:app\"",
+    "build:release:app": "node build.js --release",
+    "build:release:wasm": "ruby scripts/build-wasm.rb --release",
+    "clean": "rm -rf dist",
+    "dev:debug": "npx concurrently \"npm:serve\" \"npm:watch:debug\"",
+    "dev:release": "npx concurrently \"npm:serve\" \"npm:watch:release\"",
     "fmt": "npx prettier --write \"**/*\"",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "lint:fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "serve": "python3 -u -m http.server --directory dist --bind 127.0.0.1 0",
+    "watch:debug": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.js\" \"src/**/*\" -c \"npm run build:debug\" --initial",
+    "watch:release": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.js\" \"src/**/*\" -c \"npm run build:release\" --initial"
   }
 }
