@@ -74,7 +74,7 @@ jobs:
         if: github.ref == 'refs/heads/trunk'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/dist
+          publish_dir: ./dist
           publish_branch: gh-pages
           cname: artichoke.run
           user_name: artichoke-ci
