@@ -39,6 +39,16 @@ module Artichoke
 
       def self.debug(verbose: false)
         ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
+        # Rust compilation on `wasm32-unknown-emscripten` fails during linking
+        # due to a dependency on missing symbol `__gxx_personality_v0`. This has
+        # been broken since Rust 1.53.0 and emsdk newer than 2.0.9.
+        #
+        # These flags work around the problem by letting the emcc linker ignore
+        # the missing symbol error.
+        #
+        # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
+        # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
+        ENV['EMMAKEN_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --verbose`
@@ -57,6 +67,16 @@ module Artichoke
 
       def self.release(verbose: false)
         ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
+        # Rust compilation on `wasm32-unknown-emscripten` fails during linking
+        # due to a dependency on missing symbol `__gxx_personality_v0`. This has
+        # been broken since Rust 1.53.0 and emsdk newer than 2.0.9.
+        #
+        # These flags work around the problem by letting the emcc linker ignore
+        # the missing symbol error.
+        #
+        # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
+        # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
+        ENV['EMMAKEN_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --release --verbose`
