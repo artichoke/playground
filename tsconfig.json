@@ -10,5 +10,5 @@
     "jsx": "react",
     "moduleResolution": "node"
   },
-  "include": ["src/**/*", "tests/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.js", "build.js"]
 }

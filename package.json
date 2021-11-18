@@ -58,7 +58,16 @@
       "**/src/wasm/**/*.js",
       "**/src/wasm/**/*.wasm",
       "webpack.config.js"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        {
+          "ignoreVoid": true,
+          "ignoreIIFE": true
+        }
+      ]
+    }
   },
   "scripts": {
     "build:debug": "npx concurrently --max-processes 1 \"npm:build:debug:wasm\" \"npm:build:debug:app\"",

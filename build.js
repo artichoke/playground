@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const fs = require("fs").promises;
 const path = require("path");
 
@@ -49,20 +54,11 @@ const build = async () => {
     path.join(__dirname, "dist", "playground.wasm")
   );
 
-  let index = await new Promise((resolve, reject) => {
-    eta.renderFile(
-      "index.html",
-      {},
-      { views: path.join(__dirname, "src") },
-      (err, str) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(str);
-      }
-    );
-  });
+  let index = await eta.renderFile(
+    "index.html",
+    {},
+    { views: path.join(__dirname, "src") }
+  );
   if (process.argv.includes("--release")) {
     const cfg = minifyHtml.createConfiguration({
       ensure_spec_compliant_unquoted_attribute_values: true,
@@ -96,7 +92,7 @@ const build = async () => {
   });
 };
 
-(async () => {
+(async function main() {
   try {
     await build();
   } catch (err) {
