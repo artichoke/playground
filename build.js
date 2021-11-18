@@ -3,6 +3,7 @@ const path = require("path");
 
 const eta = require("eta");
 const esbuild = require("esbuild");
+const minifyHtml = require("@minify-html/js");
 
 const assets = Object.freeze([
   "src/assets/robots.txt",
@@ -48,7 +49,7 @@ const build = async () => {
     path.join(__dirname, "dist", "playground.wasm")
   );
 
-  const index = await new Promise((resolve, reject) => {
+  let index = await new Promise((resolve, reject) => {
     eta.renderFile(
       "index.html",
       {},
@@ -62,6 +63,17 @@ const build = async () => {
       }
     );
   });
+  if (process.argv.includes("--release")) {
+    const cfg = minifyHtml.createConfiguration({
+      ensure_spec_compliant_unquoted_attribute_values: true,
+      keep_html_and_head_opening_tags: true,
+      keep_closing_tags: true,
+      minify_js: true,
+      minify_css: true,
+      remove_bangs: false,
+    });
+    index = minifyHtml.minify(index, cfg);
+  }
   await fs.writeFile(path.join(__dirname, "dist", "index.html"), index);
 
   await esbuild.build({
