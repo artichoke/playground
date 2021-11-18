@@ -3,20 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import * as monaco from "monaco-editor";
 
-// Assets with well-known filenames
-import "@artichokeruby/logo/img/artichoke-logo.png";
-import "@artichokeruby/logo/img/artichoke-logo.svg";
-import "@artichokeruby/logo/img/artichoke-logo-inverted.png";
-import "@artichokeruby/logo/img/artichoke-logo-inverted.svg";
-import "@artichokeruby/logo/img/playground.png";
-import "@artichokeruby/logo/img/playground-social-logo.png";
-import "./assets/robots.txt";
-
 import Interpreter from "./interpreter";
 import PlaygroundChrome from "./playground-chrome";
 import { PlaygroundRunAction, EvalType } from "./run-action";
 import Module from "./wasm/playground.js";
-import "./wasm/playground.wasm";
 
 import example from "./examples/forwardable_regexp_io.rb";
 
