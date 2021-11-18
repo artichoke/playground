@@ -14,7 +14,7 @@ dependencies = [
 [[package]]
 name = "artichoke"
 version = "0.1.0-pre.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "artichoke-backend",
  "chrono",
@@ -23,8 +23,8 @@ dependencies = [
 
 [[package]]
 name = "artichoke-backend"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+version = "0.3.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "artichoke-core",
  "artichoke-load-path",
@@ -50,13 +50,13 @@ dependencies = [
 
 [[package]]
 name = "artichoke-core"
-version = "0.8.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+version = "0.10.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 
 [[package]]
 name = "artichoke-load-path"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 
 [[package]]
 name = "autocfg"
@@ -273,6 +273,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "raw-parts"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40212472c0965c24516ac3e87ffeafc3bfd67274ad699dff8985e80d147644be"
+
+[[package]]
 name = "regex"
 version = "1.5.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -292,25 +298,28 @@ checksum = "f497285884f3fcff424ffc933e56d7cbca511def0c9831a7f9b5f6153e3cc89b"
 [[package]]
 name = "scolapasta-hex"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 
 [[package]]
 name = "scolapasta-string-escape"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "bstr",
 ]
 
 [[package]]
 name = "spinoso-array"
-version = "0.5.2"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+version = "0.7.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+dependencies = [
+ "raw-parts",
+]
 
 [[package]]
 name = "spinoso-env"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "bstr",
  "scolapasta-string-escape",
@@ -319,15 +328,15 @@ dependencies = [
 [[package]]
 name = "spinoso-exception"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "scolapasta-string-escape",
 ]
 
 [[package]]
 name = "spinoso-math"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "libm",
 ]
@@ -335,7 +344,7 @@ dependencies = [
 [[package]]
 name = "spinoso-random"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "getrandom",
  "libm",
@@ -345,8 +354,8 @@ dependencies = [
 
 [[package]]
 name = "spinoso-regexp"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "bitflags",
  "bstr",
@@ -358,7 +367,7 @@ dependencies = [
 [[package]]
 name = "spinoso-securerandom"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "base64",
  "rand",
@@ -368,7 +377,7 @@ dependencies = [
 [[package]]
 name = "spinoso-symbol"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5b0b0e54cafd465008822e809d979e8b5c23d43c#5b0b0e54cafd465008822e809d979e8b5c23d43c"
+source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
 dependencies = [
  "artichoke-core",
  "bstr",

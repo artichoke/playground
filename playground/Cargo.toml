@@ -19,7 +19,7 @@ bstr = { version = "0.2, >= 0.2.4", default-features = false }
 [dependencies.artichoke]
 version = "0.1.0-pre.0"
 git = "https://github.com/artichoke/artichoke.git"
-rev = "5b0b0e54cafd465008822e809d979e8b5c23d43c"
+rev = "6797c1844e1c3fe620157c04b8125bb43fcd0594"
 default-features = false
 features = [
   "core-env",

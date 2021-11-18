@@ -3,11 +3,11 @@ use artichoke::prelude::{Value as _, *};
 pub fn build_info(interp: &mut Artichoke) -> String {
     let mut description = interp
         .eval(b"RUBY_DESCRIPTION")
-        .and_then(|value| value.try_into_mut::<String>(interp))
+        .and_then(|value| value.try_convert_into_mut::<String>(interp))
         .unwrap_or_default();
     let compiler = interp
         .eval(b"ARTICHOKE_COMPILER_VERSION")
-        .and_then(|value| value.try_into_mut::<&str>(interp))
+        .and_then(|value| value.try_convert_into_mut::<&str>(interp))
         .unwrap_or_default();
     description.push('\n');
     description.push('[');
