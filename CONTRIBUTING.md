@@ -78,15 +78,16 @@ cargo clippy --all-targets --all-features
 
 ### C Toolchain
 
-Some artichoke dependencies, like the mruby [`sys`](artichoke-backend/src/sys)
-FFI bindings and the [`onig`] crate, build C static libraries and require a C
-compiler.
+The Playground's `artichoke` dependency and several other transitive
+dependencies build C static libraries and require a C compiler.
 
-Artichoke specifically requires clang. WebAssembly targets require clang-8 or
-newer.
+The Artichoke Playground specifically requires emcc. Install the appropriate
+emscripten toolchain defined in [`emscripten-toolchain`](emscripten-toolchain)
+or source the included helper in your shell:
 
-On Windows, install the latest LLVM distribution from GitHub and add LLVM to
-your PATH: <https://github.com/llvm/llvm-project/releases>.
+```sh
+. scripts/install-emscripten-toolchain.sh
+```
 
 #### `cc` Crate
 
