@@ -124,8 +124,8 @@ jobs:
       - name: Compile with TypeScript
         run: npx tsc --extendedDiagnostics --listFiles --listEmittedFiles
 
-      - name: Lint and check formatting with eslint
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+      - name: Lint with eslint
+        run: npm run lint
 
   text:
     name: Lint and format text
