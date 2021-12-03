@@ -10,6 +10,7 @@ target/
 !*.js
 !*.json
 !*.md
+!*.mjs
 !*.ts
 !*.yaml
 !*.yml
