@@ -11,8 +11,11 @@ Ruby][artichoke-repo] hosted at <https://artichoke.run>.
 ## Try Artichoke
 
 <p align="center">
-  <a href="https://artichoke.run">
-    <img style="max-width: 400px" width="400" src="https://artichoke.run/playground.png">
+  <a href="https://artichoke.run/#gh-light-mode-only">
+    <img style="max-width: 400px" width="400" src="https://artichoke.run/artichoke-playground-safari-revision-4938-light-mode.png">
+  </a>
+  <a href="https://artichoke.run/#gh-dark-mode-only">
+    <img style="max-width: 400px" width="400" src="https://artichoke.run/artichoke-playground-safari-revision-4938-dark-mode.png">
   </a>
   <br>
   <em>Artichoke Ruby Wasm Playground</em>
