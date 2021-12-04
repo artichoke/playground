@@ -2,9 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
-    "target": "ES6",
+    "target": "ESNext",
     "module": "commonjs",
-    "lib": ["ES6", "DOM"],
     "baseUrl": "src",
     "outDir": "./target/dist",
     "jsx": "react",
