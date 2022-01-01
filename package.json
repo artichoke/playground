@@ -27,7 +27,7 @@
   "devDependencies": {
     "@minify-html/js": "^0.7.0",
     "@types/gtag.js": "0.0.8",
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.5.0",
     "esbuild": "^0.14.2",
     "eslint": "^8.4.0",
