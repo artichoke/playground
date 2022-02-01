@@ -30,7 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "esbuild": "^0.14.10",
-    "eslint": "^8.6.0",
+    "eslint": "^8.8.0",
     "eta": "^1.12.3",
     "typescript": "^4.5.4"
   },
