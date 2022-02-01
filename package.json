@@ -29,7 +29,7 @@
     "@types/gtag.js": "0.0.8",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
-    "esbuild": "^0.14.10",
+    "esbuild": "^0.14.16",
     "eslint": "^8.6.0",
     "eta": "^1.12.3",
     "typescript": "^4.5.4"
