@@ -48,7 +48,7 @@ module Artichoke
         #
         # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
         # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
-        ENV['EMMAKEN_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
+        ENV['EMCC_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --verbose`
@@ -76,7 +76,7 @@ module Artichoke
         #
         # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
         # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
-        ENV['EMMAKEN_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
+        ENV['EMCC_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --release --verbose`
