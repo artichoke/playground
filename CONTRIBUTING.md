@@ -108,9 +108,9 @@ environment variables.
 
 ### Ruby
 
-Artichoke requires a recent Ruby 2.x and [bundler](https://bundler.io/) 2.x. The
-[`.ruby-version`](.ruby-version) file in the root of Artichoke specifies Ruby
-2.6.3.
+The Artichoke Playground requires a recent Ruby and [bundler] for development
+tasks. The [`.ruby-version`](.ruby-version) file in this repository specifies
+the preferred Ruby toolchain.
 
 If you use [RVM], you can install Ruby dependencies by running:
 
