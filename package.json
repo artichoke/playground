@@ -20,7 +20,7 @@
   "repository": "github:artichoke/playground",
   "dependencies": {
     "@artichokeruby/logo": "^0.12.0",
-    "@popperjs/core": "^2.11.2",
+    "@popperjs/core": "^2.11.4",
     "bootstrap": "^5.1.3",
     "monaco-editor": "^0.32.1"
   },
