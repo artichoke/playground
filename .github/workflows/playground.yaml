@@ -79,3 +79,6 @@ jobs:
           cname: artichoke.run
           user_name: artichoke-ci
           user_email: ci@artichokeruby.org
+          # only have the most recent build in the `gh-pages` branch
+          # https://github.com/artichoke/artichoke/issues/1826
+          force_orphan: true
