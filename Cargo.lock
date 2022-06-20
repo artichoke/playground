@@ -14,7 +14,7 @@ dependencies = [
 [[package]]
 name = "artichoke"
 version = "0.1.0-pre.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "artichoke-backend",
  "tz-rs",
@@ -23,7 +23,7 @@ dependencies = [
 [[package]]
 name = "artichoke-backend"
 version = "0.13.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "artichoke-core",
  "artichoke-load-path",
@@ -48,12 +48,12 @@ dependencies = [
 [[package]]
 name = "artichoke-core"
 version = "0.12.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 
 [[package]]
 name = "artichoke-load-path"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 
 [[package]]
 name = "base64"
@@ -138,7 +138,7 @@ checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 [[package]]
 name = "mezzaluna-feature-loader"
 version = "0.5.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 
 [[package]]
 name = "playground"
@@ -222,12 +222,12 @@ checksum = "49b3de9ec5dc0a3417da371aab17d729997c15010e7fd24ff707773a33bddb64"
 [[package]]
 name = "scolapasta-hex"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 
 [[package]]
 name = "scolapasta-string-escape"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "bstr",
 ]
@@ -241,7 +241,7 @@ checksum = "f27f6278552951f1f2b8cf9da965d10969b2efdea95a6ec47987ab46edfe263a"
 [[package]]
 name = "spinoso-array"
 version = "0.9.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "raw-parts",
 ]
@@ -249,7 +249,7 @@ dependencies = [
 [[package]]
 name = "spinoso-env"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "bstr",
  "scolapasta-string-escape",
@@ -258,7 +258,7 @@ dependencies = [
 [[package]]
 name = "spinoso-exception"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "scolapasta-string-escape",
 ]
@@ -266,7 +266,7 @@ dependencies = [
 [[package]]
 name = "spinoso-math"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "libm",
 ]
@@ -274,7 +274,7 @@ dependencies = [
 [[package]]
 name = "spinoso-random"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "getrandom",
  "libm",
@@ -286,7 +286,7 @@ dependencies = [
 [[package]]
 name = "spinoso-regexp"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "bitflags",
  "bstr",
@@ -297,7 +297,7 @@ dependencies = [
 [[package]]
 name = "spinoso-securerandom"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "base64",
  "rand",
@@ -307,7 +307,7 @@ dependencies = [
 [[package]]
 name = "spinoso-string"
 version = "0.17.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "bstr",
  "bytecount",
@@ -320,7 +320,7 @@ dependencies = [
 [[package]]
 name = "spinoso-symbol"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7#c2a8d5b9e04f3e65faed48d37945f3cc0cc0b1f7"
 dependencies = [
  "artichoke-core",
  "bstr",
