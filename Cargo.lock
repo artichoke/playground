@@ -14,27 +14,24 @@ dependencies = [
 [[package]]
 name = "artichoke"
 version = "0.1.0-pre.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "artichoke-backend",
- "chrono",
- "target-lexicon",
+ "tz-rs",
 ]
 
 [[package]]
 name = "artichoke-backend"
-version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.13.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "artichoke-core",
  "artichoke-load-path",
  "bstr",
  "cc",
- "cstr",
  "intaglio",
- "itoa",
- "log",
- "once_cell",
+ "mezzaluna-feature-loader",
+ "qed",
  "regex",
  "scolapasta-string-escape",
  "spinoso-array",
@@ -44,25 +41,19 @@ dependencies = [
  "spinoso-random",
  "spinoso-regexp",
  "spinoso-securerandom",
+ "spinoso-string",
  "spinoso-symbol",
- "target-lexicon",
 ]
 
 [[package]]
 name = "artichoke-core"
-version = "0.10.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.12.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 
 [[package]]
 name = "artichoke-load-path"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
-
-[[package]]
-name = "autocfg"
-version = "1.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 
 [[package]]
 name = "base64"
@@ -86,6 +77,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "bytecount"
+version = "0.6.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c676a478f63e9fa2dd5368a42f28bba0d6c560b775f38583c8bbaa7fcd67c9c"
+
+[[package]]
 name = "cc"
 version = "1.0.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -96,28 +93,6 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
-
-[[package]]
-name = "chrono"
-version = "0.4.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "670ad68c9088c2a963aaa298cb369688cf3f9465ce5e2d4ca10e6e0098a1ce73"
-dependencies = [
- "libc",
- "num-integer",
- "num-traits",
- "winapi",
-]
-
-[[package]]
-name = "cstr"
-version = "0.2.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2846d3636dcaff720d311ea8983f5fa7a8288632b2f95145dd4b5819c397fd8"
-dependencies = [
- "proc-macro2",
- "quote",
-]
 
 [[package]]
 name = "focaccia"
@@ -143,12 +118,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f2775300b5de0ecd36eca323e7cc20a1f7ccd11798c2fcc32f0d6f382a48586"
 
 [[package]]
-name = "itoa"
-version = "0.4.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b71991ff56294aa922b450139ee08b3bfc70982c6b2c7562771375cf73542dd4"
-
-[[package]]
 name = "libc"
 version = "0.2.121"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -161,44 +130,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "33a33a362ce288760ec6a508b94caaec573ae7d3bbbd91b87aa0bad4456839db"
 
 [[package]]
-name = "log"
-version = "0.4.16"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6389c490849ff5bc16be905ae24bc913a9c8892e19b2341dbc175e14c341c2b8"
-dependencies = [
- "cfg-if",
-]
-
-[[package]]
 name = "memchr"
 version = "2.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "308cc39be01b73d0d18f82a0e7b2a3df85245f84af96fdddc5d202d27e47b86a"
 
 [[package]]
-name = "num-integer"
-version = "0.1.44"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2cc698a63b549a70bc047073d2949cce27cd1c7b0a4a862d08a8031bc2801db"
-dependencies = [
- "autocfg",
- "num-traits",
-]
-
-[[package]]
-name = "num-traits"
-version = "0.2.14"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a64b1ec5cda2586e284722486d802acf1f7dbdc623e2bfc57e65ca1cd099290"
-dependencies = [
- "autocfg",
-]
-
-[[package]]
-name = "once_cell"
-version = "1.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87f3e037eac156d1775da914196f0f37741a274155e34a0b7e427c35d2a2ecb9"
+name = "mezzaluna-feature-loader"
+version = "0.5.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 
 [[package]]
 name = "playground"
@@ -215,22 +155,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eb9f9e6e233e5c4a35559a617bf40a4ec447db2e84c20b55a6f83167b7e57872"
 
 [[package]]
-name = "proc-macro2"
-version = "1.0.36"
+name = "qed"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7342d5883fbccae1cc37a2353b09c87c9b0f3afd73f5fb9bba687a1f733b029"
-dependencies = [
- "unicode-xid",
-]
-
-[[package]]
-name = "quote"
-version = "1.0.17"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "632d02bff7f874a36f33ea8bb416cd484b90cc66c1194b1a1110d067a7013f58"
-dependencies = [
- "proc-macro2",
-]
+checksum = "90d0abf294960e1e7e22949cddc9cc2c96a05dc52f5567fd65c2bbd4899ff47e"
 
 [[package]]
 name = "rand"
@@ -263,6 +191,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "rand_mt"
+version = "4.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88015c62ee73400068c6b1ba3e6fa7215c3f88fe882d208ab82d2e36d95c7aad"
+
+[[package]]
 name = "raw-parts"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -287,29 +221,35 @@ checksum = "f497285884f3fcff424ffc933e56d7cbca511def0c9831a7f9b5f6153e3cc89b"
 
 [[package]]
 name = "scolapasta-hex"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 
 [[package]]
 name = "scolapasta-string-escape"
-version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.3.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "bstr",
 ]
 
 [[package]]
+name = "simdutf8"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f27f6278552951f1f2b8cf9da965d10969b2efdea95a6ec47987ab46edfe263a"
+
+[[package]]
 name = "spinoso-array"
-version = "0.7.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.9.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "raw-parts",
 ]
 
 [[package]]
 name = "spinoso-env"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "bstr",
  "scolapasta-string-escape",
@@ -318,46 +258,46 @@ dependencies = [
 [[package]]
 name = "spinoso-exception"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "scolapasta-string-escape",
 ]
 
 [[package]]
 name = "spinoso-math"
-version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.3.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "libm",
 ]
 
 [[package]]
 name = "spinoso-random"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "getrandom",
  "libm",
  "rand",
  "rand_core",
+ "rand_mt",
 ]
 
 [[package]]
 name = "spinoso-regexp"
-version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.3.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "bitflags",
  "bstr",
- "itoa",
  "regex",
  "scolapasta-string-escape",
 ]
 
 [[package]]
 name = "spinoso-securerandom"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.2.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "base64",
  "rand",
@@ -365,52 +305,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "spinoso-string"
+version = "0.17.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
+dependencies = [
+ "bstr",
+ "bytecount",
+ "focaccia",
+ "raw-parts",
+ "scolapasta-string-escape",
+ "simdutf8",
+]
+
+[[package]]
 name = "spinoso-symbol"
-version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=6797c1844e1c3fe620157c04b8125bb43fcd0594#6797c1844e1c3fe620157c04b8125bb43fcd0594"
+version = "0.3.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7#5f8b6a659c0cd5c722a71c688c054ae18f3cd0e7"
 dependencies = [
  "artichoke-core",
  "bstr",
  "focaccia",
+ "qed",
  "scolapasta-string-escape",
 ]
 
 [[package]]
-name = "target-lexicon"
-version = "0.12.3"
+name = "tz-rs"
+version = "0.6.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7fa7e55043acb85fca6b3c01485a2eeb6b69c5d21002e273c79e465f43b7ac1"
-
-[[package]]
-name = "unicode-xid"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8ccb82d61f80a663efe1f787a51b16b5a51e3314d6ac365b08639f52387b33f3"
+checksum = "ed700577df0503a291cb0eec06edeb4da3debd33d49cffa81c720112a6e51ca6"
 
 [[package]]
 name = "wasi"
 version = "0.10.2+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fd6fbd9a79829dd1ad0cc20627bf1ed606756a7f77edff7b66b7064f9cb327c6"
-
-[[package]]
-name = "winapi"
-version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
-dependencies = [
- "winapi-i686-pc-windows-gnu",
- "winapi-x86_64-pc-windows-gnu",
-]
-
-[[package]]
-name = "winapi-i686-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
-
-[[package]]
-name = "winapi-x86_64-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
