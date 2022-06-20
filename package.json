@@ -20,19 +20,19 @@
   "repository": "github:artichoke/playground",
   "dependencies": {
     "@artichokeruby/logo": "^0.12.0",
-    "@popperjs/core": "^2.11.4",
+    "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.1.3",
     "monaco-editor": "^0.33.0"
   },
   "devDependencies": {
-    "@minify-html/js": "^0.8.0",
+    "@minify-html/js": "^0.8.1",
     "@types/gtag.js": "0.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.17.0",
-    "@typescript-eslint/parser": "^5.17.0",
-    "esbuild": "^0.14.29",
-    "eslint": "^8.12.0",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "esbuild": "^0.14.46",
+    "eslint": "^8.18.0",
     "eta": "^1.12.3",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.4"
   },
   "eslintConfig": {
     "root": true,
