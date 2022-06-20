@@ -142,7 +142,7 @@ source = "git+https://github.com/artichoke/artichoke.git?rev=c2a8d5b9e04f3e65fae
 
 [[package]]
 name = "playground"
-version = "0.7.0"
+version = "0.8.0"
 dependencies = [
  "artichoke",
  "bstr",
