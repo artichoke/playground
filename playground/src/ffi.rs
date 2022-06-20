@@ -27,9 +27,8 @@ pub fn artichoke_web_repl_init() -> u32 {
 #[no_mangle]
 #[must_use]
 pub fn artichoke_string_new(state: u32) -> u32 {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let mut state = ManuallyDrop::new(state);
     state.heap.allocate(String::new())
@@ -37,9 +36,8 @@ pub fn artichoke_string_new(state: u32) -> u32 {
 
 #[no_mangle]
 pub fn artichoke_string_free(state: u32, ptr: u32) {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let mut state = ManuallyDrop::new(state);
     state.heap.free(ptr);
@@ -48,9 +46,8 @@ pub fn artichoke_string_free(state: u32, ptr: u32) {
 #[no_mangle]
 #[must_use]
 pub fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let state = ManuallyDrop::new(state);
     state.heap.string_getlen(ptr)
@@ -59,9 +56,8 @@ pub fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
 #[no_mangle]
 #[must_use]
 pub fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let state = ManuallyDrop::new(state);
     state.heap.string_getch(ptr, idx)
@@ -69,9 +65,8 @@ pub fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
 
 #[no_mangle]
 pub fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let mut state = ManuallyDrop::new(state);
     state.heap.string_putch(ptr, ch);
@@ -80,9 +75,8 @@ pub fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
 #[no_mangle]
 #[must_use]
 pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
-    if state == 0 {
-        panic!("null pointer");
-    }
+    assert_ne!(state, 0, "null pointer");
+
     let state = unsafe { Box::from_raw(state as *mut State) };
     let mut state = ManuallyDrop::new(state);
     let code = state.heap.string(ptr);
