@@ -156,7 +156,7 @@ rake lint:clippy                  # Lint Rust sources with Clippy
 rake lint:clippy:restriction      # Lint Rust sources with Clippy restriction pass (unenforced lints)
 rake lint:eslint                  # Lint JavaScript and TypeScript sources with eslint
 rake lint:rubocop                 # Run RuboCop
-rake lint:rubocop:auto_correct    # Auto-correct RuboCop offenses
+rake lint:rubocop:autocorrect     # Auto-correct RuboCop offenses
 rake release:markdown_link_check  # Check for broken links in markdown files
 rake test                         # Run Playground unit tests
 ```
