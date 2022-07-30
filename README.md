@@ -39,8 +39,8 @@ npm run dev:debug # or npm run dev:release
 
 ## Contributing
 
-Artichoke aspires to be a Ruby 2.6.3-compatible implementation of the Ruby
-programming language. [There is lots to do][github-issues].
+Artichoke aspires to be an [MRI Ruby-compatible][mri-target] implementation of
+the Ruby programming language. [There is lots to do][github-issues].
 
 If the Artichoke Playground does not run Ruby source code in the same way that
 MRI does, it is a bug and we would appreciate if you [filed an issue so we can
@@ -60,6 +60,8 @@ Artichoke's public Discord server][discord].
 [playground]: https://artichoke.run
 [playground-repo]: https://github.com/artichoke/playground
 [webassembly]: https://webassembly.org/
+[mri-target]:
+  https://github.com/artichoke/artichoke/blob/trunk/RUBYSPEC.md#mri-target
 [github-issues]: https://github.com/artichoke/artichoke/issues
 [file-an-issue]: https://github.com/artichoke/playground/issues/new
 [discord]: https://discord.gg/QCe2tp2
