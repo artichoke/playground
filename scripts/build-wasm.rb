@@ -25,7 +25,7 @@ module Artichoke
         link-arg=SUPPORT_LONGJMP=1
       ].freeze
 
-      USAGE = <<~USAGE
+      USAGE = <<~USAGE.freeze
         build-wasm.rb - Artichoke Ruby Playground WebAssembly Builder
         Ryan Lopopolo <rjl@hyperbo.la>
 
@@ -119,9 +119,9 @@ module Artichoke
 
         argv = args.keys.freeze
         if argv == ['--release']
-          release(verbose: verbose)
+          release(verbose:)
         elsif argv.empty?
-          debug(verbose: verbose)
+          debug(verbose:)
         else
           warn USAGE
           Process.exit(2)
