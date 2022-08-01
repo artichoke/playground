@@ -28,7 +28,7 @@
     "@minify-html/js": "^0.8.1",
     "@types/gtag.js": "0.0.10",
     "@typescript-eslint/eslint-plugin": "^5.30.3",
-    "@typescript-eslint/parser": "^5.30.3",
+    "@typescript-eslint/parser": "^5.31.0",
     "esbuild": "^0.14.48",
     "eslint": "^8.18.0",
     "eta": "^1.12.3",
