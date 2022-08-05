@@ -56,6 +56,15 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten`
         end
 
+        return if FileUtils.compare_file(
+          'target/wasm32-unknown-emscripten/debug/playground.js',
+          'src/wasm/playground.js'
+        )
+        return if FileUtils.compare_file(
+          'target/wasm32-unknown-emscripten/debug/playground.wasm',
+          'src/wasm/playground.wasm'
+        )
+
         FileUtils.mv(
           ['target/wasm32-unknown-emscripten/debug/playground.js',
            'target/wasm32-unknown-emscripten/debug/playground.wasm'],
@@ -83,6 +92,15 @@ module Artichoke
         else
           `cargo build --target wasm32-unknown-emscripten --release`
         end
+
+        return if FileUtils.compare_file(
+          'target/wasm32-unknown-emscripten/release/playground.js',
+          'src/wasm/playground.js'
+        )
+        return if FileUtils.compare_file(
+          'target/wasm32-unknown-emscripten/release/playground.wasm',
+          'src/wasm/playground.wasm'
+        )
 
         FileUtils.mv(
           ['target/wasm32-unknown-emscripten/release/playground.js',
