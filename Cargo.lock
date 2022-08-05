@@ -119,9 +119,9 @@ checksum = "dd49aef5b63b46af0844b99cea402c3063d9a052249265d322657d83cf464211"
 
 [[package]]
 name = "libc"
-version = "0.2.126"
+version = "0.2.127"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "349d5a591cd28b49e1d1037471617a32ddcda5731b99419008085f72d5a53836"
+checksum = "505e71a4706fa491e9b1b55f51b95d4037d0821ee40131190475f692b35b009b"
 
 [[package]]
 name = "libm"
@@ -174,9 +174,9 @@ dependencies = [
 
 [[package]]
 name = "rand_mt"
-version = "4.1.1"
+version = "4.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88015c62ee73400068c6b1ba3e6fa7215c3f88fe882d208ab82d2e36d95c7aad"
+checksum = "30605ed38110721cffe812de8f878a1418a310831a3afd73e294b912222cd7c0"
 
 [[package]]
 name = "raw-parts"
