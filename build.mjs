@@ -4,16 +4,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import { Buffer } from 'node:buffer';
+import { Buffer } from "node:buffer";
 import fs from "node:fs/promises";
-import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import minifyHtml from "@minify-html/node";
 import { renderFile } from "eta";
 import esbuild from "esbuild";
-
 
 // eslint-disable-next-line no-shadow
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -73,7 +71,7 @@ const build = async () => {
   );
 
   if (process.argv.includes("--release")) {
-    const input = Buffer.from(index)
+    const input = Buffer.from(index);
     const output = minifyHtml.minify(input, {
       ensure_spec_compliant_unquoted_attribute_values: true,
       keep_html_and_head_opening_tags: true,
