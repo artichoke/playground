@@ -4,12 +4,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+import { Buffer } from 'node:buffer';
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import * as minifyHtml from "@minify-html/node";
+import minifyHtml from "@minify-html/node";
 import { renderFile } from "eta";
 import esbuild from "esbuild";
 
@@ -72,7 +73,8 @@ const build = async () => {
   );
 
   if (process.argv.includes("--release")) {
-    const cfg = minifyHtml.createConfiguration({
+    const input = Buffer.from(index)
+    const output = minifyHtml.minify(input, {
       ensure_spec_compliant_unquoted_attribute_values: true,
       keep_html_and_head_opening_tags: true,
       keep_closing_tags: true,
@@ -80,8 +82,7 @@ const build = async () => {
       minify_css: true,
       remove_bangs: false,
     });
-
-    index = minifyHtml.minify(index, cfg);
+    index = output.toString();
   }
 
   await fs.writeFile(path.join(__dirname, "dist", "index.html"), index);
