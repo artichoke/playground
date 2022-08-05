@@ -56,14 +56,26 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten`
         end
 
-        return if FileUtils.compare_file(
-          'target/wasm32-unknown-emscripten/debug/playground.js',
-          'src/wasm/playground.js'
-        )
-        return if FileUtils.compare_file(
-          'target/wasm32-unknown-emscripten/debug/playground.wasm',
-          'src/wasm/playground.wasm'
-        )
+        begin
+          return if [
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/debug/playground.js',
+              'src/wasm/playground.js'
+            ),
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/debug/playground.wasm',
+              'src/wasm/playground.wasm'
+            ),
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/debug/playground.wasm.map',
+              'src/wasm/playground.wasm.map'
+            )
+          ].all?
+        rescue ArgumentError, Errno::ENOENT
+          # pass - if destination files don't exist, `compare_file` will raise
+          # `ENOENT`, which means the files are not equal and we should proceed
+          # with the copy.
+        end
 
         FileUtils.cp(
           ['target/wasm32-unknown-emscripten/debug/playground.js',
@@ -94,14 +106,26 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten --release`
         end
 
-        return if FileUtils.compare_file(
-          'target/wasm32-unknown-emscripten/release/playground.js',
-          'src/wasm/playground.js'
-        )
-        return if FileUtils.compare_file(
-          'target/wasm32-unknown-emscripten/release/playground.wasm',
-          'src/wasm/playground.wasm'
-        )
+        begin
+          return if [
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/release/playground.js',
+              'src/wasm/playground.js'
+            ),
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/release/playground.wasm',
+              'src/wasm/playground.wasm'
+            ),
+            FileUtils.compare_file(
+              'target/wasm32-unknown-emscripten/release/playground.wasm.map',
+              'src/wasm/playground.wasm.map'
+            )
+          ].all?
+        rescue ArgumentError, Errno::ENOENT
+          # pass - if destination files don't exist, `compare_file` will raise
+          # `ENOENT`, which means the files are not equal and we should proceed
+          # with the copy.
+        end
 
         FileUtils.cp(
           ['target/wasm32-unknown-emscripten/release/playground.js',
