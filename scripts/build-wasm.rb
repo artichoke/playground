@@ -65,7 +65,7 @@ module Artichoke
           'src/wasm/playground.wasm'
         )
 
-        FileUtils.mv(
+        FileUtils.cp(
           ['target/wasm32-unknown-emscripten/debug/playground.js',
            'target/wasm32-unknown-emscripten/debug/playground.wasm'],
           'src/wasm/'
@@ -102,7 +102,7 @@ module Artichoke
           'src/wasm/playground.wasm'
         )
 
-        FileUtils.mv(
+        FileUtils.cp(
           ['target/wasm32-unknown-emscripten/release/playground.js',
            'target/wasm32-unknown-emscripten/release/playground.wasm'],
           'src/wasm/'
