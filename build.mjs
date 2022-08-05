@@ -9,12 +9,10 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import * as minifyHtml from "@minify-html/node";
 import { renderFile } from "eta";
 import esbuild from "esbuild";
 
-// eslint-disable-next-line no-shadow
-const require = createRequire(import.meta.url);
-const minifyHtml = require("@minify-html/js");
 
 // eslint-disable-next-line no-shadow
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
