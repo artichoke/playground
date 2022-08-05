@@ -66,6 +66,10 @@ const build = async () => {
     path.join(__dirname, "src", "wasm", "playground.wasm"),
     path.join(__dirname, "dist", "playground.wasm")
   );
+  await fs.copyFile(
+    path.join(__dirname, "src", "wasm", "playground.wasm.map"),
+    path.join(__dirname, "dist", "playground.wasm.map")
+  );
 
   let index = await renderFile(
     "index.html",
