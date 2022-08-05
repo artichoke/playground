@@ -3,3 +3,4 @@ members = ["playground"]
 
 [profile.release]
 debug = true
+opt-level = "z"
