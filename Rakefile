@@ -104,7 +104,7 @@ namespace :release do
     f.exclude('emsdk/**/*')
     f.exclude('node_modules/**/*')
     f.exclude('**/target/**/*')
-    f.exclude('**/vendor/**/*')
+    f.exclude('**/vendor/*/**/*')
     f.include('*.md')
     f.include('**/vendor/*.md')
   end
