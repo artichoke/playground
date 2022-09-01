@@ -25,7 +25,7 @@
     "monaco-editor": "^0.34.0"
   },
   "devDependencies": {
-    "@minify-html/node": "^0.9.2",
+    "@minify-html/node": "^0.10.0",
     "@types/gtag.js": "0.0.10",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
