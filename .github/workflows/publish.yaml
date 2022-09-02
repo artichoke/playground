@@ -1,23 +1,29 @@
 ---
-name: Playground
+name: Publish
 "on":
   push:
     branches:
       - trunk
-  pull_request:
-    branches:
-      - trunk
-  schedule:
-    - cron: "0 0 * * TUE"
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 concurrency:
-  group: playground-${{ github.head_ref }}
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
+  # Build job
   build:
     name: Build Playground
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -D warnings
       RUST_BACKTRACE: 1
+      CARGO_NET_GIT_FETCH_WITH_CLI: true
 
     steps:
       - name: Checkout repository
@@ -30,11 +36,19 @@ jobs:
         id: toolchain_versions
 
       - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          target: wasm32-unknown-emscripten
-          profile: minimal
-          override: true
+        run: |
+          echo "::group::rustup toolchain install"
+          rustup toolchain install ${{ steps.toolchain_versions.outputs.rust }} --profile minimal --target wasm32-unknown-emscripten
+          echo "::endgroup::"
+          echo "::group::rustup version"
+          rustup -Vv
+          echo "::endgroup::"
+          echo "::group::rustc version"
+          rustc -Vv
+          echo "::endgroup::"
+          echo "::group::cargo version"
+          cargo version --verbose
+          echo "::endgroup::"
 
       - uses: Swatinem/rust-cache@v1
 
@@ -44,18 +58,11 @@ jobs:
           ruby-version: ".ruby-version"
           bundler-cache: true
 
-      - name: Cache emsdk
-        uses: actions/cache@v3
-        id: cache
-        with:
-          path: "emsdk-cache"
-          key: emscripten-emsdk-${{ runner.os }}-emsdk-${{ steps.toolchain_versions.outputs.emscripten }}
-
       - name: Install Emscripten toolchain
         uses: mymindstorm/setup-emsdk@v11
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
-          actions-cache-folder: "emsdk-cache"
+          no-cache: true
 
       - name: Verify emcc version
         run: emcc -v
@@ -69,9 +76,9 @@ jobs:
       - name: Build Webapp
         run: node build.mjs --release
 
+      # Publish step
       - name: Deploy Playground
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/trunk'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist

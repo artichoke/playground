@@ -10,20 +10,37 @@ name: CI
   schedule:
     - cron: "0 0 * * TUE"
 jobs:
-  build:
-    name: Build
+  build-rust:
+    name: Build Rust
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -D warnings
       RUST_BACKTRACE: 1
+      CARGO_NET_GIT_FETCH_WITH_CLI: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set toolchain versions
+        run: |
+          echo "::set-output name=rust::$(cat rust-toolchain)"
+          echo "::set-output name=emscripten::$(cat emscripten-toolchain)"
+        id: toolchain_versions
+
       - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
+        run: |
+          echo "::group::rustup toolchain install"
+          rustup toolchain install ${{ steps.toolchain_versions.outputs.rust }} --profile minimal
+          echo "::endgroup::"
+          echo "::group::rustup version"
+          rustup -Vv
+          echo "::endgroup::"
+          echo "::group::rustc version"
+          rustc -Vv
+          echo "::endgroup::"
+          echo "::group::cargo version"
+          cargo version --verbose
+          echo "::endgroup::"
 
       - uses: Swatinem/rust-cache@v1
 
@@ -36,12 +53,13 @@ jobs:
       - name: Test
         run: cargo test --workspace
 
-  rust:
-    name: Lint and format Rust
+  build-webapp:
+    name: Build Webapp
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -D warnings
       RUST_BACKTRACE: 1
+      CARGO_NET_GIT_FETCH_WITH_CLI: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -53,11 +71,19 @@ jobs:
         id: toolchain_versions
 
       - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          components: rustfmt, clippy
-          target: wasm32-unknown-emscripten
+        run: |
+          echo "::group::rustup toolchain install"
+          rustup toolchain install ${{ steps.toolchain_versions.outputs.rust }} --profile minimal --target wasm32-unknown-emscripten
+          echo "::endgroup::"
+          echo "::group::rustup version"
+          rustup -Vv
+          echo "::endgroup::"
+          echo "::group::rustc version"
+          rustc -Vv
+          echo "::endgroup::"
+          echo "::group::cargo version"
+          cargo version --verbose
+          echo "::endgroup::"
 
       - uses: Swatinem/rust-cache@v1
 
@@ -71,24 +97,70 @@ jobs:
         uses: mymindstorm/setup-emsdk@v11
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
+          no-cache: true
+
+      - name: Verify emcc version
+        run: emcc -v
+
+      - name: Install Nodejs toolchain
+        run: npm ci
+
+      - name: Compile Wasm
+        run: ruby scripts/build-wasm.rb --release --verbose
+
+      - name: Build Webapp
+        run: node build.mjs --release
+
+  rust:
+    name: Lint and format Rust
+    runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
+      RUST_BACKTRACE: 1
+      CARGO_NET_GIT_FETCH_WITH_CLI: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set toolchain versions
+        run: |
+          echo "::set-output name=rust::$(cat rust-toolchain)"
+          echo "::set-output name=emscripten::$(cat emscripten-toolchain)"
+        id: toolchain_versions
+
+      - name: Install Rust toolchain
+        run: |
+          echo "::group::rustup toolchain install"
+          rustup toolchain install ${{ steps.toolchain_versions.outputs.rust }} --profile minimal --target wasm32-unknown-emscripten --component rustfmt clippy
+          echo "::endgroup::"
+          echo "::group::rustup version"
+          rustup -Vv
+          echo "::endgroup::"
+          echo "::group::rustc version"
+          rustc -Vv
+          echo "::endgroup::"
+          echo "::group::cargo version"
+          cargo version --verbose
+          echo "::endgroup::"
+
+      - uses: Swatinem/rust-cache@v1
+
+      - name: Install Emscripten toolchain
+        uses: mymindstorm/setup-emsdk@v11
+        with:
+          version: ${{ steps.toolchain_versions.outputs.emscripten }}
 
       - name: Verify emcc version
         run: emcc -v
 
       - name: Check formatting
-        run: cargo fmt -- --check --color=auto
+        run: cargo fmt --check
 
       - name: Lint with Clippy
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --workspace --all-features --all-targets
+        run: cargo clippy --workspace --all-features --all-targets
 
       - name: Lint with Clippy on emscripten target
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --workspace --all-features --all-targets --target wasm32-unknown-emscripten
+        run: cargo clippy --workspace --all-features --all-targets --target wasm32-unknown-emscripten
 
   ruby:
     name: Lint and format Ruby
