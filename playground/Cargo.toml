@@ -30,3 +30,9 @@ features = [
   "output-strategy-capture",
   "stdlib-full",
 ]
+
+[dependencies.scolapasta-string-escape]
+version = "0.3.0"
+git = "https://github.com/artichoke/artichoke.git"
+rev = "fbbe64921cc735639d6b165083aef01321531199"
+default-features = false

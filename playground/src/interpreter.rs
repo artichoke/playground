@@ -1,9 +1,9 @@
 use artichoke::backend::state::output::Captured;
 use artichoke::backend::state::parser::Context;
-use artichoke::backend::string::{format_unicode_debug_into, WriteError};
 use artichoke::backend::value;
 use artichoke::prelude::*;
 use bstr::ByteSlice;
+use scolapasta_string_escape::format_debug_escape_into;
 use std::ffi::OsStr;
 use std::fmt;
 use std::mem;
@@ -40,7 +40,7 @@ where
             if let Ok(line) = str::from_utf8(line) {
                 f.write_str(line)?;
             } else {
-                format_unicode_debug_into(&mut f, line).map_err(WriteError::into_inner)?;
+                format_debug_escape_into(&mut f, line)?;
             }
             f.write_str("\n")?;
         }
@@ -51,7 +51,7 @@ where
                 if let Ok(line) = str::from_utf8(line) {
                     f.write_str(line)?;
                 } else {
-                    format_unicode_debug_into(&mut f, line).map_err(WriteError::into_inner)?;
+                    format_debug_escape_into(&mut f, line)?;
                 }
                 f.write_str("\n")?;
             }
@@ -65,7 +65,7 @@ where
                     if let Ok(line) = str::from_utf8(line) {
                         f.write_str(line)?;
                     } else {
-                        format_unicode_debug_into(&mut f, line).map_err(WriteError::into_inner)?;
+                        format_debug_escape_into(&mut f, line)?;
                     }
                     f.write_str("\n")?;
                 }
