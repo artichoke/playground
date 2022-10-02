@@ -1,6 +1,6 @@
 [package]
 name = "playground"
-version = "0.8.0" # remember to bump package.json
+version = "0.9.0" # remember to bump package.json
 authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
 license = "MIT"
 edition = "2021"
@@ -14,12 +14,12 @@ keywords = ["artichoke", "artichoke-ruby", "playground", "ruby", "wasm"]
 categories = ["emulators", "wasm", "web-programming"]
 
 [dependencies]
-bstr = { version = "0.2.17", default-features = false }
+bstr = { version = "1.0.1", default-features = false }
 
 [dependencies.artichoke]
 version = "0.1.0-pre.0"
 git = "https://github.com/artichoke/artichoke.git"
-rev = "98fda6a34e9f7746069737f123fd2ffddb67faf6"
+rev = "fbbe64921cc735639d6b165083aef01321531199"
 default-features = false
 features = [
   "core-env",
@@ -30,3 +30,9 @@ features = [
   "output-strategy-capture",
   "stdlib-full",
 ]
+
+[dependencies.scolapasta-string-escape]
+version = "0.3.0"
+git = "https://github.com/artichoke/artichoke.git"
+rev = "fbbe64921cc735639d6b165083aef01321531199"
+default-features = false
