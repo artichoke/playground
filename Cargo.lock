@@ -14,25 +14,30 @@ dependencies = [
 [[package]]
 name = "artichoke"
 version = "0.1.0-pre.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "artichoke-backend",
+ "scolapasta-path",
+ "scolapasta-string-escape",
  "tz-rs",
 ]
 
 [[package]]
 name = "artichoke-backend"
-version = "0.13.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+version = "0.19.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "artichoke-core",
  "artichoke-load-path",
- "bstr",
+ "bstr 1.0.1",
  "cc",
  "intaglio",
- "mezzaluna-feature-loader",
+ "once_cell",
  "qed",
  "regex",
+ "scolapasta-aref",
+ "scolapasta-int-parse",
+ "scolapasta-path",
  "scolapasta-string-escape",
  "spinoso-array",
  "spinoso-env",
@@ -48,12 +53,12 @@ dependencies = [
 [[package]]
 name = "artichoke-core"
 version = "0.12.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 
 [[package]]
 name = "artichoke-load-path"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 
 [[package]]
 name = "base64"
@@ -77,6 +82,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "bstr"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fca0852af221f458706eb0725c03e4ed6c46af9ac98e6a689d5e634215d594dd"
+dependencies = [
+ "memchr",
+ "serde",
+]
+
+[[package]]
 name = "bytecount"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -87,6 +102,9 @@ name = "cc"
 version = "1.0.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fff2a6927b3bb87f9595d67196a70493f627687a71d87a0d692242c33f58c11"
+dependencies = [
+ "jobserver",
+]
 
 [[package]]
 name = "cfg-if"
@@ -118,6 +136,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1665db2526543d5fca893c1004e6a908953fb6c64c44b03b2f41267f89e5f881"
 
 [[package]]
+name = "jobserver"
+version = "0.1.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "068b1ee6743e4d11fb9c6a1e6064b3693a1b600e7f5f5988047d98b3dc9fb90b"
+dependencies = [
+ "libc",
+]
+
+[[package]]
 name = "libc"
 version = "0.2.134"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -136,17 +163,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
 
 [[package]]
-name = "mezzaluna-feature-loader"
-version = "0.5.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+name = "once_cell"
+version = "1.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e82dad04139b71a90c080c8463fe0dc7902db5192d939bd0950f074d014339e1"
 
 [[package]]
 name = "playground"
 version = "0.8.0"
 dependencies = [
  "artichoke",
- "bstr",
+ "bstr 0.2.17",
 ]
+
+[[package]]
+name = "posix-space"
+version = "1.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "774dd2ef2e014ad005e8a6833f5b5d26c89e9801c20637f69f3af489f7b03bff"
 
 [[package]]
 name = "qed"
@@ -202,17 +236,42 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a3f87b73ce11b1619a3c6332f45341e0047173771e8b8b73f87bfeefb7b56244"
 
 [[package]]
+name = "scolapasta-aref"
+version = "0.1.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
+
+[[package]]
 name = "scolapasta-hex"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
+
+[[package]]
+name = "scolapasta-int-parse"
+version = "0.2.2"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
+dependencies = [
+ "posix-space",
+ "scolapasta-string-escape",
+]
+
+[[package]]
+name = "scolapasta-path"
+version = "0.4.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 
 [[package]]
 name = "scolapasta-string-escape"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
- "bstr",
+ "bstr 1.0.1",
 ]
+
+[[package]]
+name = "serde"
+version = "1.0.145"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "728eb6351430bccb993660dfffc5a72f91ccc1295abaa8ce19b27ebe4f75568b"
 
 [[package]]
 name = "simdutf8"
@@ -223,7 +282,7 @@ checksum = "f27f6278552951f1f2b8cf9da965d10969b2efdea95a6ec47987ab46edfe263a"
 [[package]]
 name = "spinoso-array"
 version = "0.9.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "raw-parts",
 ]
@@ -231,16 +290,16 @@ dependencies = [
 [[package]]
 name = "spinoso-env"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
- "bstr",
+ "bstr 1.0.1",
  "scolapasta-string-escape",
 ]
 
 [[package]]
 name = "spinoso-exception"
 version = "0.1.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "scolapasta-string-escape",
 ]
@@ -248,7 +307,7 @@ dependencies = [
 [[package]]
 name = "spinoso-math"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "libm",
 ]
@@ -256,7 +315,7 @@ dependencies = [
 [[package]]
 name = "spinoso-random"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "getrandom",
  "libm",
@@ -267,19 +326,21 @@ dependencies = [
 
 [[package]]
 name = "spinoso-regexp"
-version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+version = "0.4.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "bitflags",
- "bstr",
+ "bstr 1.0.1",
+ "posix-space",
  "regex",
+ "scolapasta-aref",
  "scolapasta-string-escape",
 ]
 
 [[package]]
 name = "spinoso-securerandom"
 version = "0.2.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "base64",
  "rand",
@@ -288,10 +349,10 @@ dependencies = [
 
 [[package]]
 name = "spinoso-string"
-version = "0.19.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+version = "0.20.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
- "bstr",
+ "bstr 1.0.1",
  "bytecount",
  "focaccia",
  "raw-parts",
@@ -302,10 +363,10 @@ dependencies = [
 [[package]]
 name = "spinoso-symbol"
 version = "0.3.0"
-source = "git+https://github.com/artichoke/artichoke.git?rev=98fda6a34e9f7746069737f123fd2ffddb67faf6#98fda6a34e9f7746069737f123fd2ffddb67faf6"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
 dependencies = [
  "artichoke-core",
- "bstr",
+ "bstr 1.0.1",
  "focaccia",
  "qed",
  "scolapasta-string-escape",
