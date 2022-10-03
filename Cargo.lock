@@ -48,6 +48,7 @@ dependencies = [
  "spinoso-securerandom",
  "spinoso-string",
  "spinoso-symbol",
+ "spinoso-time",
 ]
 
 [[package]]
@@ -102,6 +103,12 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "const_fn"
+version = "0.4.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fbdcdcb6d86f71c5e97409ad45898af11cbc995b4ee8112d59095a28d376c935"
 
 [[package]]
 name = "focaccia"
@@ -161,7 +168,7 @@ checksum = "e82dad04139b71a90c080c8463fe0dc7902db5192d939bd0950f074d014339e1"
 
 [[package]]
 name = "playground"
-version = "0.9.0"
+version = "0.10.0"
 dependencies = [
  "artichoke",
  "bstr",
@@ -365,10 +372,40 @@ dependencies = [
 ]
 
 [[package]]
+name = "spinoso-time"
+version = "0.7.0"
+source = "git+https://github.com/artichoke/artichoke.git?rev=fbbe64921cc735639d6b165083aef01321531199#fbbe64921cc735639d6b165083aef01321531199"
+dependencies = [
+ "once_cell",
+ "regex",
+ "strftime-ruby",
+ "tz-rs",
+ "tzdb",
+]
+
+[[package]]
+name = "strftime-ruby"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6b02d24309580475dca1e01d10378f9a0d979aa95ee6c00bdbbf883f5315c905"
+
+[[package]]
 name = "tz-rs"
 version = "0.6.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "33851b15c848fad2cf4b105c6bb66eb9512b6f6c44a4b13f57c53c73c707e2b4"
+dependencies = [
+ "const_fn",
+]
+
+[[package]]
+name = "tzdb"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0f73d7058e3fffe1eba5e59ff9a8cbce4fb27805cffe3e9de588074debef31be"
+dependencies = [
+ "tz-rs",
+]
 
 [[package]]
 name = "wasi"
