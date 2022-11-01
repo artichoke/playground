@@ -25,8 +25,8 @@ jobs:
 
       - name: Set toolchain versions
         run: |
-          echo "::set-output name=rust::$(cat rust-toolchain)"
-          echo "::set-output name=emscripten::$(cat emscripten-toolchain)"
+          echo "rust=$(cat rust-toolchain)" >> $GITHUB_OUTPUT
+          echo "emscripten=$(cat emscripten-toolchain)" >> $GITHUB_OUTPUT
         id: toolchain_versions
 
       - name: Install Rust toolchain
