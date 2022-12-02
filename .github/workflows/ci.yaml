@@ -42,7 +42,7 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Compile
         run: cargo build --workspace --verbose
@@ -85,7 +85,7 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install Ruby toolchain
         uses: ruby/setup-ruby@v1
@@ -143,7 +143,7 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install Emscripten toolchain
         uses: mymindstorm/setup-emsdk@v11

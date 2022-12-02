@@ -44,7 +44,7 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install Ruby toolchain
         uses: ruby/setup-ruby@v1
