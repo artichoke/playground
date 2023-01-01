@@ -14,7 +14,7 @@ keywords = ["artichoke", "artichoke-ruby", "playground", "ruby", "wasm"]
 categories = ["emulators", "wasm", "web-programming"]
 
 [dependencies]
-bstr = { version = "1.0.1", default-features = false }
+bstr = { version = "1.1.0", default-features = false }
 
 [dependencies.artichoke]
 version = "0.1.0-pre.0"
