@@ -29,6 +29,17 @@ jobs:
           echo "emscripten=$(cat emscripten-toolchain)" >> $GITHUB_OUTPUT
         id: toolchain_versions
 
+      - name: Install Node.js toolchain
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Must install deps before setting up emscripten toolchain since emsdk
+      # includes its own older node which does not support lockfileversion 3
+      # in package-lock.json.
+      - name: Install Node.js dependencies
+        run: npm ci
+
       - name: Install Rust toolchain
         run: |
           echo "::group::rustup toolchain install"
@@ -60,9 +71,6 @@ jobs:
 
       - name: Verify emcc version
         run: emcc -v
-
-      - name: Install Nodejs toolchain
-        run: npm ci
 
       - name: Compile Wasm
         run: ruby scripts/build-wasm.rb --release --verbose
