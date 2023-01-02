@@ -193,6 +193,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Install Node.js toolchain
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Install Nodejs toolchain
         run: npm ci
 
