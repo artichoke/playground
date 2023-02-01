@@ -64,7 +64,7 @@ jobs:
           bundler-cache: true
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v11
+        uses: mymindstorm/setup-emsdk@v12
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
           no-cache: true
