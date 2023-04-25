@@ -14,6 +14,19 @@ module Artichoke
         -C link-arg=-sSUPPORT_LONGJMP=1
       ].freeze
 
+      # Disable certain warnings for code patterns that are contained in
+      # upstream musl.
+      #
+      # https://github.com/emscripten-core/emscripten/blob/3.1.22/tools/system_libs.py#L859-L865
+      EMCC_CFLAGS = %w[
+        -Wno-ignored-attributes
+        -Wno-macro-redefined
+        -Wno-shift-op-parentheses
+        -Wno-string-plus-int
+        -Wno-pointer-sign
+        --no-entry
+      ]
+
       USAGE = <<~USAGE.freeze
         build-wasm.rb - Artichoke Ruby Playground WebAssembly Builder
         Ryan Lopopolo <rjl@hyperbo.la>
@@ -28,16 +41,7 @@ module Artichoke
 
       def self.debug(verbose: false)
         ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
-        # Rust compilation on `wasm32-unknown-emscripten` fails during linking
-        # due to a dependency on missing symbol `__gxx_personality_v0`. This has
-        # been broken since Rust 1.53.0 and emsdk newer than 2.0.9.
-        #
-        # These flags work around the problem by letting the emcc linker ignore
-        # the missing symbol error.
-        #
-        # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
-        # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
-        ENV['EMCC_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
+        ENV['EMCC_CFLAGS'] = EMCC_CFLAGS.join(' ')
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --verbose`
@@ -78,16 +82,7 @@ module Artichoke
 
       def self.release(verbose: false)
         ENV['RUSTFLAGS'] = RUSTFLAGS.join(' ')
-        # Rust compilation on `wasm32-unknown-emscripten` fails during linking
-        # due to a dependency on missing symbol `__gxx_personality_v0`. This has
-        # been broken since Rust 1.53.0 and emsdk newer than 2.0.9.
-        #
-        # These flags work around the problem by letting the emcc linker ignore
-        # the missing symbol error.
-        #
-        # - https://github.com/zackradisic/cheatsheets/issues/21#issuecomment-969393554
-        # - https://github.com/rust-lang/rust/issues/85821#issuecomment-969369677
-        ENV['EMCC_CFLAGS'] = '-s ERROR_ON_UNDEFINED_SYMBOLS=0 --no-entry'
+        ENV['EMCC_CFLAGS'] = EMCC_CFLAGS.join(' ')
 
         if verbose
           `cargo build --target wasm32-unknown-emscripten --release --verbose`
