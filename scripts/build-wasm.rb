@@ -7,22 +7,11 @@ module Artichoke
   module Playground
     module Build
       RUSTFLAGS = %w[
-        -C
-        link-arg=-s
-        -C
-        link-arg=MODULARIZE=1
-        -C
-        link-arg=-s
-        -C
-        link-arg=WASM=1
-        -C
-        link-arg=-s
-        -C
-        link-arg=ENVIRONMENT=web
-        -C
-        link-arg=-s
-        -C
-        link-arg=SUPPORT_LONGJMP=1
+        -C link-arg=-sMODULARIZE=1
+        -C link-arg=-sWASM=1
+        -C link-arg=-sWASMFS=1
+        -C link-arg=-sENVIRONMENT=web
+        -C link-arg=-sSUPPORT_LONGJMP=1
       ].freeze
 
       USAGE = <<~USAGE.freeze
