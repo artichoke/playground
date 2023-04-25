@@ -19,7 +19,7 @@ pub extern "C" fn artichoke_web_repl_init() -> u32 {
             .unwrap_or_else(|| String::from("Could not extract interpreter metadata")),
         Err(err) => err.to_string(),
     };
-    println!("{}", build);
+    println!("{build}");
     state.heap.allocate(build);
     Box::into_raw(state) as u32
 }

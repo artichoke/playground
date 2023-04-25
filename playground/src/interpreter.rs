@@ -70,7 +70,7 @@ where
                     f.write_str("\n")?;
                 }
             }
-            Err(exc) => write!(f, "{}", exc)?,
+            Err(exc) => write!(f, "{exc}")?,
         }
 
         Ok(())
