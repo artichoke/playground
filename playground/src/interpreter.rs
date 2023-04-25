@@ -70,7 +70,7 @@ where
                     f.write_str("\n")?;
                 }
             }
-            Err(exc) => write!(f, "{}", exc)?,
+            Err(exc) => write!(f, "{exc}")?,
         }
 
         Ok(())
@@ -127,14 +127,12 @@ impl Eval for Interp {
         interp.eval(code)
     }
 
-    fn eval_os_str(&mut self, code: &OsStr) -> Result<Self::Value, Self::Error> {
-        let _ = code;
+    fn eval_os_str(&mut self, _code: &OsStr) -> Result<Self::Value, Self::Error> {
         let exc = NotImplementedError::from("Evaling &OsStr is not supported on the web");
         Err(exc.into())
     }
 
-    fn eval_file(&mut self, file: &Path) -> Result<Self::Value, Self::Error> {
-        let _ = file;
+    fn eval_file(&mut self, _file: &Path) -> Result<Self::Value, Self::Error> {
         let exc =
             NotImplementedError::from("Evaling sources from files is not supported on the web");
         Err(exc.into())

@@ -11,22 +11,22 @@ pub struct State {
 
 #[no_mangle]
 #[must_use]
-pub fn artichoke_web_repl_init() -> u32 {
-    let mut state = Box::new(State::default());
+pub extern "C" fn artichoke_web_repl_init() -> u32 {
+    let mut state = Box::<State>::default();
     let build = match Interp::new() {
         Ok(mut interp) => interp
             .metadata()
             .unwrap_or_else(|| String::from("Could not extract interpreter metadata")),
         Err(err) => err.to_string(),
     };
-    println!("{}", build);
+    println!("{build}");
     state.heap.allocate(build);
     Box::into_raw(state) as u32
 }
 
 #[no_mangle]
 #[must_use]
-pub fn artichoke_string_new(state: u32) -> u32 {
+pub extern "C" fn artichoke_string_new(state: u32) -> u32 {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };
@@ -35,7 +35,7 @@ pub fn artichoke_string_new(state: u32) -> u32 {
 }
 
 #[no_mangle]
-pub fn artichoke_string_free(state: u32, ptr: u32) {
+pub extern "C" fn artichoke_string_free(state: u32, ptr: u32) {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };
@@ -45,7 +45,7 @@ pub fn artichoke_string_free(state: u32, ptr: u32) {
 
 #[no_mangle]
 #[must_use]
-pub fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
+pub extern "C" fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };
@@ -55,7 +55,7 @@ pub fn artichoke_string_getlen(state: u32, ptr: u32) -> u32 {
 
 #[no_mangle]
 #[must_use]
-pub fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
+pub extern "C" fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };
@@ -64,7 +64,7 @@ pub fn artichoke_string_getch(state: u32, ptr: u32, idx: u32) -> u8 {
 }
 
 #[no_mangle]
-pub fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
+pub extern "C" fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };
@@ -74,7 +74,7 @@ pub fn artichoke_string_putch(state: u32, ptr: u32, ch: u8) {
 
 #[no_mangle]
 #[must_use]
-pub fn artichoke_eval(state: u32, ptr: u32) -> u32 {
+pub extern "C" fn artichoke_eval(state: u32, ptr: u32) -> u32 {
     assert_ne!(state, 0, "null pointer");
 
     let state = unsafe { Box::from_raw(state as *mut State) };

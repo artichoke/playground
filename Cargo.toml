@@ -3,4 +3,12 @@ members = ["playground"]
 
 [profile.release]
 debug = true
-opt-level = "z"
+# use "s" `opt-level` instead of "z" because Emscripten does some wild things
+# like rewriting the C standard library when compiling with `-Oz`:
+#
+# https://github.com/emscripten-core/emscripten/blob/3.1.22/tools/system_libs.py#L1161-L1167
+#
+# This doesn't play nice with the Rust linker and results in missing symbol
+# errors for `emscripten_memcpy_big` which prevents `memcpy` from the C standard
+# library from functioning correctly, breaking everything.
+opt-level = "s"

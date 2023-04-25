@@ -28,7 +28,7 @@ mod tests {
         assert_eq!(meta.lines().count(), 2);
         let compiler_meta = meta.lines().nth(1).unwrap();
         assert!(
-            compiler_meta.starts_with("[rustc 1.64.0 (a55dd71d5 2022-09-19) on "),
+            compiler_meta.starts_with("[rustc 1.69.0 (84c898d65 2023-04-16) on "),
             "Compiler meta mismatch, got: {compiler_meta}"
         );
     }

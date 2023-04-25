@@ -8,6 +8,8 @@ ignore = []
 unlicensed = "deny"
 allow = [
   "Apache-2.0",
+  "BSD-3-Clause",
+  "ISC",
   "MIT",
   "Unicode-DFS-2016",
 ]
@@ -18,7 +20,7 @@ default = "deny"
 confidence-threshold = 0.8
 
 [bans]
-multiple-versions = "deny"
+multiple-versions = "warn" # multiple versions of syn and windows-sys as ecosystem converges
 wildcards = "deny"
 highlight = "all"
 allow = []
