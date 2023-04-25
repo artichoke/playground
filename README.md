@@ -32,7 +32,6 @@ development server with:
 ```sh
 rustup target add wasm32-unknown-emscripten
 npm ci
-cargo install bindgen
 . scripts/install-emscripten-toolchain.sh
 npm run dev:debug # or npm run dev:release
 ```
