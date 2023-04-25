@@ -12,7 +12,7 @@ pub struct State {
 #[no_mangle]
 #[must_use]
 pub extern "C" fn artichoke_web_repl_init() -> u32 {
-    let mut state = Box::new(State::default());
+    let mut state = Box::<State>::default();
     let build = match Interp::new() {
         Ok(mut interp) => interp
             .metadata()
