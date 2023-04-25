@@ -25,7 +25,7 @@ module Artichoke
         -Wno-string-plus-int
         -Wno-pointer-sign
         --no-entry
-      ]
+      ].freeze
 
       USAGE = <<~USAGE.freeze
         build-wasm.rb - Artichoke Ruby Playground WebAssembly Builder
