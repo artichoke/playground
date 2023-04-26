@@ -3,6 +3,7 @@
 #![warn(clippy::needless_borrow)]
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::cast_possible_truncation)]
+#![allow(clippy::manual_let_else)]
 #![allow(clippy::missing_panics_doc)]
 #![allow(clippy::option_if_let_else)]
 #![allow(unknown_lints)]

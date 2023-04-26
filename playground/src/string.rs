@@ -30,6 +30,7 @@ impl Heap {
     /// let heap = Heap::new();
     /// assert_eq!(heap.capacity(), 0);
     /// ```
+    #[must_use]
     pub fn new() -> Self {
         Self {
             memory: HashMap::new(),
@@ -51,6 +52,7 @@ impl Heap {
     /// let heap = Heap::with_capacity(100);
     /// assert!(heap.capacity() >= 100);
     /// ```
+    #[must_use]
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
             memory: HashMap::with_capacity(capacity),
@@ -71,6 +73,7 @@ impl Heap {
     /// let heap = Heap::with_capacity(100);
     /// assert!(heap.capacity() >= 100);
     /// ```
+    #[must_use]
     pub fn capacity(&self) -> usize {
         self.memory.capacity()
     }
@@ -87,6 +90,7 @@ impl Heap {
     /// a.allocate("Wasm".to_owned());
     /// assert_eq!(a.len(), 1);
     /// ```
+    #[must_use]
     pub fn len(&self) -> usize {
         self.memory.len()
     }
@@ -103,6 +107,7 @@ impl Heap {
     /// a.allocate("Wasm".to_owned());
     /// assert!(!a.is_empty());
     /// ```
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.memory.is_empty()
     }
@@ -122,6 +127,7 @@ impl Heap {
     /// let mut a = Heap::new();
     /// let sym = a.allocate("Wasm".to_owned());
     /// ```
+    #[must_use]
     pub fn allocate(&mut self, s: String) -> u32 {
         let ptr = self.next_free;
         self.next_free += 1;

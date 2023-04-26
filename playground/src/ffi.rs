@@ -18,6 +18,7 @@ pub struct State {
 impl State {
     /// Convert a boxed state into an opaque, pointer-sized value to pass to
     /// foreign code.
+    #[must_use]
     pub fn into_raw(self: Box<Self>) -> u32 {
         Box::into_raw(self) as u32
     }
@@ -37,6 +38,7 @@ impl State {
     /// # Panics
     ///
     /// This function panics if the given `raw` is 0 (a null pointer).
+    #[must_use]
     pub unsafe fn from_raw(raw: u32) -> Box<Self> {
         // ensure all `u32` can be converted to a pointer-sized value.
         const _: () = assert!(size_of::<u32>() <= size_of::<*mut State>());
@@ -57,7 +59,8 @@ extern "C" fn artichoke_web_repl_init() -> u32 {
         Err(err) => err.to_string(),
     };
     println!("{build}");
-    state.heap.allocate(build);
+    let sym = state.heap.allocate(build);
+    assert_eq!(sym, 0); // assumed by TypeScript code
     state.into_raw()
 }
 

@@ -35,6 +35,10 @@ where
 {
     /// Coalesce stdout, stderr, and `returned_value.inspect` into an output
     /// report suitable for displaying in the playground webapp.
+    ///
+    /// # Errors
+    ///
+    /// If the provided writer returns an error, this function will return it.
     pub fn to_report<W>(&self, mut f: W, interp: &mut Artichoke) -> fmt::Result
     where
         W: fmt::Write,
