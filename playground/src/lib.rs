@@ -27,7 +27,6 @@ pub mod string;
 
 /// Filename for inline code executed on the playground frontend via the embedded
 /// code editor.
-/// switch.
 ///
 /// # Examples
 ///
