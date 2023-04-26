@@ -28,11 +28,35 @@ jobs:
       - name: Install Rust toolchain
         uses: artichoke/setup-rust/rustdoc@v1
 
+      - name: Install emscripten target
+        run: rustup target add wasm32-unknown-emscripten
+
+      - name: Set toolchain versions
+        run: |
+          echo "rust=$(cat rust-toolchain)" >> $GITHUB_OUTPUT
+          echo "emscripten=$(cat emscripten-toolchain)" >> $GITHUB_OUTPUT
+        id: toolchain_versions
+
+      - name: Install Emscripten toolchain
+        uses: mymindstorm/setup-emsdk@v12
+        with:
+          version: ${{ steps.toolchain_versions.outputs.emscripten }}
+          no-cache: true
+
+      - name: Verify emcc version
+        run: emcc -v
+
       - name: Check docs with no default features
         run: cargo doc --workspace --no-default-features
+
+      - name: Check docs with no default features (emscripten)
+        run: cargo doc --workspace --no-default-features --target wasm32-unknown-emscripten
 
       - name: Clean docs
         run: cargo clean
 
       - name: Build Documentation
         run: cargo doc --workspace
+
+      - name: Build Documentation (emscripten)
+        run: cargo doc --workspace --target wasm32-unknown-emscripten

@@ -82,14 +82,14 @@ desc 'Generate Rust API documentation'
 task :doc do
   ENV['RUSTFLAGS'] = '-D warnings'
   ENV['RUSTDOCFLAGS'] = '-D warnings --cfg docsrs'
-  sh 'rustup run --install nightly cargo doc --workspace'
+  sh 'rustup run --install nightly cargo doc --workspace --target wasm32-unknown-emscripten'
 end
 
 desc 'Generate Rust API documentation and open it in a web browser'
 task :'doc:open' do
   ENV['RUSTFLAGS'] = '-D warnings'
   ENV['RUSTDOCFLAGS'] = '-D warnings --cfg docsrs'
-  sh 'rustup run --install nightly cargo doc --workspace --open'
+  sh 'rustup run --install nightly cargo doc --workspace --open --target wasm32-unknown-emscripten'
 end
 
 desc 'Run Playground unit tests'
