@@ -1,0 +1,38 @@
+---
+name: Documentation
+"on":
+  push:
+    branches:
+      - trunk
+  pull_request:
+    branches:
+      - trunk
+  schedule:
+    - cron: "0 0 * * TUE"
+concurrency:
+  group: docs-${{ github.head_ref }}
+env:
+  CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
+jobs:
+  rustdoc:
+    name: Build Rust API docs
+    runs-on: ubuntu-latest
+    env:
+      RUSTDOCFLAGS: -D warnings -D rustdoc::broken_intra_doc_links --cfg docsrs
+      RUST_BACKTRACE: 1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Rust toolchain
+        uses: artichoke/setup-rust/rustdoc@v1
+
+      - name: Check docs with no default features
+        run: cargo doc --workspace --no-default-features
+
+      - name: Clean docs
+        run: cargo clean
+
+      - name: Build Documentation
+        run: cargo doc --workspace
