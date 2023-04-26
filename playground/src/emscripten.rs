@@ -11,6 +11,7 @@
 // - https://github.com/gliheng/rust-wasm/blob/d89a71f4a68101c7b4e2944973b39a2c20b21ebe/LICENSE
 
 use std::cell::RefCell;
+use std::mem;
 use std::os::raw::c_int;
 
 #[allow(non_camel_case_types)]
@@ -63,19 +64,34 @@ extern "C" {
 }
 
 thread_local! {
-    /// Storage for the main loop callback run on the emscripten event loop.
+    /// Flag which is set to `true` if the emscripten main loop has ever been
+    /// set.
     ///
-    /// This thread local is used to store a boxed closure which can be accessed
-    /// via an injected 0-argument `extern "C" fn` passed to emscripten.
-    static MAIN_LOOP_CALLBACK: RefCell<Option<Box<dyn FnMut() + 'static>>> = RefCell::new(None);
+    /// This flag is used to indicate whether the main loop should first be
+    /// cancelled before installing a new one.
+    static MAIN_LOOP_IS_SET: RefCell<bool> = RefCell::new(false);
 }
 
-unsafe extern "C" fn wrapper() {
-    MAIN_LOOP_CALLBACK.with(|z| {
-        if let Some(main_loop) = &mut *z.borrow_mut() {
-            main_loop();
-        }
-    });
+/// Trait that defines a callback function which allows constructing
+/// `extern "C" fn` that are parameterized by a callback.
+pub trait MainLoopCallback: 'static {
+    /// The main loop callback.
+    fn run_main_loop();
+}
+
+/// A default main loop implementation that immediately yields.
+#[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
+pub struct EmptyMainLoop;
+
+impl MainLoopCallback for EmptyMainLoop {
+    fn run_main_loop() {}
+}
+
+unsafe extern "C" fn wrapper<F>()
+where
+    F: MainLoopCallback,
+{
+    F::run_main_loop()
 }
 
 /// Set the given callback as the emscripten main loop callback.
@@ -94,23 +110,28 @@ unsafe extern "C" fn wrapper() {
 /// [docs-cancel]: https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_cancel_main_loop
 pub fn set_main_loop_callback<F>(callback: F)
 where
-    F: FnMut() + 'static,
+    F: MainLoopCallback,
 {
-    let previous_callback = MAIN_LOOP_CALLBACK.with(|z| z.borrow_mut().replace(Box::new(callback)));
+    let _ignored = callback;
 
-    // If the thead local state previously contained a callback, that means
+    let had_previous_callback = MAIN_LOOP_IS_SET.with(|z| {
+        let flag = &mut *z.borrow_mut();
+        mem::replace(flag, true)
+    });
+
+    // If the thead local state previously was `true`, that means
     // `set_main_loop_callback` (and thus `emscripten_set_main_loop`) has been
     // called once before on this thread.
     //
     // Per the docs for `emscripten_set_main_loop`, this constitutes changing
     // the main loop function, which first requires a call to `
-    if previous_callback.is_some() {
+    if had_previous_callback {
         unsafe {
             emscripten_cancel_main_loop();
         }
     }
 
     unsafe {
-        emscripten_set_main_loop(wrapper, -1, true.into());
+        emscripten_set_main_loop(wrapper::<F>, -1, true.into());
     }
 }

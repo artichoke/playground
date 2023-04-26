@@ -18,7 +18,9 @@
 
 #[cfg(target_os = "emscripten")]
 fn main() {
-    playground::emscripten::set_main_loop_callback(|| {});
+    use playground::emscripten::{set_main_loop_callback, EmptyMainLoop};
+
+    set_main_loop_callback(EmptyMainLoop);
 }
 
 #[cfg(not(target_os = "emscripten"))]
