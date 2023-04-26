@@ -1,5 +1,22 @@
+//! Extract information about the embedded [`Artichoke`] interpreter.
+//!
+//! [`Artichoke`]: artichoke::Artichoke
+
 use artichoke::prelude::{Value as _, *};
 
+/// Generate information about the current Artichoke build to be displayed in
+/// the playground editor UI.
+///
+/// Build info includes the values of the `RUBY_DESCRIPTION` and
+/// `ARTICHOKE_COMPILER_VERSION` constants in the embedded Artichoke interpreter.
+/// These constants include information stamped into the binary at build time.
+///
+/// # Examples
+///
+/// ```text
+/// artichoke 0.1.0-pre.0 (2023-04-25 revision 6718) [wasm32-unknown-emscripten]
+/// [rustc 1.69.0 (84c898d65 2023-04-16) on x86_64-unknown-linux-gnu]
+/// ```
 pub fn build_info(interp: &mut Artichoke) -> String {
     let mut description = interp
         .eval(b"RUBY_DESCRIPTION")

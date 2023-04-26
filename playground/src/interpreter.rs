@@ -1,14 +1,19 @@
-use artichoke::backend::state::output::Captured;
-use artichoke::backend::state::parser::Context;
-use artichoke::backend::value;
-use artichoke::prelude::*;
-use bstr::ByteSlice;
-use scolapasta_string_escape::format_debug_escape_into;
+//! Wrappers around [`artichoke::Artichoke`] for the playground.
+
 use std::ffi::OsStr;
 use std::fmt;
 use std::mem;
 use std::path::Path;
 use std::str;
+
+use bstr::ByteSlice;
+
+use artichoke::backend::ffi::InterpreterExtractError;
+use artichoke::backend::state::output::Captured;
+use artichoke::backend::state::parser::Context;
+use artichoke::backend::value;
+use artichoke::prelude::*;
+use scolapasta_string_escape::format_debug_escape_into;
 
 use crate::meta;
 
@@ -30,7 +35,11 @@ where
 {
     /// Coalesce stdout, stderr, and `returned_value.inspect` into an output
     /// report suitable for displaying in the playground webapp.
-    fn to_report<W>(&self, mut f: W, interp: &mut Artichoke) -> fmt::Result
+    ///
+    /// # Errors
+    ///
+    /// If the provided writer returns an error, this function will return it.
+    pub fn to_report<W>(&self, mut f: W, interp: &mut Artichoke) -> fmt::Result
     where
         W: fmt::Write,
     {
@@ -78,6 +87,10 @@ where
 }
 
 /// Auto-closing Ruby interpreter.
+///
+/// See [`Artichoke`] for more details.
+///
+/// This wrapper implements [`Eval`] from artichoke-core.
 #[derive(Debug)]
 pub struct Interp(Option<Artichoke>);
 
@@ -96,10 +109,18 @@ impl Interp {
         Ok(Self(Some(interp)))
     }
 
+    /// Retrieve information about the current Artichoke build.
+    ///
+    /// See [`build_info`] for more details.
+    ///
+    /// [`build_info`]: meta::build_info
     pub fn metadata(&mut self) -> Option<String> {
         self.0.as_mut().map(meta::build_info)
     }
 
+    /// Construct a string report from the raw output of an interpreter eval.
+    ///
+    /// See [`Reporter`] for more details.
     pub fn eval_to_report(&mut self, code: &[u8]) -> Option<String> {
         let result = self.eval(code);
         if let Some(ref mut interp) = self.0 {
@@ -120,18 +141,26 @@ impl Eval for Interp {
     type Value = value::Value;
     type Error = Error;
 
+    /// Eval a byte string on and [`Artichoke`] interpreter.
+    ///
+    /// # Errors
+    ///
+    /// If an exception occurs when running the provided Ruby code, an error is
+    /// returned.
+    ///
+    /// For other possible failures, see [`Artichoke::eval`].
     fn eval(&mut self, code: &[u8]) -> Result<Self::Value, Self::Error> {
-        use artichoke::backend::ffi::InterpreterExtractError;
-
         let interp = self.0.as_mut().ok_or_else(InterpreterExtractError::new)?;
         interp.eval(code)
     }
 
+    /// This operation is not supported in the playground.
     fn eval_os_str(&mut self, _code: &OsStr) -> Result<Self::Value, Self::Error> {
         let exc = NotImplementedError::from("Evaling &OsStr is not supported on the web");
         Err(exc.into())
     }
 
+    /// This operation is not supported in the playground.
     fn eval_file(&mut self, _file: &Path) -> Result<Self::Value, Self::Error> {
         let exc =
             NotImplementedError::from("Evaling sources from files is not supported on the web");
