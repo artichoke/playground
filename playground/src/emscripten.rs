@@ -91,7 +91,7 @@ unsafe extern "C" fn wrapper<F>()
 where
     F: MainLoopCallback,
 {
-    F::run_main_loop()
+    F::run_main_loop();
 }
 
 /// Set the given callback as the emscripten main loop callback.
@@ -108,12 +108,11 @@ where
 /// [browser main loop]: https://emscripten.org/docs/porting/emscripten-runtime-environment.html#browser-main-loop
 /// [docs-set]: https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop
 /// [docs-cancel]: https://emscripten.org/docs/api_reference/emscripten.h.html#c.emscripten_cancel_main_loop
-pub fn set_main_loop_callback<F>(callback: F)
+#[allow(clippy::needless_pass_by_value)]
+pub fn set_main_loop_callback<F>(_callback: F)
 where
     F: MainLoopCallback,
 {
-    let _ignored = callback;
-
     let had_previous_callback = MAIN_LOOP_IS_SET.with(|z| {
         let flag = &mut *z.borrow_mut();
         mem::replace(flag, true)
