@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Set toolchain versions
         run: |
@@ -30,7 +30,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 18
 
@@ -55,16 +55,16 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@6fd3edff6979b79f87531400ad694fb7f2c84b1f # v2.2.1
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@6cecb48364174b0952995175c55f9bf5527e6682 # v1.147.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v12
+        uses: mymindstorm/setup-emsdk@ab889da2abbcbb280f91ec4c215d3bb4f3a8f775 # v12
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
           no-cache: true
@@ -80,7 +80,7 @@ jobs:
 
       # Publish step
       - name: Deploy Playground
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist

@@ -19,7 +19,7 @@ jobs:
       CARGO_NET_GIT_FETCH_WITH_CLI: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Set toolchain versions
         run: |
@@ -42,7 +42,7 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@6fd3edff6979b79f87531400ad694fb7f2c84b1f # v2.2.1
 
       - name: Compile
         run: cargo build --workspace --verbose
@@ -62,7 +62,7 @@ jobs:
       CARGO_NET_GIT_FETCH_WITH_CLI: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Set toolchain versions
         run: |
@@ -71,7 +71,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 18
 
@@ -96,16 +96,16 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@6fd3edff6979b79f87531400ad694fb7f2c84b1f # v2.2.1
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@6cecb48364174b0952995175c55f9bf5527e6682 # v1.147.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v12
+        uses: mymindstorm/setup-emsdk@ab889da2abbcbb280f91ec4c215d3bb4f3a8f775 # v12
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
           no-cache: true
@@ -128,7 +128,7 @@ jobs:
       CARGO_NET_GIT_FETCH_WITH_CLI: true
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Set toolchain versions
         run: |
@@ -151,10 +151,10 @@ jobs:
           cargo version --verbose
           echo "::endgroup::"
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@6fd3edff6979b79f87531400ad694fb7f2c84b1f # v2.2.1
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v12
+        uses: mymindstorm/setup-emsdk@ab889da2abbcbb280f91ec4c215d3bb4f3a8f775 # v12
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
 
@@ -175,10 +175,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@6cecb48364174b0952995175c55f9bf5527e6682 # v1.147.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
@@ -191,10 +191,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 18
 
@@ -217,7 +217,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Lint and check formatting with prettier
         run: npx prettier --check '**/*'
