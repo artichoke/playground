@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Install Rust toolchain
-        uses: artichoke/setup-rust/rustdoc@v1
+        uses: artichoke/setup-rust/rustdoc@v1.9.0
 
       - name: Install emscripten target
         run: rustup target add wasm32-unknown-emscripten
@@ -38,7 +38,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Emscripten toolchain
-        uses: mymindstorm/setup-emsdk@v12
+        uses: mymindstorm/setup-emsdk@ab889da2abbcbb280f91ec4c215d3bb4f3a8f775 # v12
         with:
           version: ${{ steps.toolchain_versions.outputs.emscripten }}
           no-cache: true
