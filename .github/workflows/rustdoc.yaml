@@ -33,7 +33,6 @@ jobs:
 
       - name: Set toolchain versions
         run: |
-          echo "rust=$(cat rust-toolchain)" >> $GITHUB_OUTPUT
           echo "emscripten=$(cat emscripten-toolchain)" >> $GITHUB_OUTPUT
         id: toolchain_versions
 

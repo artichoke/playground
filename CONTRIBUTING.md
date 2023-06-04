@@ -30,7 +30,7 @@ orchestrated by Rake.
 
 The Artichoke Playground depends on stable Rust and several compiler plugins for
 linting and formatting. The specific version of Rust Artichoke requires is
-specified in the [toolchain file](rust-toolchain)
+specified in the [toolchain file](rust-toolchain.toml).
 
 #### Installation
 
@@ -52,9 +52,7 @@ Once you have rustup, you can install the Rust toolchain needed to compile the
 playground.
 
 ```sh
-rustup toolchain install "$(cat rust-toolchain)"
-rustup component add rustfmt
-rustup component add clippy
+rustup component add rustfmt clippy
 ```
 
 ### Rust Crates
@@ -140,29 +138,30 @@ tasks by running:
 
 ```console
 $ bundle exec rake --tasks
-rake build                        # Build Rust workspace
-rake bundle:audit:check           # Checks the Gemfile.lock for insecure dependencies
-rake bundle:audit:update          # Updates the bundler-audit vulnerability database
-rake doc                          # Generate Rust API documentation
-rake doc:open                     # Generate Rust API documentation and open it in a web browser
-rake fmt                          # Format sources
-rake fmt:rust                     # Format Rust sources with rustfmt
-rake fmt:text                     # Format text, YAML, and Markdown sources with prettier
-rake format                       # Format sources
-rake format:rust                  # Format Rust sources with rustfmt
-rake format:text                  # Format text, YAML, and Markdown sources with prettier
-rake lint                         # Lint sources
-rake lint:clippy                  # Lint Rust sources with Clippy
-rake lint:clippy:restriction      # Lint Rust sources with Clippy restriction pass (unenforced lints)
-rake lint:eslint                  # Lint JavaScript and TypeScript sources with eslint
-rake lint:rubocop                 # Run RuboCop
-rake lint:rubocop:autocorrect     # Auto-correct RuboCop offenses
-rake release:markdown_link_check  # Check for broken links in markdown files
-rake test                         # Run Playground unit tests
+rake build                         # Build Rust workspace
+rake bundle:audit:check            # Checks the Gemfile.lock for insecure dependencies
+rake bundle:audit:update           # Updates the bundler-audit vulnerability database
+rake doc                           # Generate Rust API documentation
+rake doc:open                      # Generate Rust API documentation and open it in a web browser
+rake fmt                           # Format sources
+rake fmt:rust                      # Format Rust sources with rustfmt
+rake fmt:text                      # Format text, YAML, and Markdown sources with prettier
+rake format                        # Format sources
+rake format:rust                   # Format Rust sources with rustfmt
+rake format:text                   # Format text, YAML, and Markdown sources with prettier
+rake lint                          # Lint sources
+rake lint:clippy                   # Lint Rust sources with Clippy
+rake lint:clippy:restriction       # Lint Rust sources with Clippy restriction pass (unenforced lints)
+rake lint:eslint                   # Lint JavaScript and TypeScript sources with eslint
+rake lint:rubocop                  # Run RuboCop
+rake lint:rubocop:autocorrect      # Autocorrect RuboCop offenses (only when it's safe)
+rake lint:rubocop:autocorrect_all  # Autocorrect RuboCop offenses (safe and unsafe)
+rake release:markdown_link_check   # Check for broken links in markdown files
+rake test                          # Run Playground unit tests
 ```
 
 To lint Ruby sources, the playground uses [RuboCop]. RuboCop runs as part of the
-`lint:all` task. You can run only RuboCop by invoking the `lint:rubocop` task.
+`lint` task. You can run only RuboCop by invoking the `lint:rubocop` task.
 
 ### Python
 
@@ -211,7 +210,7 @@ Once you [configure a development environment](#setup), run the following to
 lint sources:
 
 ```sh
-rake lint:all
+rake lint
 ```
 
 Merges will be blocked by CI if there are lint errors.
@@ -221,8 +220,8 @@ Merges will be blocked by CI if there are lint errors.
 ### Rust Toolchain
 
 The rust-toolchain can be bumped to the latest stable compiler by editing the
-[`rust-toolchain`](rust-toolchain) file. This file is automatically picked up by
-local builds and CI.
+[`rust-toolchain`](rust-toolchain.toml) file. This file is automatically picked
+up by local builds and CI.
 
 ### Rust Crates
 

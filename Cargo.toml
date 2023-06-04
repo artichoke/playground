@@ -1,6 +1,14 @@
 [workspace]
 members = ["playground"]
 
+[workspace.package]
+edition = "2021"
+rust-version = "1.69.0"
+license = "MIT"
+repository = "https://github.com/artichoke/playground"
+homepage = "https://github.com/artichoke/playground"
+documentation = "https://artichoke.run/"
+
 [profile.release]
 debug = true
 # use "s" `opt-level` instead of "z" because Emscripten does some wild things

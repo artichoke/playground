@@ -30,7 +30,6 @@ If you would prefer to run a local build of the playground, you can
 development server with:
 
 ```sh
-rustup target add wasm32-unknown-emscripten
 npm ci
 . scripts/install-emscripten-toolchain.sh
 npm run dev:debug # or npm run dev:release
