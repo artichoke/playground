@@ -48,8 +48,11 @@ prompts: <https://rustup.rs/>. This requires a download of Visual Studio (the
 selected through the VS component installer. (I'm not sure which packages are
 required; I selected them all.)
 
-Once you have rustup, you can install the Rust toolchain needed to compile the
-playground.
+When running any subsequent `cargo` commands, rustup will ensure the correct
+version of the toolchain is installed.
+
+It is recommended to install `rustfmt` and `clippy` to help with static code
+analysis and to do relevant checks prior to submitting PRs.
 
 ```sh
 rustup component add rustfmt clippy
