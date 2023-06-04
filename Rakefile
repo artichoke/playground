@@ -2,8 +2,10 @@
 
 require 'open-uri'
 require 'shellwords'
+
 require 'bundler/audit/task'
 require 'rubocop/rake_task'
+require 'tomlrb'
 
 task default: %i[format lint]
 
@@ -115,6 +117,50 @@ namespace :release do
       command = ['npx', 'markdown-link-check', '--config', '.github/markdown-link-check.json', markdown]
       sh command.shelljoin
       sleep(rand(1..5))
+    end
+  end
+end
+
+namespace :toolchain do
+  desc 'Sync Rust toolchain to all sources'
+  task sync: %i[sync:manifests sync:ci]
+
+  rust_toolchain = Tomlrb.load_file('rust-toolchain.toml', symbolize_keys: true)
+  toolchain_version = rust_toolchain[:toolchain][:channel]
+
+  namespace :sync do
+    desc 'Sync the root rust-toolchain version to all crate manifests'
+    task :manifests do
+      regexp = /^rust-version = "(.*)"$/
+      next_rust_version = "rust-version = \"#{toolchain_version}\""
+
+      pkg_files = FileList.new(['Cargo.toml'])
+
+      failures = pkg_files.map do |file|
+        contents = File.read(file)
+
+        if (existing_version = contents.match(regexp))
+          File.write(file, contents.gsub(regexp, next_rust_version)) if existing_version != next_rust_version
+          next
+        end
+
+        puts "Failed to update #{file}, ensure there is a rust-version specified" if Rake.verbose
+        file
+      end.compact
+
+      raise 'Failed to update some rust-versions' if failures.any?
+    end
+
+    desc 'Sync the root rust-toolchain version to CI jobs'
+    task :ci do
+      workflow_files = FileList.new('.github/workflows/*.yaml')
+
+      workflow_files.each do |file|
+        contents = File.read(file)
+        contents = contents.gsub(/(toolchain: "?)\d+\.\d+\.\d+("?)/, "\\1#{toolchain_version}\\2")
+
+        File.write(file, contents)
+      end
     end
   end
 end

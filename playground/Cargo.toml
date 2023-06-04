@@ -1,17 +1,19 @@
 [package]
 name = "playground"
 version = "0.12.0" # remember to bump package.json
+publish = false
 authors = ["Ryan Lopopolo <rjl@hyperbo.la>"]
-license = "MIT"
-edition = "2021"
-repository = "https://github.com/artichoke/playground"
-homepage = "https://artichoke.run"
 description = """
 The Artichoke Playground is a WebAssembly frontend for Artichoke Ruby hosted at
 https://artichoke.run.
 """
 keywords = ["artichoke", "artichoke-ruby", "playground", "ruby", "wasm"]
 categories = ["emulators", "wasm", "web-programming"]
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
 
 [dependencies]
 bstr = { version = "1.0.1", default-features = false }
