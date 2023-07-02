@@ -58,10 +58,6 @@ module Artichoke
             FileUtils.compare_file(
               'target/wasm32-unknown-emscripten/debug/playground.wasm',
               'src/wasm/playground.wasm'
-            ),
-            FileUtils.compare_file(
-              'target/wasm32-unknown-emscripten/debug/playground.wasm.map',
-              'src/wasm/playground.wasm.map'
             )
           ].all?
         rescue ArgumentError, Errno::ENOENT
@@ -72,8 +68,7 @@ module Artichoke
 
         FileUtils.cp(
           ['target/wasm32-unknown-emscripten/debug/playground.js',
-           'target/wasm32-unknown-emscripten/debug/playground.wasm',
-           'target/wasm32-unknown-emscripten/debug/playground.wasm.map'],
+           'target/wasm32-unknown-emscripten/debug/playground.wasm'],
           'src/wasm/'
         )
       rescue ArgumentError, Errno::ENOENT
@@ -99,10 +94,6 @@ module Artichoke
             FileUtils.compare_file(
               'target/wasm32-unknown-emscripten/release/playground.wasm',
               'src/wasm/playground.wasm'
-            ),
-            FileUtils.compare_file(
-              'target/wasm32-unknown-emscripten/release/playground.wasm.map',
-              'src/wasm/playground.wasm.map'
             )
           ].all?
         rescue ArgumentError, Errno::ENOENT
@@ -113,8 +104,7 @@ module Artichoke
 
         FileUtils.cp(
           ['target/wasm32-unknown-emscripten/release/playground.js',
-           'target/wasm32-unknown-emscripten/release/playground.wasm',
-           'target/wasm32-unknown-emscripten/release/playground.wasm.map'],
+           'target/wasm32-unknown-emscripten/release/playground.wasm'],
           'src/wasm/'
         )
       rescue ArgumentError, Errno::ENOENT
