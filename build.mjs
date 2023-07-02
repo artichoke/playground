@@ -10,7 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import minifyHtml from "@minify-html/node";
-import { renderFile } from "eta";
+import { Eta } from "eta";
 import esbuild from "esbuild";
 
 // eslint-disable-next-line no-shadow
@@ -68,11 +68,8 @@ const build = async () => {
   //   path.join(__dirname, "dist", "playground.wasm.map")
   // );
 
-  let index = await renderFile(
-    "index.html",
-    {},
-    { views: path.join(__dirname, "src") }
-  );
+  const eta = new Eta({ views: path.join(__dirname, "src") });
+  let index = await eta.renderAsync("index.html", {});
 
   if (process.argv.includes("--release")) {
     const input = Buffer.from(index);
