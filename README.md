@@ -13,7 +13,7 @@ Ruby][artichoke-repo] hosted at <https://artichoke.run>.
 <p align="center">
   <a href="https://artichoke.run/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" src="https://artichoke.run/artichoke-playground-safari-revision-4938-dark-mode.png">
+      <source media="(prefers-color-scheme: dark)" srcset="https://artichoke.run/artichoke-playground-safari-revision-4938-dark-mode.png">
       <source media="(prefers-color-scheme: light)" srcset="https://artichoke.run/artichoke-playground-safari-revision-4938-light-mode.png">
       <img style="max-width: 400px" width="400" src="https://artichoke.run/artichoke-playground-safari-revision-4938-light-mode.png">
     </picture>
