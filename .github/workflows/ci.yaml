@@ -188,6 +188,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.5.3
 
+      - name: Install Node.js toolchain
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18
+
+      - name: Install Nodejs toolchain
+        run: npm ci
+
       - name: Lint and check formatting with prettier
         run: npx prettier --check '**/*'
 
