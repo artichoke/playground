@@ -56,12 +56,12 @@ const build = async () => {
       } else {
         await fs.copyFile(asset, path.join(__dirname, "dist", file));
       }
-    })
+    }),
   );
 
   await fs.copyFile(
     path.join(__dirname, "src", "wasm", "playground.wasm"),
-    path.join(__dirname, "dist", "playground.wasm")
+    path.join(__dirname, "dist", "playground.wasm"),
   );
   // await fs.copyFile(
   //   path.join(__dirname, "src", "wasm", "playground.wasm.map"),

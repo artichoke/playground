@@ -16,24 +16,24 @@ declare namespace Module {
 
     public _artichoke_string_getlen(
       state: Artichoke,
-      ptr: StringPointer
+      ptr: StringPointer,
     ): number;
     public _artichoke_string_getch(
       state: Artichoke,
       ptr: StringPointer,
-      index: number
+      index: number,
     ): number;
     public _artichoke_string_new(state: Artichoke): StringPointer;
     _artichoke_string_putch(
       state: Artichoke,
       ptr: StringPointer,
-      byte: number
+      byte: number,
     ): void;
     public _artichoke_string_free(state: Artichoke, ptr: StringPointer): void;
 
     public _artichoke_eval(
       state: Artichoke,
-      codeptr: StringPointer
+      codeptr: StringPointer,
     ): StringPointer;
   }
 }

@@ -15,7 +15,7 @@ export default class PlaygroundChrome {
 
   constructor(
     editor: monaco.editor.IStandaloneCodeEditor,
-    outputPane: monaco.editor.IStandaloneCodeEditor
+    outputPane: monaco.editor.IStandaloneCodeEditor,
   ) {
     this.editor = editor;
     this.outputPane = outputPane;

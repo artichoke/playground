@@ -101,7 +101,7 @@ if (urlParams.has("embed")) {
   const embeddableElement = document.getElementById("embeddable");
   embeddableElement?.setAttribute(
     "style",
-    "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%"
+    "position: absolute; width: 100%; height: 100%; top:0; left: 0; background-color: white; max-width: 100%",
   );
 }
 
@@ -127,7 +127,7 @@ Module().then((wasm: Module.Ffi): void => {
   const runButton = document.getElementById("run");
   runButton?.addEventListener(
     "click",
-    new PlaygroundRunAction(EvalType.button, chrome).makeHandler(artichoke)
+    new PlaygroundRunAction(EvalType.button, chrome).makeHandler(artichoke),
   );
 
   // Add an editor action to run the buffer in an Artichoke Wasm interpreter.
@@ -140,7 +140,7 @@ Module().then((wasm: Module.Ffi): void => {
     keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.F8],
     contextMenuGroupId: "2_playground_eval",
     run: new PlaygroundRunAction(EvalType.codeAction, chrome).makeHandler(
-      artichoke
+      artichoke,
     ),
   });
 
