@@ -82,9 +82,9 @@
     "clean": "rm -rf dist",
     "dev:debug": "npx concurrently \"npm:serve\" \"npm:watch:debug\"",
     "dev:release": "npx concurrently \"npm:serve\" \"npm:watch:release\"",
-    "fmt": "npx prettier --write \"**/*\"",
-    "lint": "npx eslint . --ext .js,.jsx,.mjs,.ts,.tsx",
-    "lint:fix": "npx eslint . --ext .js,.jsx,.mjs,.ts,.tsx --fix",
+    "fmt": "prettier --write \"**/*\"",
+    "lint": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx --fix",
     "serve": "python3 -u -m http.server --directory dist --bind localhost 0",
     "watch:debug": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.mjs\" \"src/**/*\" -c \"npm run build:debug\" --initial",
     "watch:release": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.mjs\" \"src/**/*\" -c \"npm run build:release\" --initial"
