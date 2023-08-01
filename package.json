@@ -21,17 +21,17 @@
   "dependencies": {
     "@artichokeruby/logo": "^0.12.0",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.0",
-    "monaco-editor": "^0.39.0"
+    "bootstrap": "^5.3.1",
+    "monaco-editor": "^0.40.0"
   },
   "devDependencies": {
     "@minify-html/node": "^0.11.1",
     "@types/gtag.js": "0.0.12",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "esbuild": "0.18.11",
-    "eslint": "^8.44.0",
-    "eta": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "esbuild": "0.18.17",
+    "eslint": "^8.46.0",
+    "eta": "^3.1.0",
     "prettier": "^3.0.0",
     "typescript": "5.1.6"
   },
