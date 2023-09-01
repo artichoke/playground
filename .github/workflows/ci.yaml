@@ -20,7 +20,7 @@ jobs:
       CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Set toolchain versions
         run: |
@@ -52,7 +52,7 @@ jobs:
       CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Set toolchain versions
         run: |
@@ -60,7 +60,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: 18
 
@@ -107,7 +107,7 @@ jobs:
       CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Set toolchain versions
         run: |
@@ -144,7 +144,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Install Ruby toolchain
         uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
@@ -160,10 +160,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: 18
 
@@ -186,10 +186,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: 18
 

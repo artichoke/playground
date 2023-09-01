@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
 
       - name: Set toolchain versions
         run: |
@@ -30,7 +30,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v3.7.0
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: 18
 
