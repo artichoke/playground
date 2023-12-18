@@ -1,5 +1,4 @@
 import { Buffer } from "node:buffer";
-import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { defineConfig } from "vite";
@@ -14,6 +13,7 @@ const etaPlugin = () => {
       order: "pre",
       handler(html) {
         const eta = new Eta({ views: "src" });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         return eta.renderString(html);
       },
     },
@@ -27,6 +27,7 @@ const minifyHtmlPlugin = () => {
     transformIndexHtml: {
       order: "post",
       handler(html) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const input = Buffer.from(html);
 
         const output = minifyHtml.minify(input, {

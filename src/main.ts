@@ -25,21 +25,27 @@ import example from "./examples/forwardable_regexp_io.rb?raw";
     getWorker(_, label) {
         switch (label) {
             case 'json':
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new jsonWorker();
             case 'css':
             case 'scss':
             case 'less':
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new cssWorker();
             case 'html':
             case 'handlebars':
             case 'razor':
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new htmlWorker();
             case 'typescript':
             case 'javascript':
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new tsWorker();
             case 'yaml':
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new yamlWorker();
             default:
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 return new editorWorker()
         }
     }
