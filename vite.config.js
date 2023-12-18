@@ -6,34 +6,6 @@ import { defineConfig } from "vite";
 
 import minifyHtml from "@minify-html/node";
 import { Eta } from "eta";
-import hljs from "highlight.js";
-import { marked } from "marked";
-
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: (code, language) => {
-    const highlighted = hljs.highlight(code, {
-      language,
-      ignoreIllegals: true,
-    });
-    const html = highlighted.value;
-    return html;
-  },
-  langPrefix: "hljs artichoke-highlight language-",
-  pedantic: false,
-  gfm: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false,
-});
-
-const includeMarkdown = (source) => {
-  const filePath = path.resolve(__dirname, "src", source);
-  const content = readFileSync(filePath);
-  return marked.parse(content.toString());
-};
 
 const etaPlugin = () => {
   return {
@@ -42,7 +14,7 @@ const etaPlugin = () => {
       order: "pre",
       handler(html) {
         const eta = new Eta({ views: "src" });
-        return eta.renderString(html, { includeMarkdown });
+        return eta.renderString(html);
       },
     },
   };
