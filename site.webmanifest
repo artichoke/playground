@@ -1,6 +1,6 @@
 {
-    "name": "Artichoke Ruby",
-    "short_name": "Artichoke",
+    "name": "Artichoke Ruby WebAssembly Playground",
+    "short_name": "Artichoke Playground",
     "icons": [
         {
             "src": "/favicon-192x192.png",
