@@ -8,6 +8,7 @@ module Artichoke
     module Build
       RUSTFLAGS = %w[
         -C link-arg=-sMODULARIZE=1
+        -C link-arg=-sEXPORT_ES6=1
         -C link-arg=-sWASM=1
         -C link-arg=-sWASMFS=1
         -C link-arg=-sENVIRONMENT=web
