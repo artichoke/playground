@@ -32,7 +32,7 @@ jobs:
       - name: Install Node.js toolchain
         uses: actions/setup-node@v4.0.1
         with:
-          node-version: 18
+          node-version: "lts/*"
 
       # Must install deps before setting up emscripten toolchain since emsdk
       # includes its own older node which does not support lockfileversion 3
