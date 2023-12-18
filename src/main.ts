@@ -3,6 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js";
 import "monaco-editor/esm/vs/editor/editor.all.js";
+import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
+import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
+import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
+import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 import "monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution";
 
 import Interpreter from "./interpreter";
@@ -10,27 +15,37 @@ import PlaygroundChrome from "./playground-chrome";
 import { PlaygroundRunAction, EvalType } from "./run-action";
 import Module from "./wasm/playground.js";
 
-import example from "./examples/forwardable_regexp_io.rb";
+import example from "./examples/forwardable_regexp_io.rb?raw";
 
 // Since packaging is done outside of the ESM build, we need to instruct the
 // editor how esbuild has named the bundles that contain the web workers.
 //
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
 (self as any).MonacoEnvironment = {
-  getWorkerUrl: function (_moduleId: string, label: string) {
-    if (label === "json") {
-      return "./json.worker.bundle.js";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getWorker(_: any, label: string): any {
+    switch (label) {
+      case "json":
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+        return new jsonWorker();
+      case "css":
+      case "scss":
+      case "less":
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+        return new cssWorker();
+      case "html":
+      case "handlebars":
+      case "razor":
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+        return new htmlWorker();
+      case "typescript":
+      case "javascript":
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+        return new tsWorker();
+      default:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+        return new editorWorker();
     }
-    if (label === "css" || label === "scss" || label === "less") {
-      return "./css.worker.bundle.js";
-    }
-    if (label === "html" || label === "handlebars" || label === "razor") {
-      return "./html.worker.bundle.js";
-    }
-    if (label === "typescript" || label === "javascript") {
-      return "./ts.worker.bundle.js";
-    }
-    return "./editor.worker.bundle.js";
   },
 };
 

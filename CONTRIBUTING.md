@@ -176,7 +176,7 @@ On Windows, install the latest Python release from:
 
 ### Node.js
 
-Node.js is required for bundling the webapp with esbuild and testing in
+Node.js is required for bundling the webapp with vite and testing in
 development.
 
 Node.js is also required for formatting if modifying the following filetypes:

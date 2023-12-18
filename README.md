@@ -33,7 +33,8 @@ development server with:
 ```sh
 npm ci
 . scripts/install-emscripten-toolchain.sh
-npm run dev:debug # or npm run dev:release
+npm run build:release:wasm
+npm run dev
 ```
 
 ## Contributing
