@@ -65,7 +65,7 @@ jobs:
         run: ruby scripts/build-wasm.rb --release --verbose
 
       - name: Build Webapp
-        run: node build.mjs --release
+        run: npm run build
 
       # Publish step
       - name: Deploy Playground
