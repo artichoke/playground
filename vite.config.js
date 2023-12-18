@@ -46,13 +46,15 @@ const minifyHtmlPlugin = () => {
 
 export default defineConfig({
   root: path.resolve(__dirname, "src"),
-  base: "/rubyconf/",
   build: {
     outDir: "../dist",
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, "src", "index.html"),
-        2019: path.resolve(__dirname, "src", "2019", "index.html"),
+        "editor.worker": "monaco-editor/esm/vs/editor/editor.worker.js",
+        "json.worker": "monaco-editor/esm/vs/language/json/json.worker.js",
+        "css.worker": "monaco-editor/esm/vs/language/css/css.worker.js",
+        "html.worker": "monaco-editor/esm/vs/language/html/html.worker.js",
+        "ts.worker": "monaco-editor/esm/vs/language/typescript/ts.worker",
       },
     },
   },
