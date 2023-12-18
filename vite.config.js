@@ -51,7 +51,7 @@ export default defineConfig({
   },
   plugins: [etaPlugin(), minifyHtmlPlugin()],
   server: {
-    port: 3000,
+    port: 5500,
     hot: true,
   },
 });

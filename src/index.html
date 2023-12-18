@@ -14,8 +14,12 @@
 
     <title>Artichoke Ruby Playground</title>
 
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+    <link rel="preload" href="/nav-white.svg" as="image" />
+
     <link rel="canonical" href="https://www.artichoke.run/" />
-    <link rel="stylesheet" href="/main.bundle.css" />
 
     <!-- Favicons -->
     <%~ include('/partials/favicons.html') %>
@@ -84,6 +88,6 @@
       </div>
     </div>
     <%~ include('/partials/footer.html') %>
-    <script type="module" src="/main.bundle.js"></script>
+    <script type="module" src="/main.ts"></script>
   </body>
 </html>
