@@ -1,6 +1,7 @@
 {
   "name": "@artichokeruby/playground",
   "version": "0.12.0",
+  "type": "module",
   "private": true,
   "description": "Artichoke Ruby Wasm Playground",
   "keywords": [
@@ -32,7 +33,8 @@
     "eslint": "^8.54.0",
     "eta": "^3.2.0",
     "prettier": "^3.1.0",
-    "typescript": "5.3.2"
+    "typescript": "5.3.2",
+    "vite": "^5.0.10"
   },
   "eslintConfig": {
     "root": true,
@@ -44,9 +46,6 @@
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-      "extraFileExtensions": [
-        ".mjs"
-      ],
       "project": "./tsconfig.json"
     },
     "plugins": [
@@ -72,20 +71,14 @@
     }
   },
   "scripts": {
-    "build:debug": "npx concurrently --max-processes 1 \"npm:build:debug:wasm\" \"npm:build:debug:app\"",
-    "build:debug:app": "node build.mjs",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "build:debug:wasm": "ruby scripts/build-wasm.rb",
-    "build:release": "npx concurrently --max-processes 1 \"npm:build:release:wasm\" \"npm:build:release:app\"",
-    "build:release:app": "node build.mjs --release",
     "build:release:wasm": "ruby scripts/build-wasm.rb --release",
     "clean": "rm -rf dist",
-    "dev:debug": "npx concurrently \"npm:serve\" \"npm:watch:debug\"",
-    "dev:release": "npx concurrently \"npm:serve\" \"npm:watch:release\"",
     "fmt": "prettier --write \"**/*\"",
-    "lint": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx --fix",
-    "serve": "python3 -u -m http.server --directory dist --bind localhost 0",
-    "watch:debug": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.mjs\" \"src/**/*\" -c \"npm run build:debug\" --initial",
-    "watch:release": "npx chokidar-cli \"**/Cargo.toml\" \"Cargo.lock\" \"package.json\" \"package-lock.json\" \"playground/**/*\" \"build.mjs\" \"src/**/*\" -c \"npm run build:release\" --initial"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,,.ts,.tsx --fix"
   }
 }
