@@ -22,7 +22,8 @@ import example from "./examples/forwardable_regexp_io.rb?raw";
 //
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
 (self as any).MonacoEnvironment = {
-  getWorker(_, label) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getWorker(_: any, label: string): any {
     switch (label) {
       case "json":
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
@@ -41,9 +42,6 @@ import example from "./examples/forwardable_regexp_io.rb?raw";
       case "javascript":
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
         return new tsWorker();
-      case "yaml":
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-        return new yamlWorker();
       default:
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
         return new editorWorker();
