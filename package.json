@@ -33,6 +33,7 @@
     "eslint": "^8.54.0",
     "eta": "^3.2.0",
     "prettier": "^3.1.0",
+    "rimraf": "^3.0.2",
     "typescript": "5.3.2",
     "vite": "^5.0.10"
   },
@@ -76,7 +77,7 @@
     "preview": "vite preview",
     "build:debug:wasm": "ruby scripts/build-wasm.rb",
     "build:release:wasm": "ruby scripts/build-wasm.rb --release",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "fmt": "prettier --write \"**/*\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,,.ts,.tsx --fix"
