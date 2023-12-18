@@ -16,6 +16,8 @@ const assets = Object.freeze([
   "node_modules/@artichokeruby/logo/optimized/artichoke-logo.svg",
   "node_modules/@artichokeruby/logo/optimized/artichoke-logo-inverted.png",
   "node_modules/@artichokeruby/logo/optimized/artichoke-logo-inverted.svg",
+  "node_modules/@artichokeruby/logo/optimized/artichoke-playground-safari-revision-4938-dark-mode.png",
+  "node_modules/@artichokeruby/logo/optimized/artichoke-playground-safari-revision-4938-light-mode.png",
   "node_modules/@artichokeruby/logo/optimized/artichoke-social-logo.png",
   "node_modules/@artichokeruby/logo/optimized/nav-white.svg",
   "node_modules/@artichokeruby/logo/optimized/playground.png",
