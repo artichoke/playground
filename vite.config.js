@@ -50,6 +50,7 @@ export default defineConfig({
     outDir: "../dist",
     rollupOptions: {
       input: {
+        main: "src/main.ts",
         "editor.worker": "monaco-editor/esm/vs/editor/editor.worker.js",
         "json.worker": "monaco-editor/esm/vs/language/json/json.worker.js",
         "css.worker": "monaco-editor/esm/vs/language/css/css.worker.js",
