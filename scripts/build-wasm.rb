@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'English'
 require 'fileutils'
 
 module Artichoke
@@ -50,7 +51,7 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten`
         end
 
-        return $?.exitstatus unless $?.success?
+        return $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
 
         begin
           return 0 if [
@@ -90,7 +91,7 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten --release`
         end
 
-        return $?.exitstatus unless $?.success?
+        return $CHILD_STATUS.exitstatus unless $CHILD_STATUS.success?
 
         begin
           return 0 if [
