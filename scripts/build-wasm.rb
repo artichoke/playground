@@ -50,8 +50,10 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten`
         end
 
+        return $?.exitstatus unless $?.success?
+
         begin
-          return if [
+          return 0 if [
             FileUtils.compare_file(
               'target/wasm32-unknown-emscripten/debug/playground.js',
               'src/wasm/playground.js'
@@ -72,6 +74,8 @@ module Artichoke
            'target/wasm32-unknown-emscripten/debug/playground.wasm'],
           'src/wasm/'
         )
+
+        0
       rescue ArgumentError, Errno::ENOENT
         # pass
       end
@@ -86,8 +90,10 @@ module Artichoke
           `cargo build --target wasm32-unknown-emscripten --release`
         end
 
+        return $?.exitstatus unless $?.success?
+
         begin
-          return if [
+          return 0 if [
             FileUtils.compare_file(
               'target/wasm32-unknown-emscripten/release/playground.js',
               'src/wasm/playground.js'
@@ -108,6 +114,8 @@ module Artichoke
            'target/wasm32-unknown-emscripten/release/playground.wasm'],
           'src/wasm/'
         )
+
+        0
       rescue ArgumentError, Errno::ENOENT
         # pass
       end
@@ -138,9 +146,9 @@ module Artichoke
 
         argv = args.keys.freeze
         if argv == ['--release']
-          release(verbose:)
+          Process.exit(release(verbose:))
         elsif argv.empty?
-          debug(verbose:)
+          Process.exit(debug(verbose:))
         else
           warn USAGE
           Process.exit(2)
