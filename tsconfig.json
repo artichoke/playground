@@ -14,12 +14,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "copy-assets.mjs",
-    "vite.config.js",
-  ],
+  "include": ["src/**/*.ts", "src/**/*.js", "copy-assets.mjs", "vite.config.js"]
 }
