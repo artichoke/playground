@@ -40,8 +40,6 @@ updates:
     ignore:
       - dependency-name: "marked"
         update-types: ["version-update:semver-major"]
-      - dependency-name: "rimraf"
-        update-types: ["version-update:semver-major"]
   - package-ecosystem: bundler
     directory: "/"
     schedule:
