@@ -26,51 +26,18 @@
     "monaco-editor": "^0.50.0"
   },
   "devDependencies": {
-    "@minify-html/node": "^0.15.0",
+    "@eslint/js": "9.6.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/gtag.js": "0.0.20",
     "@types/node": "^20.14.10",
-    "@typescript-eslint/eslint-plugin": "7.16.0",
-    "@typescript-eslint/parser": "7.16.0",
     "eslint": "9.6.0",
     "eta": "^3.4.0",
-    "prettier": "^3.2.5",
+    "globals": "^15.8.0",
+    "prettier": "3.2.5",
     "rimraf": "^3.0.2",
     "typescript": "5.5.3",
+    "typescript-eslint": "8.0.0-alpha.41",
     "vite": "^5.3.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "browser": true,
-      "commonjs": true,
-      "es6": true,
-      "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking"
-    ],
-    "ignorePatterns": [
-      "**/src/wasm/**/*.js",
-      "**/src/wasm/**/*.wasm"
-    ],
-    "rules": {
-      "@typescript-eslint/no-floating-promises": [
-        "error",
-        {
-          "ignoreVoid": true,
-          "ignoreIIFE": true
-        }
-      ]
-    }
   },
   "scripts": {
     "dev": "vite dev",
@@ -81,7 +48,7 @@
     "clean": "rimraf dist",
     "copy:assets": "rimraf \"src/public/!(*.txt|site.webmanifest)\" && node copy-assets.mjs",
     "fmt": "prettier --write \"**/*\"",
-    "lint": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.mjs,.ts,.tsx --fix"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }
