@@ -1,11 +1,7 @@
 [advisories]
-vulnerability = "deny"
-unmaintained = "deny"
-notice = "warn"
 ignore = []
 
 [licenses]
-unlicensed = "deny"
 allow = [
   "Apache-2.0",
   "BSD-3-Clause",
@@ -13,28 +9,21 @@ allow = [
   "MIT",
   "Unicode-DFS-2016",
 ]
-deny = []
-copyleft = "deny"
-allow-osi-fsf-free = "neither"
-default = "deny"
-confidence-threshold = 0.8
 
 [bans]
-multiple-versions = "warn" # multiple versions of syn and windows-sys as ecosystem converges
-wildcards = "deny"
+multiple-versions = "deny"
 highlight = "all"
 allow = []
-deny = [
-  { name = "time", version = ">=0.2.0" },
-]
+deny = []
 skip = []
 skip-tree = []
 
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
+allow-registry = [
+  "https://github.com/rust-lang/crates.io-index",
+]
 
 [sources.allow-org]
-github = [
-  "artichoke",
-]
+github = ["artichoke"]
