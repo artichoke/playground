@@ -14,7 +14,12 @@ allow = [
 multiple-versions = "deny"
 highlight = "all"
 allow = []
-deny = []
+# This deny configuration should mirror the one in artichoke/artichoke.
+deny = [
+  { name = "time", version = ">=0.2.0" },
+  # See https://github.com/artichoke/artichoke/pull/2564 for more context.
+  { name = "dirs-sys", version = ">= 0.4.1" },
+]
 skip = []
 skip-tree = []
 
