@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4.2.2
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@7d3497fd78c07c0d84ebafa58d8dac60cd1f0763 # v1.199.0
+        uses: ruby/setup-ruby@a2bbe5b1b236842c1cb7dd11e8e3b51e0a616acc # v1.202.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
@@ -66,7 +66,7 @@ jobs:
             cargo generate-lockfile --verbose
           fi
 
-      - uses: EmbarkStudios/cargo-deny-action@8371184bd11e21dcf8ac82ebf8c9c9f74ebf7268 # v2.0.1
+      - uses: EmbarkStudios/cargo-deny-action@2d8c9929d8f9f42bedba73f1287cb0b479f07acb # v2.0.3
         with:
           arguments: --locked --all-features
           command: check ${{ matrix.checks }}
