@@ -159,8 +159,10 @@ rake lint:eslint                   # Lint JavaScript and TypeScript sources with
 rake lint:rubocop                  # Run RuboCop
 rake lint:rubocop:autocorrect      # Autocorrect RuboCop offenses (only when it's safe)
 rake lint:rubocop:autocorrect_all  # Autocorrect RuboCop offenses (safe and unsafe)
-rake release:markdown_link_check   # Check for broken links in markdown files
 rake test                          # Run Playground unit tests
+rake toolchain:sync                # Sync Rust toolchain to all sources
+rake toolchain:sync:ci             # Sync the root rust-toolchain version to CI jobs
+rake toolchain:sync:manifests      # Sync the root rust-toolchain version to all crate manifests
 ```
 
 To lint Ruby sources, the playground uses [RuboCop]. RuboCop runs as part of the
