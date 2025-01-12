@@ -19,14 +19,22 @@ module Artichoke
       # Disable certain warnings for code patterns that are contained in
       # upstream musl.
       #
-      # https://github.com/emscripten-core/emscripten/blob/3.1.22/tools/system_libs.py#L859-L865
+      # https://github.com/emscripten-core/emscripten/blob/3.1.68/tools/system_libs.py#L985-L999
       EMCC_CFLAGS = %w[
+        -Os
+        -fno-inline-functions
+        -fno-builtin
         -Wno-ignored-attributes
         -Wno-macro-redefined
         -Wno-shift-op-parentheses
         -Wno-string-plus-int
+        -Wno-missing-braces
+        -Wno-logical-op-parentheses
+        -Wno-bitwise-op-parentheses
+        -Wno-unused-but-set-variable
+        -Wno-unused-variable
+        -Wno-unused-label
         -Wno-pointer-sign
-        --no-entry
       ].freeze
 
       USAGE = <<~USAGE.freeze
