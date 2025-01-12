@@ -29,7 +29,6 @@ features = [
   "core-math-full",
   "core-random",
   "core-regexp",
-  "core-time",
   "output-strategy-capture",
   "stdlib-full",
 ]
