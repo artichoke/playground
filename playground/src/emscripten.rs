@@ -69,7 +69,7 @@ thread_local! {
     ///
     /// This flag is used to indicate whether the main loop should first be
     /// cancelled before installing a new one.
-    static MAIN_LOOP_IS_SET: RefCell<bool> = RefCell::new(false);
+    static MAIN_LOOP_IS_SET: RefCell<bool> = const { RefCell::new(false) };
 }
 
 /// Trait that defines a callback function which allows constructing

@@ -137,7 +137,9 @@ jobs:
         run: cargo clippy --workspace --all-features --all-targets
 
       - name: Lint with Clippy on emscripten target
-        run: cargo clippy --workspace --all-features --all-targets --target wasm32-unknown-emscripten
+        run: |
+          sed -i '/"core-time"/s/^/  # /' playground/Cargo.toml
+          cargo clippy --workspace --all-features --all-targets --target wasm32-unknown-emscripten
 
   ruby:
     name: Lint and format Ruby
