@@ -1,12 +1,15 @@
 declare function Module(): Module.Thenable;
 
+declare const ARTICHOKE_TYPE: unique symbol;
+declare const STRING_POINTER_TYPE: unique symbol;
+
 declare namespace Module {
+  export type Artichoke = number & { [ARTICHOKE_TYPE]: undefined };
+  export type StringPointer = number & { [STRING_POINTER_TYPE]: undefined };
+
   export class Thenable {
     public then(thunk: (wasm: Ffi) => void): void;
   }
-
-  export type Artichoke = number & { _opaque: unique symbol };
-  export type StringPointer = number & { _opaque: unique symbol };
 
   export class Ffi {
     public _artichoke_web_repl_init(): Artichoke;
