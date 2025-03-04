@@ -137,7 +137,7 @@ namespace :toolchain do
 
       workflow_files.each do |file|
         contents = File.read(file)
-        contents = contents.gsub(/(toolchain: "?)\d+\.\d+\.\d+("?)/, "\\1#{toolchain_version}\\2")
+        contents = contents.gsub(/((toolchain|rust-version): "?)\d+\.\d+\.\d+("?)/, "\\1#{toolchain_version}\\3")
 
         File.write(file, contents)
       end
