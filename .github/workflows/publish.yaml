@@ -47,7 +47,7 @@ jobs:
           target: "wasm32-unknown-emscripten"
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@13e7a03dc3ac6c3798f4570bfead2aed4d96abfb # v1.244.0
+        uses: ruby/setup-ruby@a4effe49ee8ee5b8b5091268c473a4628afb5651 # v1.245.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
