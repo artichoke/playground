@@ -5,6 +5,7 @@ require 'json'
 
 class Properties
   extend Forwardable
+
   def_delegators :@properties, :[], :[]=, :to_json
 
   def initialize(name)

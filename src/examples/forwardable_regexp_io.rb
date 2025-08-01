@@ -4,6 +4,7 @@ require 'forwardable'
 
 class Properties
   extend Forwardable
+
   def_delegators :@properties, :[], :[]=
 
   def initialize(name)
