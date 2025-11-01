@@ -30,7 +30,7 @@ jobs:
         id: toolchain_versions
 
       - name: Install Node.js toolchain
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@v6.0.0
         with:
           node-version: "lts/*"
 
@@ -47,7 +47,7 @@ jobs:
           target: "wasm32-unknown-emscripten"
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@44511735964dcb71245e7e55f72539531f7bc0eb # v1.257.0
+        uses: ruby/setup-ruby@d5126b9b3579e429dd52e51e68624dda2e05be25 # v1.267.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
