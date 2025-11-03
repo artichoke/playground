@@ -251,7 +251,6 @@ the playground, update this hash in [`Cargo.toml`](playground/Cargo.toml).
   https://github.com/artichoke/playground/issues/new
 [good first issues are labeled `e-easy`]:
   https://github.com/artichoke/playground/labels/E-easy
-[join artichoke's public discord server]: https://discord.gg/QCe2tp2
 [rustup]: https://rustup.rs/
 [homebrew]: https://docs.brew.sh/Installation
 [vs-community]: https://visualstudio.microsoft.com/vs/community/
