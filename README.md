@@ -2,7 +2,6 @@
 
 [![GitHub Actions](https://github.com/artichoke/playground/workflows/CI/badge.svg)](https://github.com/artichoke/playground/actions)
 [![GitHub Actions](https://github.com/artichoke/playground/workflows/Publish/badge.svg)](https://github.com/artichoke/playground/actions)
-[![Discord](https://img.shields.io/discord/607683947496734760)](https://discord.gg/QCe2tp2)
 [![Twitter](https://img.shields.io/twitter/follow/artichokeruby?label=Follow&style=social)](https://twitter.com/artichokeruby)
 
 The Artichoke Playground is a WebAssembly frontend for [Artichoke
@@ -51,11 +50,6 @@ and leave a comment that you're beginning to investigate. If there is no issue,
 please file one before beginning to work on a PR. [Good first issues are labeled
 `E-easy`][e-easy].
 
-### Discussion
-
-If you'd like to engage in a discussion outside of GitHub, you can [join
-Artichoke's public Discord server][discord].
-
 [artichoke-repo]: https://github.com/artichoke/artichoke
 [playground]: https://artichoke.run
 [playground-repo]: https://github.com/artichoke/playground
@@ -64,5 +58,4 @@ Artichoke's public Discord server][discord].
   https://github.com/artichoke/artichoke/blob/trunk/RUBYSPEC.md#mri-target
 [github-issues]: https://github.com/artichoke/artichoke/issues
 [file-an-issue]: https://github.com/artichoke/playground/issues/new
-[discord]: https://discord.gg/QCe2tp2
 [e-easy]: https://github.com/artichoke/artichoke/labels/E-easy
